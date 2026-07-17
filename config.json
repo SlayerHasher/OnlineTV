@@ -1,0 +1,25 @@
+{
+  "output": "playlist.m3u",
+  "check_streams": true,
+  "check_timeout": 6,
+  "check_workers": 50,
+  "keep_failed": false,
+  "filter_russian": true,
+  "sources": [
+    {
+      "name": "Dimonovich FREE TV",
+      "url": "https://raw.githubusercontent.com/Dimonovich/TV/Dimonovich/FREE/TV",
+      "enabled": true
+    },
+    {
+      "name": "LoganetTV Playlists",
+      "url": "https://raw.githubusercontent.com/loganettv/playlists/main/all.m3u",
+      "enabled": true
+    },
+    {
+      "name": "IPTV MEGA PLAYLIST",
+      "url": "https://raw.githubusercontent.com/IPTVRU2026/IPTVMIR/main/IPTV_MEGA_PLAYLIST.m3u",
+      "enabled": true
+    }
+  ]
+}
