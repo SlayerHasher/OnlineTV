@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-17T08:40:31.226979",
-  "duration_sec": 33.6,
+  "last_run": "2026-07-17T08:45:28.134582",
+  "duration_sec": 1.2,
   "sources": {
     "Dimonovich FREE TV": 3623,
     "LoganetTV Playlists": 560,
@@ -395,22 +395,10 @@
     "GitHub - iptv-org": 1406
   },
   "check": {
-    "total": 11146,
-    "ok": 166,
-    "failed": 11646,
-    "reasons": {
-      "timeout": 11626,
-      "bad-ct-404-text/html": 3,
-      "conn-err": 5,
-      "bad-ct-200-text/plain; charset=": 1,
-      "bad-ct-403-": 1,
-      "bad-ct-403-text/html": 2,
-      "bad-ct-404-": 4,
-      "bad-ct-504-application/json": 1,
-      "bad-ct-503-text/html": 1,
-      "bad-ct-404-application/vnd.appl": 1,
-      "err-ClientOSError": 1
-    }
+    "total": 0,
+    "ok": 0,
+    "failed": 0,
+    "reasons": {}
   },
-  "final": 166
+  "final": 11812
 }
