@@ -80,7 +80,6 @@ def parse_m3u(content: str, source_url: str) -> List[Dict]:
         if line.startswith('#EXTINF:'):
             # Извлекаем атрибуты
             attrs = {}
-            # Ищем tvg-logo, group-title, tvg-id и т.д.
             for attr in ['tvg-logo', 'group-title', 'tvg-id', 'tvg-name']:
                 match = re.search(rf'{attr}="([^"]*)"', line)
                 if match:
@@ -104,11 +103,19 @@ def parse_m3u(content: str, source_url: str) -> List[Dict]:
             current = None
     return channels
 
-# ---------- Валидация потока через ffprobe ----------
-async def validate_stream(url: str, min_duration: int = 3) -> Tuple[bool, Optional[float]]:
+# ---------- Быстрая HTTP-проверка доступности ----------
+async def http_quick_check(url: str, timeout: int = 5) -> bool:
+    """Проверяет, отвечает ли URL по HTTP (HEAD-запрос)."""
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.head(url, timeout=timeout) as resp:
+                return resp.status < 400
+    except Exception:
+        return False
+
+# ---------- Глубокая валидация через ffprobe ----------
+async def validate_stream_deep(url: str, min_duration: int = 3) -> Tuple[bool, Optional[float]]:
     """Проверяет, что поток содержит видео и длится хотя бы min_duration секунд."""
-    if not CHECK_STREAM:
-        return True, None
     if not os.path.exists(FFPROBE_PATH) and not os.system(f'which {FFPROBE_PATH} > /dev/null 2>&1') == 0:
         logger.warning("ffprobe не найден, проверка потока отключена")
         return True, None
@@ -189,44 +196,63 @@ async def main():
         filtered.append(ch)
     logger.info(f"После исключения ключевых слов: {len(filtered)}")
 
-    # Валидация потоков (если включена)
-    if CHECK_STREAM:
-        logger.info("Начинаем проверку потоков (может занять время)...")
-        sem = asyncio.Semaphore(CONCURRENT)
-        async def check_one(ch):
-            async with sem:
-                valid, duration = await validate_stream(ch['url'], MIN_DURATION)
-                ch['valid'] = valid
-                ch['duration'] = duration
-                return ch
-        tasks = [check_one(ch) for ch in filtered]
-        validated = await asyncio.gather(*tasks)
-        filtered = [ch for ch in validated if ch['valid']]
-        logger.info(f"После валидации: {len(filtered)}")
-
-    # Дедупликация: группировка по нормализованному названию
+    # ---------- ОПТИМИЗАЦИЯ: дедупликация ДО проверки ----------
+    # Группируем по нормализованному названию
     groups = defaultdict(list)
     for ch in filtered:
         norm = normalize_name(ch['name'])
         groups[norm].append(ch)
 
-    # Выбор лучшего канала из каждой группы
-    final_channels = []
-    for norm, ch_list in groups.items():
-        # Приоритет: предпочтительный источник -> наличие длительности -> длительность больше
-        def sort_key(ch):
-            source = extract_source_name(ch['source'])
-            pref_score = 0
-            for i, pref in enumerate(PREFERRED):
-                if pref in source:
-                    pref_score = len(PREFERRED) - i
-                    break
-            duration_score = ch.get('duration', 0) or 0
-            return (pref_score, duration_score, ch['name'])
-        best = max(ch_list, key=sort_key)
-        final_channels.append(best)
+    # Выбираем лучшего кандидата из каждой группы (по приоритету)
+    def sort_key(ch):
+        source = extract_source_name(ch['source'])
+        pref_score = 0
+        for i, pref in enumerate(PREFERRED):
+            if pref in source:
+                pref_score = len(PREFERRED) - i
+                break
+        return (pref_score, ch.get('duration', 0) or 0, ch['name'])
 
-    logger.info(f"После дедупликации: {len(final_channels)}")
+    candidates = [max(ch_list, key=sort_key) for ch_list in groups.values()]
+    logger.info(f"Кандидатов после дедупликации: {len(candidates)}")
+
+    # ---------- Валидация потоков (только для кандидатов) ----------
+    validated_channels = []
+    if CHECK_STREAM:
+        logger.info("Проверка доступности кандидатов (сначала быстрая HTTP)...")
+        # Сначала быстрая HTTP-проверка для отсева заведомо мёртвых
+        sem_http = asyncio.Semaphore(CONCURRENT * 2)
+        async def http_check_one(ch):
+            async with sem_http:
+                if await http_quick_check(ch['url'], timeout=5):
+                    return ch, True
+                else:
+                    return ch, False
+        http_tasks = [http_check_one(ch) for ch in candidates]
+        http_results = await asyncio.gather(*http_tasks)
+        http_ok = [ch for ch, ok in http_results if ok]
+        logger.info(f"После HTTP-проверки осталось: {len(http_ok)}")
+
+        # Затем глубокая проверка ffprobe (если включена)
+        if http_ok:
+            logger.info("Глубокая проверка через ffprobe...")
+            sem = asyncio.Semaphore(CONCURRENT)
+            async def deep_check_one(ch):
+                async with sem:
+                    valid, duration = await validate_stream_deep(ch['url'], MIN_DURATION)
+                    ch['valid'] = valid
+                    ch['duration'] = duration
+                    return ch
+            deep_tasks = [deep_check_one(ch) for ch in http_ok]
+            deep_results = await asyncio.gather(*deep_tasks)
+            validated_channels = [ch for ch in deep_results if ch['valid']]
+            logger.info(f"После глубокой проверки: {len(validated_channels)}")
+        else:
+            validated_channels = []
+    else:
+        validated_channels = candidates
+
+    final_channels = validated_channels
 
     # Сортировка по группам (если включено)
     if SORT_BY_GROUP:
@@ -255,7 +281,9 @@ async def main():
         'generated': datetime.now().isoformat(),
         'sources': dict(source_stats),
         'raw_count': len(raw_channels),
-        'after_filter': len(filtered) if CHECK_STREAM else len(filtered),
+        'after_filter': len(filtered),
+        'after_dedup': len(candidates),
+        'after_validation': len(validated_channels),
         'final_count': len(final_channels),
         'duration_seconds': (datetime.now() - start_time).total_seconds()
     }
