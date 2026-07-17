@@ -2,52 +2,30 @@ name: Update Playlist
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 * * * *'   # каждый час
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 1
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: 'pip'
-
-      - name: Install deps
-        run: pip install -r requirements.txt
-
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Install ffmpeg (for stream validation)
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Run parser
         run: python parse_m3u.py
-
-      - name: Commit and push
+      - name: Commit and push if changed
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add playlist.m3u stats.json 2>/dev/null || true
-          if git diff --cached --quiet; then
-            echo " No changes to commit"
-          else
-            git commit -m " Auto-update $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push origin HEAD:${{ github.ref_name }}
-            echo " Changes pushed"
-          fi
-
-      - name: Upload playlist artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playlist-${{ github.run_number }}
-          path: |
-            playlist.m3u
-            stats.json
-          retention-days: 7
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add playlist.m3u stats.json
+          git diff --staged --quiet || git commit -m "Auto-update playlist"
+          git push
