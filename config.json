@@ -1,8 +1,8 @@
 {
   "output": "playlist.m3u",
   "check_streams": true,
-  "check_timeout": 6,
-  "check_workers": 50,
+  "check_timeout": 10,
+  "check_workers": 30,
   "keep_failed": false,
   "filter_russian": true,
   "sources": [
