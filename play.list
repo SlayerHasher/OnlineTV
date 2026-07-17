@@ -1,0 +1,10 @@
+# OnlineTV - список источников
+# Одна строка = один плейлист
+# Пустые строки игнорируются
+
+# === ИСТОЧНИКИ ===
+https://raw.githubusercontent.com/Dimonovich/TV/Dimonovich/FREE/TV
+
+https://raw.githubusercontent.com/loganettv/playlists/main/all.m3u
+
+https://raw.githubusercontent.com/IPTVRU2026/IPTVMIR/main/IPTV_MEGA_PLAYLIST.m3u
