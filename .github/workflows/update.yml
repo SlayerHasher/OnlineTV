@@ -33,12 +33,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add playlist.m3u stats.json || true
+          git add playlist.m3u stats.json 2>/dev/null || true
           if git diff --cached --quiet; then
-            echo "No changes to commit"
+            echo " No changes to commit"
           else
             git commit -m " Auto-update $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push origin HEAD:${{ github.ref_name }}
+            echo " Changes pushed"
           fi
 
       - name: Upload playlist artifact
