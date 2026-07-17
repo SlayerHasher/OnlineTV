@@ -4,7 +4,7 @@
   "check_timeout": 10,
   "check_workers": 30,
   "keep_failed": false,
-  "filter_russian": true,
+  "filter_russian": false,
   "sources": [
     {
       "name": "Dimonovich FREE TV",
