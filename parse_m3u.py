@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
 OnlineTV - M3U плейлист агрегатор
+Источники читаются из play.list (простой текстовый файл)
+Настройки - из config.json
 """
 
 import json
@@ -11,6 +13,7 @@ import asyncio
 import hashlib
 from datetime import datetime
 from typing import Dict, List, Tuple
+from urllib.parse import urlparse
 
 import requests
 import aiohttp
@@ -18,34 +21,107 @@ import aiohttp
 CONFIG_FILE = "config.json"
 PLAYLIST_OUTPUT = "playlist.m3u"
 STATS_OUTPUT = "stats.json"
+DEFAULT_PLAY_LIST = "play.list"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
     "Accept": "*/*",
 }
 
-# Валидные Content-Type для IPTV стримов
 VALID_CONTENT_TYPES = [
-    "video/",
-    "audio/",
-    "mpegurl",
-    "m3u8",
-    "mpeg",
-    "mp2t",
-    "mp4",
-    "flv",
-    "x-mpegurl",
-    "vnd.apple.mpegurl",
-    "octet-stream",
-    "application/json",  # некоторые API
+    "video/", "audio/", "mpegurl", "m3u8", "mpeg", "mp2t",
+    "mp4", "flv", "x-mpegurl", "vnd.apple.mpegurl",
+    "octet-stream", "application/json",
 ]
 
 
 def load_config() -> dict:
     if not os.path.exists(CONFIG_FILE):
-        return {"sources": [], "output": PLAYLIST_OUTPUT, "check_streams": False}
+        return {"output": PLAYLIST_OUTPUT, "play_list_file": DEFAULT_PLAY_LIST}
     with open(CONFIG_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_sources_from_list(play_list_file: str) -> List[Dict]:
+    """
+    Читает источники из play.list.
+    Формат строки:
+      - URL                              # имя берётся из URL
+      - URL # кастомное имя              # кастомное имя
+      - # комментарий                    # игнорируется
+      - (пустая строка)                  # игнорируется
+    """
+    sources = []
+    if not os.path.exists(play_list_file):
+        print(f" Файл {play_list_file} не найден!")
+        return sources
+    
+    with open(play_list_file, "r", encoding="utf-8") as f:
+        for line_num, raw_line in enumerate(f, 1):
+            # Удаляем переносы
+            line = raw_line.rstrip("\r\n")
+            
+            # Пустые строки - пропускаем
+            if not line.strip():
+                continue
+            
+            # Комментарии (строка начинается с #) - пропускаем
+            if line.strip().startswith("#"):
+                continue
+            
+            # Разделяем URL и кастомное имя (через #)
+            if "#" in line:
+                url, custom_name = line.split("#", 1)
+                url = url.strip()
+                custom_name = custom_name.strip()
+            else:
+                url = line.strip()
+                custom_name = ""
+            
+            if not url:
+                continue
+            
+            # Если имени нет - генерируем из URL
+            if not custom_name:
+                custom_name = generate_source_name(url)
+            
+            sources.append({
+                "url": url,
+                "name": custom_name,
+                "line": line_num,
+            })
+    
+    return sources
+
+
+def generate_source_name(url: str) -> str:
+    """Генерирует читаемое имя источника из URL."""
+    try:
+        parsed = urlparse(url)
+        host = parsed.netloc.replace("www.", "").replace("raw.", "")
+        path = parsed.path.strip("/")
+        
+        # Берём последние 2 части пути
+        parts = [p for p in path.split("/") if p]
+        
+        if len(parts) >= 2:
+            # Пример: user/repo/branch/file.m3u → "repo/file"
+            name = f"{parts[-2]}/{parts[-1]}"
+        elif parts:
+            name = parts[-1]
+        else:
+            name = host
+        
+        # Убираем расширение .m3u
+        name = re.sub(r"\.(m3u|m3u8|txt)$", "", name, flags=re.IGNORECASE)
+        
+        # Ограничиваем длину
+        if len(name) > 40:
+            name = name[:37] + "..."
+        
+        return f"{host}: {name}" if host != name else name
+    except Exception:
+        return "Unknown source"
 
 
 def download(url: str, timeout: int = 30, retries: int = 3) -> str:
@@ -61,13 +137,12 @@ def download(url: str, timeout: int = 30, retries: int = 3) -> str:
             return resp.content.decode("utf-8", errors="ignore")
         except Exception as e:
             if attempt == retries - 1:
-                print(f" Ошибка {url}: {e}")
+                print(f"    Ошибка: {e}")
                 return ""
     return ""
 
 
 def parse_extinf(line: str) -> Dict[str, str]:
-    """Парсит #EXTINF строку в словарь атрибутов."""
     attrs = {}
     for match in re.finditer(r'([a-zA-Z0-9_-]+)="([^"]*)"', line):
         attrs[match.group(1).lower()] = match.group(2)
@@ -81,7 +156,6 @@ def parse_extinf(line: str) -> Dict[str, str]:
 
 
 def build_extinf(attrs: Dict[str, str]) -> str:
-    """Собирает EXTINF обратно из словаря."""
     duration = attrs.get("duration", "-1")
     name = attrs.get("name", "Unknown")
     
@@ -142,7 +216,6 @@ def parse_playlist(content: str, source_name: str = "") -> List[Dict]:
 
 
 def is_russian(entry: Dict) -> bool:
-    """Проверяет, русский ли канал."""
     attrs = entry["attrs"]
     
     lang = attrs.get("tvg-language", "").lower()
@@ -177,73 +250,43 @@ def deduplicate(entries: List[Dict]) -> List[Dict]:
 
 
 def is_valid_stream_response(status: int, content_type: str) -> bool:
-    """Проверяет, является ли ответ валидным для IPTV стрима."""
     if not (200 <= status < 400):
         return False
-    
     if not content_type:
-        return True  # если Content-Type не указан — считаем OK
-    
+        return True
     ct = content_type.lower()
     return any(valid in ct for valid in VALID_CONTENT_TYPES)
 
 
 async def check_stream(session: aiohttp.ClientSession, url: str, timeout: int) -> Tuple[str, bool, str]:
-    """
-    Проверяет стрим. Возвращает (url, is_ok, reason).
-    Стратегия:
-    1. HEAD запрос (быстро)
-    2. Если не сработало — GET с чтением первых байт
-    """
-    # Пропускаем не-HTTP(S) URL без проверки
     if not url.startswith(("http://", "https://")):
         return url, True, "non-http"
     
-    # Попытка 1: HEAD запрос
     try:
-        async with session.head(
-            url, 
-            timeout=aiohttp.ClientTimeout(total=timeout),
-            allow_redirects=True, 
-            ssl=False,
-            headers=HEADERS,
-        ) as resp:
+        async with session.head(url, timeout=aiohttp.ClientTimeout(total=timeout),
+                                allow_redirects=True, ssl=False, headers=HEADERS) as resp:
             ct = resp.headers.get("Content-Type", "")
             if is_valid_stream_response(resp.status, ct):
                 return url, True, f"head-{resp.status}"
     except Exception:
         pass
     
-    # Попытка 2: GET запрос с чтением первых байт
     try:
-        async with session.get(
-            url,
-            timeout=aiohttp.ClientTimeout(total=timeout),
-            allow_redirects=True,
-            ssl=False,
-            headers=HEADERS,
-        ) as resp:
-            # Читаем первые 4KB чтобы убедиться что стрим живой
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=timeout),
+                               allow_redirects=True, ssl=False, headers=HEADERS) as resp:
             await resp.content.read(4096)
             ct = resp.headers.get("Content-Type", "")
             if is_valid_stream_response(resp.status, ct):
                 return url, True, f"get-{resp.status}"
-            return url, False, f"bad-ct-{resp.status}-{ct[:20]}"
+            return url, False, f"bad-ct-{resp.status}"
     except asyncio.TimeoutError:
         return url, False, "timeout"
-    except aiohttp.ClientConnectorError:
-        return url, False, "conn-err"
     except Exception as e:
         return url, False, f"err-{type(e).__name__}"
 
 
 async def check_streams_batch(urls: List[str], timeout: int, workers: int) -> Dict[str, Tuple[bool, str]]:
-    connector = aiohttp.TCPConnector(
-        limit=workers, 
-        limit_per_host=15, 
-        ssl=False,
-        force_close=True,
-    )
+    connector = aiohttp.TCPConnector(limit=workers, limit_per_host=15, ssl=False, force_close=True)
     async with aiohttp.ClientSession(connector=connector, headers=HEADERS) as session:
         tasks = [check_stream(session, url, timeout) for url in set(urls)]
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -292,25 +335,32 @@ def main() -> int:
     print(f" Запуск: {start.isoformat()}")
     
     config = load_config()
-    sources = config.get("sources", [])
+    play_list_file = config.get("play_list_file", DEFAULT_PLAY_LIST)
     output = config.get("output", PLAYLIST_OUTPUT)
     do_check = config.get("check_streams", False)
-    timeout = config.get("check_timeout", 10)  # Увеличен с 6 до 10
-    workers = config.get("check_workers", 30)  # Уменьшен с 50 до 30
+    timeout = config.get("check_timeout", 10)
+    workers = config.get("check_workers", 30)
     keep_failed = config.get("keep_failed", False)
     filter_ru = config.get("filter_russian", False)
+    
+    # Загрузка источников из play.list
+    sources = load_sources_from_list(play_list_file)
+    
+    if not sources:
+        print(f" Нет источников в {play_list_file}!")
+        return 0
+    
+    print(f" Источников: {len(sources)} (из {play_list_file})\n")
     
     # Сбор всех каналов
     all_entries = []
     per_source = {}
     
     for src in sources:
-        if not src.get("enabled", True):
-            continue
-        name = src.get("name", "Unknown")
-        url = src.get("url", "")
+        name = src["name"]
+        url = src["url"]
         
-        print(f" [{name}]")
+        print(f" [{name}] (строка {src['line']})")
         content = download(url)
         entries = parse_playlist(content, source_name=name)
         all_entries.extend(entries)
@@ -330,7 +380,7 @@ def main() -> int:
         all_entries = [e for e in all_entries if is_russian(e)]
         print(f" Только русские: {len(all_entries)} (-{before_filter - len(all_entries)})")
     
-    # Категории (оригинальные из плейлистов)
+    # Категории (оригинальные)
     categories = {}
     for e in all_entries:
         cat = e["attrs"].get("group-title", "") or "Без категории"
@@ -358,9 +408,6 @@ def main() -> int:
                 check_stats["reasons"][reason] = check_stats["reasons"].get(reason, 0) + 1
         
         print(f" OK: {check_stats['ok']} |  FAIL: {check_stats['failed']}")
-        print(f" Причины ошибок:")
-        for reason, count in sorted(check_stats["reasons"].items(), key=lambda x: -x[1])[:10]:
-            print(f"   {reason}: {count}")
         
         if not keep_failed:
             all_entries = [e for e in all_entries if e.get("_ok", True)]
@@ -382,7 +429,6 @@ def main() -> int:
         json.dump(stats, f, indent=2, ensure_ascii=False)
     print(f"\n Статистика: {STATS_OUTPUT}")
     
-    # ВСЕГДА возвращаем 0 - коммит делается через git diff в workflow
     return 0
 
 
