@@ -1,9 +1,15 @@
 {
-  "output": "playlist.m3u",
-  "check_streams": false,
-  "check_timeout": 10,
-  "check_workers": 30,
-  "keep_failed": false,
-  "filter_russian": false,
-  "play_list_file": "play.list"
+    "sources_file": "play.list",
+    "output_file": "playlist.m3u",
+    "stats_file": "stats.json",
+    "timeout": 30,
+    "retries": 3,
+    "concurrent_requests": 10,
+    "check_stream": true,
+    "min_duration_seconds": 3,
+    "ffprobe_path": "ffprobe",
+    "prefered_sources": ["loganet", "dimonovich"],
+    "exclude_keywords": ["18+", "реклама", "test"],
+    "keep_group_title": true,
+    "sort_by_group": true
 }
