@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-24T15:32:52.561903",
+  "generated": "2026-07-24T17:46:00.212451",
   "sources": {
     "raw": {
       "loaded": 1,
@@ -10,7 +10,7 @@
   "raw_count": 12747,
   "after_filter": 12711,
   "after_dedup": 9339,
-  "after_validation": 7206,
-  "final_count": 7206,
-  "duration_seconds": 258.442441
+  "after_validation": 6821,
+  "final_count": 6821,
+  "duration_seconds": 251.246086
 }
