@@ -339,12 +339,18 @@ http://fl1001.bozztv.com/ushba-rvisionmotor/tracks-v1a1/mono.m3u8
 https://fl1001.bozztv.com/ushba-rvisionmovies/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Кинозалы" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Axenov / Кинозалы",Retrovision Кинопанорама
 https://fl1001.bozztv.com/ushba-rvisionkinopanorama/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Aggregator - Axenov / Кинозалы" tvg-logo="https://static.tildacdn.com/stor6561-3739-4839-b866-653865323964/89862824.png",Alpha Cinema
+http://live.15plusmg.ru/memfs/b389173a-df4e-4171-8904-e249893e71eb.m3u8
+#EXTINF:-1 group-title="Aggregator - Axenov / Кинозалы" tvg-logo="https://static.tildacdn.com/stor6561-3739-4839-b866-653865323964/89862824.png",Alpha Moretime
+http://live.15plusmg.ru/memfs/3546fc09-2eba-459d-9a1f-9a2fc39e50bd.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Кинозалы" tvg-logo="https://adindex.ru/files2/photogallery/2020_11/photo2_286493_smotrim2.jpg.jpg",Смотрим (Кино и сериалы)
 https://live-vgtrksmotrim.cdnvideo.ru/vgtrksmotrim/smotrim-live-01.smil/tracks-v5a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Музыкальные" tvg-logo="https://iptvx.one/picons/bridge-hd.png",Bridge Deluxe
 http://31148.rafail1982.uz/Bridge_TV_HD/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Музыкальные" tvg-logo="https://iptvx.one/picons/retro-music-cz.png",Retro Music
 http://stream.mediawork.cz/retrotv/retrotvHQ1/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - Axenov / Музыкальные" tvg-logo="http://epg.one/img2/viva-rus.png",VIVA Russia
+https://live20.bozztv.com/akamaissh101/ssh101/vivarussia/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Музыкальные" tvg-logo="https://iptvx.one/picons/radio-strana-fm-tv.png",Страна FM HD
 http://live.stranafm.cdnvideo.ru/stranafm/stranafm_hd.sdp/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Общественные" tvg-logo="https://iptvx.one/picons/stv-by.png",CTV.BY HD
@@ -417,8 +423,6 @@ http://tele2dvrnat01-02.cdnvideo.ru/stream/NAT_OTC_ap1f55f482a2df2bede07c661806c
 https://rost.mediacdn.ru/cdn/rostov1/tracks-v2a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Региональные" tvg-logo="https://iptvx.one/picons/prima.png",Прима HD (Красноярск)
 http://tele2dvrnat01-02.cdnvideo.ru:80/stream/NAT_Prima/hls/1920x1080@4504/playlist.m3u8
-#EXTINF:-1 group-title="Aggregator - Axenov / Региональные" tvg-logo="http://epg.one/img2/pro-zhizn.png",Про жизнь
-https://27trk.iptv2022.com/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Региональные" tvg-logo="https://iptvx.one/picons/ramenskoe-tv.png",РТВ HD (Раменск)
 https://e10-ll.facecast.net/rtv/0.m3u8
 #EXTINF:-1 group-title="Aggregator - Axenov / Региональные" tvg-logo="http://epg.one/img2/sampo-tv.png",Сампо ТВ
@@ -777,22 +781,6 @@ http://62.213.36.148:1935/live/cam86.stream/playlist.m3u8
 http://62.213.36.148:1935/live/cam82.stream/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мурино 74
 http://91.202.44.216:8080/cam109/index.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мытищи 10
-http://cam.indikom.ru/12/hls/stream.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мытищи 12
-http://cam.indikom.ru/14/hls/stream.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мытищи 28
-http://cam.indikom.ru/40/hls/stream.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мытищи 30
-http://cam.indikom.ru/43/hls/stream.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мытищи 36
-http://cam.indikom.ru/53/hls/stream.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мытищи 45
-http://cam.indikom.ru/62/hls/stream.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мытищи 6
-http://cam.indikom.ru/6/hls/stream.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Мытищи 8
-http://cam.indikom.ru/10/hls/stream.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 1
 http://komsomolskaya.camsh.orsk.ru/hls/komsomolskaya.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 10
@@ -801,28 +789,34 @@ http://avangard.camsh.orsk.ru/hls/avangard.m3u8
 http://suvorova.camsh.orsk.ru/hls/suvorova.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 12
 http://mira-kramatorskaya.camsh.orsk.ru/hls/mira-kramatorskaya.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 13
-http://shevchenko2.camsh.orsk.ru/hls/shevchenko2.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 14
-http://shevchenko.camsh.orsk.ru/hls/shevchenko.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 15
 http://ctc.camsh.orsk.ru/hls/ctc.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 2
-http://televyshka.camsh.orsk.ru/hls/televyshka.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 3
-http://vizazh.camsh.orsk.ru/hls/vizazh.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 4
-http://lenkom.camsh.orsk.ru/hls/lenkom.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 5
-http://tagilskaya.camsh.orsk.ru/hls/tagilskaya.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 7
-http://camsh.orsk.ru/hls/banya.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 8
-http://central-park.camsh.orsk.ru/hls/central-park.m3u8
-#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Орск 9
-http://avangard2.camsh.orsk.ru/hls/avangard2.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / Россия 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Россия 🇷🇺",Ставрополь 9
+http://stream.telko.ru/Tuh30_6cam2/tracks-v1/mono.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / США 🇺🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / США 🇺🇸",Estes Park
+http://cdn.estesparkwebcams.com/prospect3/index.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / США 🇺🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / США 🇺🇸",Myrtle Beach Cam
+https://5ab0d1d85f91f.streamlock.net/Riptydz/cam-rt-beach.stream/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / США 🇺🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / США 🇺🇸",Myrtle Beach Cam 2
+https://5ab0d1d85f91f.streamlock.net/Riptydz/cam-rt-volleyball.stream/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / США 🇺🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / США 🇺🇸",Myrtle Beach Cam 3
+https://5ab0d1d85f91f.streamlock.net/Riptydz/cam-rt-blvd.stream/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / США 🇺🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / США 🇺🇸",Warm Winds
+http://5c864aa99ee04.streamlock.net:1935/surfcam/live.stream/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / США 🇺🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / США 🇺🇸",Кормушка
+http://live.idnes.cz/slow/krmitkousa/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / США 🇺🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / США 🇺🇸",Пингвины 2
+https://5ad79df289937.streamlock.net/Aquarium-WebCams/Penguins.stream/chunklist.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / США 🇺🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / США 🇺🇸",Рифы
 https://5ad79df289937.streamlock.net/Aquarium-WebCams/Secret-Reef.stream/chunklist.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / Сербия 🇷🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Сербия 🇷🇸",Белград 1
+https://streamer.devnet.rs/hls/trgrepublike.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / Сербия 🇷🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Сербия 🇷🇸",Белград 11
+https://streamer.devnet.rs/hls/takovska.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / Сербия 🇷🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Сербия 🇷🇸",Белград 12
+https://streamer.devnet.rs/hls/bogoslovija.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / Сербия 🇷🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Сербия 🇷🇸",Белград 13
+https://streamer.devnet.rs/hls/opstinanbg.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Сербия 🇷🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Сербия 🇷🇸",Белград 14
 https://streamer.devnet.rs/hls/genex.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Сербия 🇷🇸" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Сербия 🇷🇸",Белград 15
@@ -911,6 +905,8 @@ http://ibb-media4.ibb.gov.tr:1935/live/108.stream/chunklist.m3u8
 http://ibb-media4.ibb.gov.tr:1935/live/113.stream/chunklist.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Турция 🇹🇷" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Турция 🇹🇷",67
 http://ibb-media4.ibb.gov.tr:1935/live/118.stream/chunklist.m3u8
+#EXTINF:-1 group-title="Aggregator - M3U.SU / Турция 🇹🇷" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Турция 🇹🇷",70
+http://ibb-media4.ibb.gov.tr:1935/live/121.stream/chunklist.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Турция 🇹🇷" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Турция 🇹🇷",72
 http://ibb-media4.ibb.gov.tr:1935/live/122.stream/chunklist.m3u8
 #EXTINF:-1 group-title="Aggregator - M3U.SU / Турция 🇹🇷" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - M3U.SU / Турция 🇹🇷",75
@@ -1277,6 +1273,10 @@ https://s06.watcher.uz/141/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 http://ott.watch/stream/6HAPZWKKG3/362.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",Неизвестная планета HD
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8?wmsAuthSign=c2VydmVyX3RpbWU9MTAvNC8yMDI1IDI6NDk6MzYgUE0maGFzaF92YWx1ZT12Q1hScElvWmtORUJNNU91R1k1alNnPT0mdmFsaWRtaW51dGVzPTQ4MA==
+#EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",О!2
+http://217.11.177.56/streams/media/o2tv_720x576/index.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",Океан
+http://217.11.177.57/streams/media/teatr_720x576/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",Остросюжетное HD
 http://ott.watch/stream/6HAPZWKKG3/214.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",Охота и рыбалка
@@ -1329,6 +1329,10 @@ http://31.148.48.15:80/Super/index.m3u8?token=test
 http://ott.watch/stream/6HAPZWKKG3/269.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",ТВ Кулоб (Бохтар) (TJ)
 https://live.teleradiocom.tj/12/3m.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",ТВ-Кулоб (Куляб)
+https://stream2.somon.tv/kulob/index.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",ТВ-Хатлон (Бохтар)
+https://stream2.somon.tv/hatlon/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",ТВ3ᴴᴰ
 http://ott.watch/stream/6HAPZWKKG3/136.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982",ТНТ (+2)
@@ -1517,6 +1521,8 @@ http://bv.mediacdn.ru/cdn/blagvest/playlist.m3u8?wmsAuthSign=c2VydmVyX3RpbWU9MTA
 https://ngtrk.dc.beltelecom.by/vtv/_definst_/vitebsk.stream/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="https://i.ibb.co/HYBkJBk/image-17.png",ВИТРИНА ТВ FD
 http://v4.proofix.ru:80/vitrina-live/index.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="http://epg.it999.ru/img/6755.png",ВОЛЖСКИЙ+ HD
+http://flussonic.powernet.com.ru:8080/volplus/tracks-v1a1/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="https://iptvx.one/picons/varzish-sport.png",Варзиш Sport HD (TJ)
 https://live.teleradiocom.tj/5/3m.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="http://bezbe.my1.ru/poster/tvplay.png",Всё ТВ SD
@@ -1637,6 +1643,8 @@ http://live-vgtrksmotrim.cdnvideo.ru/vgtrksmotrim/smotrim-live-01.smil/tracks-v5
 http://live-vgtrksmotrim.cdnvideo.ru/vgtrksmotrim/smotrim-live-01.smil/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="https://images.live.vkvideo.ru/user/19957061/avatar?change_time=1745459243&croped=1&mh=140&mw=140",Сок ТВ SD
 http://sok.ath.cx:8080/941f070df772290824bdf3906afc01f9/video.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="https://i.imgur.com/YzkwTHb.png",Сугд HD (Худжанд)
+https://stream2.somon.tv/sugd/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="https://i.imgur.com/S1h1t0G.png",Сфера ТВ (Рiвне)
 http://cdn10.live-tv.od.ua:8081/sferarv/360p/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="http://1lot.tv/ch/8024.png",Сфера ТВ (Рiвне) SD
@@ -1677,6 +1685,8 @@ http://cdn4.skygo.mn/live/disk1/THT/HLSv3-FTA/THT.m3u8?|User-Agent=http-user-age
 http://cdn4.skygo.mn/live/disk1/TNT4/HLSv3-FTA/TNT4.m3u8?|User-Agent=http-user-agent=Lavf/56.15.102
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="http://epg.one/img2/1649.png",ТНТ4ᴴᴰ
 http://ott.watch/stream/6HAPZWKKG3/106.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="https://sugdnews.com/wp-content/uploads/2020/10/%D0%A2%D0%92-%D0%90%D0%B7%D0%B8%D1%8F.jpg",ТРК Азия(Худжанд)
+http://95.142.86.181:9000/
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="https://i.imgur.com/CCxEt0w.png",ТРК Круг (Одеса)
 http://cdn1.live-tv.od.ua:8081/krugod/krugod-abr-lq/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982" tvg-logo="http://1lot.tv/ch/9045.png",Твоё ТВ Юморᴴᴰ (Skycam)
@@ -1747,6 +1757,8 @@ https://live.teleradiocom.tj/16/3m.m3u8
 https://live.teleradiocom.tj/9/3m.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 13.СНГ ♻️" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 13.СНГ ♻️",Чахоннамо HD (TJ)
 https://live.teleradiocom.tj/4/3m.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 13.СНГ ♻️" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 13.СНГ ♻️",Шахнавоз HD
+https://stream2.somon.tv/tmt/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 14.КИНО 📽" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 14.КИНО 📽",FANᴴᴰ
 http://31.148.48.15/Fan/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 14.КИНО 📽" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 14.КИНО 📽",Hollywoodᴴᴰ
@@ -1767,6 +1779,14 @@ https://dvrfl07.bozztv.com/ushba-rvisionmovies/tracks-v1a1/mono.ts.m3u8
 http://31.148.48.15:80/TV_XXI/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 14.КИНО 📽" tvg-logo="http://rafail1982.uz/logo/ТВ 21.png",ТВ 21
 http://31.148.48.15:80/TV_XXI/index.m3u8?token=test
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽",viji+ Comedy HD
+https://stream2.somon.tv/vipcomedy/index.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽",viju+ Megahit HD
+https://stream2.somon.tv/vipmegahit/index.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽",viju+ Premiere HD
+https://stream2.somon.tv/vippremiera/index.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽",viju+ Serial HD
+https://stream2.somon.tv/vipserial/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 15.VIJU+КИНО 📽",Киносвидание FD
 http://5.188.159.128:8070/kinosvidanie/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 15.СЕРИАЛЫ 📽" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 15.СЕРИАЛЫ 📽",Amedia Hit SD
@@ -1789,6 +1809,8 @@ http://31.148.48.15:80/Russkiy_Roman_HD/index.m3u8
 http://31148.rafail1982.uz/Feniks_plus_kino/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 16.СЕРИАЛЫ 📺" tvg-logo="http://rafail1982.uz/logo/Кинеко.png",Кинеко
 http://31.148.48.15/Kineko/index.m3u8?token=iptv.org.ua
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 19.РУС.КИНОЗАЛ 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 19.РУС.КИНОЗАЛ 🇷🇺",Дом кино Премиумᴴᴰ
+http://31148.rafail1982.uz/Dom_Kino_Premium_HD/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 19.РУС.КИНОЗАЛ 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 19.РУС.КИНОЗАЛ 🇷🇺",КиноСезонᴴᴰ
 https://stitch.teletarget.ru/vintera/movieseason/1764950731551101ef187a38512cd3d3db48c1eca37527e836ab81636ac589b9/lvl1.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 19.РУС.КИНОЗАЛ 🇷🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 19.РУС.КИНОЗАЛ 🇷🇺",Мосфильм.Золотая коллекция
@@ -1807,8 +1829,6 @@ http://dwamdstream110.akamaized.net/hls/live/2017971/dwstream110/index.m3u8
 https://dwamdstream110.akamaized.net/hls/live/2017971/dwstream110/stream05/streamPlaylist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 2.НОВОСТИ 👁‍🗨" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 2.НОВОСТИ 👁‍🗨",Deutsche Welleᴴᴰ Russia
 https://dwamdstream110.akamaized.net/hls/live/2017971/dwstream110/index.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / 2.НОВОСТИ 👁‍🗨" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 2.НОВОСТИ 👁‍🗨",ИЗВЕСТИЯ SD
-https://hls-igi.cdnvideo.ru/igi/igi_sq/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 2.НОВОСТИ 👁‍🗨" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 2.НОВОСТИ 👁‍🗨",ИЗВЕСТИЯᴴᴰ
 http://igi-hls.cdnvideo.ru/igi/igi_tcode/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 2.НОВОСТИ 👁‍🗨" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 2.НОВОСТИ 👁‍🗨",КРИК-ТВᴴᴰ
@@ -2007,6 +2027,8 @@ https://streamer103.neterra.tv/thisisbulgaria/live.m3u8
 http://ott.watch/stream/6HAPZWKKG3/231.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 31.ПУТЕШЕСТВИЯ 🌎" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 31.ПУТЕШЕСТВИЯ 🌎",Travel+Adventureᴴᴰ
 http://31.148.48.15:80/Travel_Adventure_HD/index.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 31.ПУТЕШЕСТВИЯ 🌎" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 31.ПУТЕШЕСТВИЯ 🌎",Моя Планета SD
+http://31.148.48.15:80/Moya_Planeta_HD/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 31.ПУТЕШЕСТВИЯ 🌎" tvg-logo="http://rafail1982.uz/logo/Моя Стихия HD.png",Моя Стихия HD
 http://ott.watch/stream/6HAPZWKKG3/141.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 31.ПУТЕШЕСТВИЯ 🌎" tvg-logo="http://rafail1982.uz/logo/Телепутешествия.png",Телепутешествия
@@ -2055,20 +2077,52 @@ http://tv.cdn.xsg.ge/gpb-2tv/tracks-v1a1/index.m3u8
 https://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",Bein SPORTS Xtra HD
 http://ak.fly47.be:80/Emrullah20/X9J5VbPtxD/256065
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",DAZN 3 HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/167748
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",DAZN 4 HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/167749
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",DAZN 5 HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/167750
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",DRN SD
 http://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",DiviSport HD
 http://ru.seetv.cc/play/315/F153046F2E99D25/video.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",ESPN 1 HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/14197
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",ESPN 2 HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/2210
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",ESPN News HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/17707
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",ESPN U HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/10255
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",Golf Channel
 http://ua.online24.pm/play/1138/350B326FB34F4B8/video.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",Nesn LIVE HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/161451
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",Regbi TV SD
 http://92.54.205.149:80/rtv/index.m3u8?token=test
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",SKY SPORT F1 HD
 http://ak.fly47.be:80/Emrullah20/X9J5VbPtxD/232435
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",SKY SPORTS F1 HD
 http://ak.fly47.be:80/Emrullah20/X9J5VbPtxD/247370
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",SKY SPORTS GOLF
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/35240
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",SKY Sports News HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/35243
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",Sport 1 HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/167742
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",Sport 2 HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/167743
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",Sport 4 HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/167745
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",TVA HD
 https://tvaktuellr.iptv-playoutcenter.de/tvaktuellr/tvaktuellr.stream_1/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",WIN+ Football HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/78697
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",WIN+ Sports HD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/78717
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",YES SD
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/57972
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",beIN SPORTS 1 FHD
 http://ak.fly47.be:80/Emrullah20/X9J5VbPtxD/77238
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍",beIN SPORTS 1 HD
@@ -2079,6 +2133,8 @@ http://ak.fly47.be:80/Emrullah20/X9J5VbPtxD/97877
 http://ak.fly47.be:80/Emrullah20/X9J5VbPtxD/31409
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="http://rafail1982.uz/logo/Equalympic HD.png",Equalympic HD
 http://pl.seetv.cc/play/8788/F153046F2E99D25/video.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / 33.SPORT ⛹🏿‍" tvg-logo="http://rafail1982.uz/logo/SKY SPORTS RACING UK.png",SKY SPORTS RACING UK
+http://fortv.cc:8080/sed8nurse@hotmail.com/0LzoNUu9jX/76842
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 34.МОДА И СТИЛЬ 💃" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 34.МОДА И СТИЛЬ 💃",FASHION ONE
 https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/u_stream_5c9e2ee6997cb_1/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 34.МОДА И СТИЛЬ 💃" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 34.МОДА И СТИЛЬ 💃",SHIFT TV SD
@@ -2241,8 +2297,6 @@ https://tvradiozap.eu/958
 http://livestream.siliconweb.com:80/live/kissfm/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",Kpop Play TV SD
 http://tinyurl.com/TvZaTak20/ushba-m4/tracks-v1a1/mono.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",Live SS SD
-https://live20.bozztv.com/akamaissh101/ssh101/livess/chunks.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",M6 MUSICᴴᴰ
 http://ultimateiptv.me:8080/80:47:86:b5:30:99/kwLmfvxZT6HF/9175
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",MASTER SD
@@ -2285,8 +2339,6 @@ http://livetv.powerapp.com.tr/pturktaptaze/taptaze.smil/playlist.m3u8
 http://livetv.powerapp.com.tr/powerTV/powerhd.stream_1080p/chunklist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",POWER TÜRKᴴᴰ
 http://livetv.powerapp.com.tr/powerturkTV/powerturkhd.smil/chunklist.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",Pink Music 2
-http://g-med.xyz:25461/live/Namka@viber@412/ND6bEusrJPbJ/272.ts
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",RTL 102.5 Bestᴴᴰ
 https://streamcdnn2-dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S76960628/OEPHRUIctA0M/playlist_video.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",RTL 102.5 Napuleᴴᴰ
@@ -2317,8 +2369,6 @@ https://video03.logicahost.com.br/topmixtv/topmixtv/chunklist_w193935129.m3u8
 https://59ef525c24caa.streamlock.net/tvurbano/tvurbano/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",ZETAᴴᴰ
 https://streamcdnb1-dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S9346184/XEx1LqlYbNic/chunklist.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 41.𝕄𝕦𝕤𝕚𝕔 🇪🇺",РТС МУЗИКА FD
-http://g-med.xyz:25461/live/aleksanar_vujadinovic/anhuZ7SAj3hF/289.ts
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 42.DANCE TV 🎧" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 42.DANCE TV 🎧",Energy TV DJᴴᴰ
 https://59ec5453559f0.streamlock.net/energytvDJ/smil:VIVALIVETV/chunklist_w850439264_b1896000.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 42.DANCE TV 🎧" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 42.DANCE TV 🎧",Energy TV Musicᴴᴰ
@@ -2443,8 +2493,6 @@ https://edge50.dc.beltelecom.by/ngtrk/smil:belarus3.smil/playlist.m3u8
 https://edge50.dc.beltelecom.by/ngtrk/_definst_/smil:belarus5.smil/chunklist_w1496692200_b1460000_sleng.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 9.БЕЛАРУСЬ 🇧🇾" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 9.БЕЛАРУСЬ 🇧🇾",БЕЛАРУСЬ 5 Интернет
 https://ngtrk.dc.beltelecom.by/ngtrk/_definst_/smil:belarus5int/playlist.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / 9.БЕЛАРУСЬ 🇧🇾" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 9.БЕЛАРУСЬ 🇧🇾",БЕЛАРУСЬ 5 Интернетᴴᴰ
-https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5int/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 9.БЕЛАРУСЬ 🇧🇾" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 9.БЕЛАРУСЬ 🇧🇾",БЕЛАРУСЬ 5ᴴᴰ
 https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / 9.БЕЛАРУСЬ 🇧🇾" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / 9.БЕЛАРУСЬ 🇧🇾",БелРос FD
@@ -2509,6 +2557,8 @@ https://ammantv-live.ercdn.net/ammantvhd/ammantvhd.m3u8
 https://live.asil.tv/asiltv/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / CAMERA" tvg-logo="http://rafail1982.uz/logo/camera.png",Греция 2
 http://corfulive.gr/OasisHotel/OasisHotel.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / CHILDREN" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / CHILDREN",Мультиландия
+http://217.11.177.55/streams/media/multilandiya_720x576/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / CINEMA" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / CINEMA",Ностальгия [R]
 http://31.148.48.15:80/Nostalgiya/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / CINERAMA" tvg-logo="http://rafail1982.uz/logo/365 дней ТВ.png",365 дней ТВ
@@ -2841,8 +2891,6 @@ https://stream9.itv.uz/t/pZB356zwLOOjd37o-tzZ1w/e/1759836963/1209/tracks-v1a1/ti
 https://stream9.itv.uz/t/Hu8QYUpRncvaPuCVRxloWA/e/1759836416/1001/tracks-v1a1/timeshift_rel-1618.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / MEDIABAY" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / MEDIABAY",Ozbekiston24
 https://stream9.itv.uz/t/gLMorTRF--E59dGQt6Yrcg/e/1759836315/1011/tracks-v1a1/timeshift_rel-5716.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / MEDIABAY" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / MEDIABAY",RUXOR TV
-https://stream9.itv.uz/t/d5tuUfgXkE9sOSwWHlvHEA/e/1759837108/4008/tracks-v1a1/timeshift_rel-2309.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / MEDIABAY" tvg-logo="https://raw.githubusercontent.com/k33n26/iptv2/main/logos/medium/fb03d36ad8bd70dd319312b62c961212.webp",MULOQOT.TV
 https://stream9.itv.uz/t/T6SBycjwQuta4ow0xThKdA/e/1759837189/1285/tracks-v1a1/timeshift_rel-2390.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / MUSIC" tvg-logo="https://www.iran-tv.net/media/7xmusic.webp",7X Music HD
@@ -3237,6 +3285,10 @@ https://rt-nw-arkh-htlive.cdn.ngenix.net/hls/CH_R01_STV24/variant.m3u8
 https://rt-nw-arkh-htlive.cdn.ngenix.net/hls/CH_R01_SEVER/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",12 канал Череповец
 https://rt-nw-vol-htlive.cdn.ngenix.net/hls/CH_R01_12CHANNEL/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",2x2 (+4)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_4/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",5 канал +7
+http://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_7/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",78 канал
 https://rt-nw-spb-htlive.cdn.ngenix.net/hls/CH_R02_KANAL78/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",8 канал
@@ -3257,6 +3309,8 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNY_2/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY_4/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Домашний +7
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNY_7/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Звезда (+4)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_4/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Информационная служба Югры
 https://rt-ural-sur-htlive.cdn.ngenix.net/hls/CH_R01_OTT_PERVIYSOVETSKIY/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",КТВ-Город
@@ -3265,16 +3319,14 @@ http://rt-ct-vrzh-htlive.cdn.ngenix.net/hls/CH_R02_OTT_CT_VRZH_CTVGOROD/variant.
 http://rt-ct-lipetsk-htlive.cdn.ngenix.net/hls/CH_R02_OTT_CT_LIPETSK_LVREM/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",МИГ ТВ
 http://rt-ural-nbk-htlive.cdn.ngenix.net/hls/CH_R04_OTT_MIG_TV_URAL_YNF/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",МИР (+7)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_7/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",МИР (+4)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_4/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",МУЗ ТВ (+7)
 http://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_7/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Майкопское Телевидение
 https://rt-sth-krdar-htlive.cdn.ngenix.net/hls/CH_R04_OTT_STH_KRDAR_MAYKOP/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Матур ТВ
 https://s45177.cdn.ngenix.net/hls/CH_R02_MATURTV/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Матч ТВ
-http://zabava-htlive.cdn.ngenix.net/hls/CH_MATCHTV/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Мордовия-24
 https://rt-vlg-srnk-htlive.cdn.ngenix.net/hls/CH_R02_MORDOVIY24/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Москва 24
@@ -3283,18 +3335,18 @@ https://rt-mos-htlive.cdn.ngenix.net/hls/CH_R04_MOSKOV24/variant.m3u8
 https://rt-mos-htlive.cdn.ngenix.net/hls/CH_R04_DOVERIE/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Муравленко 24
 https://rt-ural-nbk-htlive.cdn.ngenix.net/hls/CH_R01_OTT_MURAVLENKO_24/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",НТВ
+http://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",НТВ (+4)
 http://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_4/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",НТК
 https://s97982.cdn.ngenix.net/hls/CH_R79_OTT_DV_HVSK_NTK/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Народное телевидение Мордовии
 https://rt-vlg-srnk-htlive.cdn.ngenix.net/hls/CH_R01_NTM/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ОТР
-http://zabava-htlive.cdn.ngenix.net/hls/CH_OTR/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Осетия Ирыстон HD
 http://rt-sth-vkaz-htlive.cdn.ngenix.net/hls/CH_R01_OTT_STH_VKAZ_IRISTON/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Первый канал (+5)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_1TVSD_5/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Первый канал (+8)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_1TVSD_8/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Пятница! (+2)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_2/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Пятница! (+4)
@@ -3307,8 +3359,8 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_4/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_7/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",РБК
 https://s91030.cdn.ngenix.net/hls/CH_R25_RBKTVHD_VLDK/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Рен ТВ +4
-http://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_4/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",РЕН ТВ (+2)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_2/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Рен ТВ +7
 http://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_7/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Россия 1 (+2)
@@ -3317,30 +3369,30 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_2/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_4/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Россия 1 (+6)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1_7/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Россия 24
-http://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA24/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",СОЛНЦЕ (+2)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_2/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Россия К (+4)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_4/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",СОЛНЦЕ (+4)
 http://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_4/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",СОЛНЦЕ (+7)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_7/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",СТС (+2)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_STS_2/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Сампо ТВ 360°
 https://rt-nw-pzav-htlive.cdn.ngenix.net/hls/CH_R01_SAMPOTV/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Санкт-Петербург
 https://rt-nw-spb-htlive.cdn.ngenix.net/hls/CH_R02_SPBREGIONALHD/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Саха
 http://s34351.cdn.ngenix.net/hls/CH_R03_OTT_DV_YKT_NVC_OTT/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Спас
-http://zabava-htlive.cdn.ngenix.net/hls/CH_SPAS/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Супер (+2)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_SUPER_2/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Супер (+4)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_SUPER_4/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Супер (+7)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_SUPER_7/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТВ Центр
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TVC/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТВ Центр (+2)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_2/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТВ3
-http://zabava-htlive.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТВ3 (+7)
 http://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_7/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТВЦ +4
@@ -3353,12 +3405,8 @@ https://rt-sib-krsk-htlive.cdn.ngenix.net/hls/CH_R01_OTT_SIB_KRSK_CENTRKRSN/vari
 https://rt-vlg-nn-htlive.cdn.ngenix.net/hls/CH_R05_TNV/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТНВ-Татарстан
 https://rt-vlg-kzn-htlive.cdn.ngenix.net/hls/CH_R01_TNVT/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТНТ (+4)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_4/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТНТ (+7)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_7/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТНТ4
-http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4/variant.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",ТНТ
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Ул. Правда
 https://rt-vlg-ul-htlive.cdn.ngenix.net/hls/CH_R01_ULPRAVDA/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Хамдан
@@ -3369,8 +3417,6 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE_4/variant.m3u8
 https://s45177.cdn.ngenix.net/hls/CH_R03_SHAYNTV/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Ю (+2)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_U_2/variant.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Wink (VPN 🇷🇺)",Ю (+4)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_U_4/variant.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / XITE+VEVO" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / XITE+VEVO",Vevo Reggaeton & Trapᴴᴰ
 https://amagicloud-medialive-common016.s3.amazonaws.com/vevo_reggaeton-localnow/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Xsph.ru 🎡" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Xsph.ru 🎡",СТВ SD
@@ -3535,8 +3581,6 @@ https://pbc.furrera.ps/musawahd/tracks-v1a1/mono.m3u8
 https://hls.navahang.live/hls/stream.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Арабские" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Арабские",Nile Sport
 http://149.100.11.235:8080/NileSport/index.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Арабские" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Арабские",ONE TV Lebanon
-https://hms.pfs.gdn/v1/broadcast/one/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Арабские" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Арабские",Oman
 https://partneta.cdn.mgmlcdn.com/omantv/smil:omantv.stream.smil/chunklist_b4500000.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Арабские" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Арабские",Oman Culture
@@ -3851,8 +3895,6 @@ http://flash.softhost.com.br:1935/fonte/fontetv/live.m3u8
 http://fox-foxnewsnow-samsungus.amagi.tv/playlist720p.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Другие" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Другие",Mission TV
 http://stream.missiontv.com:1935/live/missiontv_720p/chunklist.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Другие" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Другие",My TV Channel
-http://connectiktv.ddns.net:5000/mytvchannel/@mytvchannel/chunklist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Другие" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Другие",MyTime Movie Network Brazil
 http://appletree-mytime-samsungbrazil.amagi.tv/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Другие" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Другие",TR24
@@ -3869,8 +3911,6 @@ http://live-3.otcnet.ru/wfcrus/tracks-v1a1/mono.m3u8
 http://live-3.otcnet.ru/congresstv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Другие" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Другие",МТРК
 http://tvcdn01.esilnet.kz/tv/mtrk/tracks-v1a1/mono.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / Другие" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Другие",Мегаполис ТВ
-http://megapolis.iptv2022.com/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Другие" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Другие",НТМ HD
 http://live-ntm13.cdnvideo.ru/ntm13/smil:ntm13.smil/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Другие" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Другие",Первый Медицинский канал
@@ -4267,6 +4307,8 @@ https://live.nasul.tv/live/stream.m3u8
 http://play.agenciastreaming.com:8080/palmerastv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Латинская Америка" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Латинская Америка",Planeta TV Chile
 http://scl.edge.grupoz.cl/planetatv/live/chunklist.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Латинская Америка" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Латинская Америка",RTV BESA
+http://gjirafa-video-live.gjirafa.net/gjvideo-live-n1/ehn-g2o-v7w-nh4/tracks-v2a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Латинская Америка" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Латинская Америка",Red ADvenir
 https://streamer1.streamhost.org/salive/GMIredadvenirm/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Латинская Америка" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Латинская Америка",Red+ Noticias
@@ -4365,6 +4407,8 @@ http://streamcdnb4-4c4b867c89244861ac216426883d1ad0.msvdn.net/live/S85984808/sMO
 http://stream8.cinerama.uz/1018/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Музыкальные" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Музыкальные",Hype Visual Radio
 http://streammix.alsolnet.com/hyperadio/live/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Музыкальные" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Музыкальные",K Pop
+https://giatv.bozztv.com/giatv/giatv-kpoptvplay/kpoptvplay/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Музыкальные" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Музыкальные",Lя Mинор
 http://188.113.190.15/324/tracks-v1a1/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Музыкальные" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Музыкальные",Maidan TV HD Татарстан
@@ -4463,6 +4507,8 @@ http://radiojnd.cdn.hostin.cc/radiojnd/playlist.m3u8
 http://cdn2.in/SteelbirdMusicTVhls/live.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Музыкальные" tvg-logo="http://rafail1982.uz/logo/music2.png",Vaanavil TV
 http://6n3yope4d9ok-hls-live.5centscdn.com/vaanavil/TV.stream/playlist.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Музыкальные" tvg-logo="http://rafail1982.uz/logo/music2.png",ZB Music
+http://server.zillarbarta.com/zbmusic/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Музыкальные" tvg-logo="http://rafail1982.uz/logo/music2.png",ZFM Zoetermeer TV
 http://zfmzoetermeer.nl/live/master.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Музыкальные" tvg-logo="http://rafail1982.uz/logo/Ля-минор ТВ.png",Ля-минор ТВ
@@ -4605,6 +4651,8 @@ http://89.201.163.244:8080/hls/hdmi.m3u8
 https://hls.nejat.live/hls/stream.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Остальная Европа" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Остальная Европа",TV Duga+
 http://135.125.238.20:8080/memfs/6c06b323-a7db-443a-a75f-b745da6ca308_output_0.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Остальная Европа" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Остальная Европа",TV Jurmala
+http://air.star.lv/TV_Jurmala_multistream/tracks-v3a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Остальная Европа" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Остальная Европа",TV5 Bosnia
 https://balkanmedia.dynu.net/hls/tv5web.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Остальная Европа" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Остальная Европа",Taevas TV7 (Эстония)
@@ -4711,8 +4759,6 @@ https://dpoiyvp3kma.a.trbcdn.net/astv24/astv24.m3u8
 http://live-nntv2.cdnvideo.ru/nntv2/vremyan/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / РЕГИОНЫ" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / РЕГИОНЫ",ГЛАЗОВ 24
 https://yellow.garant.tv/glazov24/stream.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / РЕГИОНЫ" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / РЕГИОНЫ",Девятка ТВ HD
-http://devyatka.iptv2022.com/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / РЕГИОНЫ" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / РЕГИОНЫ",КОЛЫМА+ HD
 https://tw2ywfm7jbp.a.trbcdn.net/livemaster/w91n1qa6dh_kolymaplus_live/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / РЕГИОНЫ" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / РЕГИОНЫ",КРТВ
@@ -4737,8 +4783,6 @@ http://air.tvk6.ru/tvk/tracks-v1a1/mono.m3u8
 http://tv.tuva.ru/tuva24/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / РЕГИОНЫ" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / РЕГИОНЫ",ЭКСПРЕСС HD
 https://fhtrc6b9861.a.trbcdn.net/livemaster/zolwjjzp0b_testtrk/playlist.m3u8
-#EXTINF:-1 group-title="Aggregator - Rafail1982 / РЕГИОНЫ" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / РЕГИОНЫ",ЮТВ
-http://utv.iptv2022.com/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / РЕГИОНЫ" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / РЕГИОНЫ",ЯКУТИЯ 24 HD
 http://live-saha.cdnvideo.ru/saha/yak24rtmp/playlist.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / РЕЛАКС- расслабление" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / РЕЛАКС- расслабление",КАМИН
@@ -4903,6 +4947,10 @@ http://starcius-cinema.com/10241/index.m3u8?token=010101010101
 http://162.212.179.43/ushba-rfilrms-0/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Кинозалы 25
 http://162.212.179.43/ushba-rfilrms-a/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Кинозалы 26
+http://162.212.179.43/ushba-rfilrms-b/index.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Кинозалы 27
+http://162.212.179.43/ushba-rfilrms-c/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Кинозалы 28
 http://162.212.179.43/ushba-rfilrms-d/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Кинозалы 29
@@ -4913,6 +4961,8 @@ http://162.212.179.43/ushba-rfilrms-p/tracks-v1a1/mono.m3u8
 http://162.212.179.43/ushba-rfilrms-v/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Кинозалы 35
 http://162.212.179.43/ushba-rfilrms-z/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Кинозалы 36
+http://162.212.179.43/ushba64/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Кинозалы 37
 http://162.212.179.43/ushba65/index.m3u8
 #EXTINF:-1 group-title="Aggregator - Rafail1982 / Фильмовые" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="Aggregator - Rafail1982 / Фильмовые",Киномикс
@@ -8893,8 +8943,6 @@ https://5e50264bd6766.streamlock.net/mexiquense2/videomexiquense2/playlist.m3u8
 http://l2.cloudskep.com/ant1cm2/abr/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",ASTV News 1 (720p) [Not 24/7]
 http://news1.live14.com/stream/news1.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",ATV (360p)
-http://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/atv/atv_360p.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",AWTV (1080p) [Geo-blocked]
 https://awtv.nuvemplay.live/hls/stream.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Al Arabiya Al Hadath (1080p) [Not 24/7]
@@ -8951,8 +8999,6 @@ https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
 https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Bahrain TV (720p) [Not 24/7]
 https://5c7b683162943.streamlock.net/live/ngrp:bahraintvmain_all/playlist.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Bansal News (720p)
-https://8yzmq2gbdvax-hls-live.wmncdn.net/bansalnewstv1/live1.stream/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Beautiful Life TV
 https://5ddce30eb4b55.streamlock.net/bltvhd/bltv1/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",BeitolAbbas TV Channel (720p)
@@ -9001,6 +9047,8 @@ http://arcast.net:1935/cadena103/cadena103/playlist.m3u8
 https://cdn3.wowza.com/5/UWpORHhLSEs5SkJs/calabasas/G0009_003/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Calabria TV
 https://64b16f23efbee.streamlock.net/calabriatv/calabriatv/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Camu TV (480p) [Not 24/7]
+https://live20.bozztv.com/akamaissh101/ssh101/camutv/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 10 (720p) [Geo-blocked]
 https://acceso.mediosdecostarica.com:3606/live/canal10costaricalive.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 10 Chiapas (720p)
@@ -9025,6 +9073,8 @@ https://stream.arcast.com.ar/canal3/canal3/playlist.m3u8
 https://media2.streambrothers.com:1936/8140/8140/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 33 Tijuana (720p)
 https://5f2c1b0d880e5.streamlock.net/canal33tijuana/videocanal33tijuana/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 4 San Juan (576p)
+https://streamlov.alsolnet.com/canal4sanjuan/live/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 44 Chihuahua (720p) [Not 24/7]
 https://5e50264bd6766.streamlock.net/canal442/videocanal442/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 44 Ciudad Juárez (720p) [Not 24/7]
@@ -9035,6 +9085,8 @@ https://stmv4.voxtvhd.com.br/canal5pueblo/canal5pueblo/playlist.m3u8
 https://stream.arcast.com.ar/c5sf/c5sf/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 56 (720p)
 https://vdopanel.jlahozconsulting.com/p/3124/hybrid/play.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 7 Neuquén (1080p)
+https://stream.arcast.com.ar/c7nq/ngrp:c7nq_all/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 7 Santiago del Estero (720p)
 https://stream.arcast.com.ar/envivo/castv/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal 8 Catacaos (720p) [Not 24/7]
@@ -9049,6 +9101,8 @@ https://s.emisoras.tv:8081/dtv/index.m3u8
 https://unlimited1-us.dps.live/perfiltv/perfiltv.smil/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal ISB (Iglesia San Bernardo) (720p)
 https://unlimited1-us.dps.live/isb/isb.smil/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal Multivision (720p) [Not 24/7]
+https://live20.bozztv.com/akamaissh101/ssh101/canalmulti24/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal Mundo Visión (720p) [Not 24/7]
 https://movil.ejeserver.com/live/mundovisiontv.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Canal Más Televisión (720p)
@@ -9155,6 +9209,8 @@ https://cdn09jtedge.indihometv.com/joss/133/crimeinvestigation/index.m3u8
 https://fox.hostlagarto.com:8081/cromtv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Curiquingue TV (720p)
 https://video2.lhdserver.es/pjtv/live.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",D3 TV
+https://live20.bozztv.com/akamaissh101/ssh101/d3tvnet/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",DAN TV (1080p) [Not 24/7]
 https://cnn.hostlagarto.com/telesiglo/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",DD Bharati (720p)
@@ -9217,8 +9273,6 @@ https://cdn-live.dltv.ac.th/dltv07.m3u8
 https://cdn-live.dltv.ac.th/dltv08.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",DLTV 9 (1080p)
 https://cdn-live.dltv.ac.th/dltv09.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",DR1 (1080p) [Geo-blocked]
-https://drlivedr1hls.akamaized.net/hls/live/2113625/drlivedr1/master.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Dali TV (大立電視台) (720p)
 http://www.dalitv.com.tw:4568/live/dali/index.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Dasturxon TV (576p)
@@ -9237,8 +9291,6 @@ https://livestream.telvue.com/derrynh2/f7b44cfafd5c52223d5498196c8a2e7b.sdp/play
 https://deshitv.deshitv24.net/live/myStream/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Desi Channel (720p)
 https://livestream.unlimitedcdn.com/agm-dc/desi-channel/index.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Despertar TV (720p)
-https://cdn.live.br1.jmvstream.com/webtv/pejexypz/playlist/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Dharsan TV (720p)
 https://galaxyott.live/hls/dharshantv.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Dheeran TV (576p)
@@ -9413,6 +9465,8 @@ https://stream8.cinerama.uz/1009/tracks-v1a1/playlist.m3u8
 https://gjirafa-video-live.gjirafa.net/gjvideo-livestream/lj9-pxm-o53-rp0/tracks-v4a1/mono.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",LEO Middelsé TV (480p)
 https://ms7.mx-cd.net/tv/238-2061506/Omroep_LEO_TV.smil/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",LGD Television (720p)
+https://streamtv.intervenhosting.net:3403/hybrid/play.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",LINQ TV (480p)
 https://ms7.mx-cd.net/dtv-09/246-2090022/Linq_Media_TV.smil/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",LMTV French (720p) [Not 24/7]
@@ -9423,6 +9477,8 @@ https://cdnstack.internetmultimediaonline.org/ln24/ln24.stream/playlist.m3u8
 https://livestream.telvue.com/lexmedia1/f7b44cfafd5c52223d5498196c8a2e7b.sdp/lexmedia1/stream1/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",La Reina TV [Geo-blocked]
 https://cloud2.streaminglivehd.com:1936/lareinatv/lareinatv/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",La Voz de Jesus HD (720p)
+https://live20.bozztv.com/giatvplayout7/giatv-208429/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Lansingerland TV (720p)
 https://ms7.mx-cd.net/tv/278-3414514/RTV_Lansingerland.smil/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Lao Net TV (720p)
@@ -9441,8 +9497,6 @@ https://streamer1.streamhost.org/salive/GMIlcbgM/playlist.m3u8
 http://k4.usastreams.com/limontv1/limontv1/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",LiraTV (720p)
 https://cloud2.streaminglivehd.com:1936/liratv/liratv/playlist.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Little Guyana TV (1080p)
-https://video1.getstreamhosting.com:1936/8122/8122/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Liv (720p)
 https://live-fi.tvkaista.net/liv/live.m3u8?hd=true
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Live99FM (1080p)
@@ -9521,6 +9575,12 @@ https://cloudvideo.servers10.com:8081/8070/index.m3u8
 http://202.62.56.22:8080/hls/MOITV.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",MQTV (720p) [Not 24/7]
 https://5bf7b725107e5.streamlock.net/mqtv/mqtv/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",MRTV
+https://mrtvott.com/cache/MRTV-HD/master.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",MRTV Entertainment
+https://mrtvott.com/cache/MRTV-Ent-HD/master.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",MRTV NRC
+https://mrtvott.com/cache/MRTV-NRC-HD/master.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",MRVTV Channel 44 (720p)
 https://livestream.telvue.com/madrivervalleytv1/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",MRVTV Channel 45 (720p)
@@ -9567,8 +9627,6 @@ https://cdn-3.pishow.tv/live/1606/master.m3u8
 https://cdn4.skygo.mn/live/disk1/Malchin/HLSv3-FTA/Malchin.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Malta (720p) [Not 24/7]
 https://webtvstream.bhtelecom.ba/malta.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Mamer TV (1080p)
-https://streamer20.multimedia.blue/Eltrona/MamerTV/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Manaclar Television [Not 24/7]
 https://5790d294af2dc.streamlock.net/manaclar/manaclar/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Manoranjan Grand (720p)
@@ -9731,10 +9789,12 @@ https://cdn-3.pishow.tv/live/1279/master.m3u8
 https://cdn-6.pishow.tv/live/10011/master.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",News12 Bronx [Geo-blocked]
 https://mdc.ott.alticeusa.net/live4.ott.optimum.net/live4-uploads/N12XH_A1/index_new.m3u8?omap=https
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",News12 Brooklyn [Geo-blocked]
+https://mdc.ott.alticeusa.net/live4.ott.optimum.net/live4-uploads/N12KH_A1/index_new.m3u8?omap=https
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",News12 Hudson Valley [Geo-blocked]
 https://mdc.ott.alticeusa.net/live4.ott.optimum.net/live4-uploads/N12HH_A1/index_new.m3u8?omap=https
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",News12+ New York (1080p) [Geo-blocked]
-https://mdc.ott.alticeusa.net/live4.ott.optimum.net/live4-uploads/N12PLUS_H_NYC_A1/index_new.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",News12+ Long Island (1080p) [Geo-blocked]
+https://mdc.ott.alticeusa.net/live4.ott.optimum.net/live4-uploads/N12PLUS_H_LI_A1/index_new.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",NewsTime Bangla (576p)
 https://cdn-2.pishow.tv/live/1494/master.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Nickelodeon
@@ -9971,6 +10031,8 @@ https://streaming.thestream.cyou/live/554.m3u8
 https://rt-fra.rttv.com/live/rtfrance/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",RT JVA (720p) [Not 24/7]
 https://cdn140m.panaccess.com/HLS/RTVJA/index.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",RT News (1080p) [Not 24/7]
+https://rt-glb.rttv.com/dvr/rtnews/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",RT en Español (1080p) [Geo-blocked]
 https://rt-esp.rttv.com/live/rtesp/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",RTB 3
@@ -10125,6 +10187,8 @@ https://e.siar.us/live/smtv.m3u8
 http://122.248.43.242:1935/SMTV/_definst_/myStream/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",SOL 2 (1080p)
 https://live.streamteam.eu:8443/sol2playout/sol2/live/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",SONGTV Russia
+https://songtv.hls.iptvdc.com/web-russia/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",SQCS Canal 4 (1080p)
 https://video0.rogohosting.com:19360/4982/4982.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",SRC TV (720p)
@@ -10155,6 +10219,8 @@ https://6n3yow8pl9ok-hls-live.5centscdn.com/sadhananewstv/live.stream/playlist.m
 https://j78dp346yq5r-hls-live.5centscdn.com/safari/live.stream/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Salira TV (720p)
 https://live.salira.tv/p/3870/hybrid/play.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Salsa Gorda Television (1080p) [Not 24/7]
+https://live20.bozztv.com/akamaissh101/ssh101/qMUAZEy/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Salto ADE (720p)
 https://live.salto.nl/hls/at5.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Salvation TV (1080p)
@@ -10163,8 +10229,6 @@ https://ktismaservers.in:3902/live/salvationtvlive.m3u8
 https://viewmedia7219.bozztv.com/wmedia/viewmedia100/web_017/Stream/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Samay Kolkata (1080p)
 https://server.livelegitpro.in/samaykolkata/samaykolkata/index.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",San Isidro TV (720p) [Not 24/7]
-https://5790d294af2dc.streamlock.net/expresooriental/expresooriental/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Sana Plus (1080p) [Not 24/7]
 https://galaxyott.live/hls/sanaplus.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Sangeet Bangla (720p)
@@ -10203,8 +10267,6 @@ https://bild-und-ton.stream/snj-de/snj-de.smil/.m3u8
 https://vdo2.pro-fhi.net:3297/stream/play.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Sent TV Global Network Atlanta (SGTN-49) (720p)
 https://rpn.bozztv.com/gusa/gusa-stgn/index.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Serie Max
-https://video1.getstreamhosting.com:1936/8330/8330/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Sevimli TV (1080p)
 https://stream8.cinerama.uz/1017/tracks-v1a1/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Señal Perú TV (404p) [Not 24/7]
@@ -10349,8 +10411,6 @@ https://video.compuwebecuador.com:3067/live/tvcolorlive.m3u8
 https://live.streams.ovh/tvcreta/tvcreta/chunklist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TV Cuatro 4.2 (1080p)
 https://5f2c1b0d880e5.streamlock.net/tv42/tv42.smil/.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TV Cultura
-https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TV Curuça (360p)
 https://stmv1.srvif.com/tvcurucasp/tvcurucasp/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TV DK (486p) [Not 24/7]
@@ -10369,8 +10429,6 @@ https://tv02.zas.media:1936/tvfuturo/tvfuturo/playlist.m3u8
 https://host.streamingnation.live/p/3467/live/tvhigueylive.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TV Hispanic [Not 24/7]
 https://livetv.305streamhd.com:3504/live/tvhispaniclive.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TV Keszthely (360p)
-https://cloudfront44.lexanetwork.com:1344/freerelay/keszthelyivtv.sdp/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TV Life America (720p)
 https://streaming.cloudecast.com/hls/tvlifeamerica/index.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TV Lobo Durango (720p)
@@ -10457,6 +10515,8 @@ https://tv7.live-kd.com/live/tv7/livestream/playlist.m3u8
 https://5bf7b725107e5.streamlock.net/tv9/tv9/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TVBS Asia (1080p)
 http://38.64.72.148/hls/modn/list/4005/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TVC-Rio
+https://video05.logicahost.com.br/comunitariario/comunitariario/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TVCG MNE (1080p)
 https://rtcg-live-open.morescreens.com/RTCG_1_004/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",TVCOM DF (360p)
@@ -10651,6 +10711,8 @@ https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_Concerts/SA_LIVE_hls_en
 https://play.cdn.enetres.net/091DB7AFBD77442B9BA2F141DCC182F5021/live.smil/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Tu Universo TV (720p)
 https://5bf8041cb3fed.streamlock.net/TUUNIVERSOTV/TUUNIVERSOTV/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Turf Movil (720p)
+https://tvturf4.janus.cl/playlist/stream.m3u8?d=w&id=
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",UGTV (720p)
 https://cdn.gunadarma.ac.id/streams/ugtv/ingestugtv.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",UPEA TV (720p)
@@ -10665,8 +10727,6 @@ https://vcp6.myplaytv.com/unitv/unitv/playlist.m3u8
 https://master.tucableip.com/univalletv/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Univers TV (720p)
 https://cloud2.streaminglivehd.com:1936/universfaller/universfaller/playlist.m3u8
-#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Universidad Autónoma Temuco (UATV) (1080p) [Not 24/7]
-https://unlimited1-us.dps.live/uatv/uatv.smil/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Uranio TV (Yurimaguas) (720p) [Not 24/7]
 https://live.obslivestream.com/uraniotv/index.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Urola Telebista (416p)
@@ -10679,6 +10739,8 @@ https://cdn-1.pishow.tv/live/389/master.m3u8
 https://capomo01-enitv.eninetworks.com/locales_vbmedia_publico/index.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",VSiN (720p)
 https://vsin-sgrewind.streamguys1.com/scte/live-2k/playlist.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Vale TV (480p) [Not 24/7]
+https://59d39900ebfb8.streamlock.net/valetv_480/valetv_480/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Valle Nuevo TV
 https://stmv6.voxtvhd.com.br/vallenuevotv/vallenuevotv/playlist.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Vanitha TV (576p)
@@ -10737,6 +10799,8 @@ https://stmv6.voxtvhd.com.br/cineterror/cineterror/playlist.m3u8
 https://live-fi.tvkaista.net/yle-tv1/live.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",YLE TV 2 (720p) [Not 24/7]
 https://live-fi.tvkaista.net/yle-tv2/live.m3u8
+#EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",ZB Cartoon (1080p)
+https://server.zillarbarta.com/zbcatun/video.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",Zarin TV
 https://fl1002.bozztv.com/gf-zarintv/index.m3u8
 #EXTINF:-1 group-title="GitHub - iptv-org" tvg-logo="data:image/svg+xml,<svg xmlns=",<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"><rect width="28" height="28" rx="3" fill="%230b1018"/><text x="14" y="19" font-size="10" text-anchor="middle" fill="%232a3848" font-family="monospace">TV</text></svg>" group-title="GitHub - iptv-org",ZillarBarta News
@@ -10889,6 +10953,8 @@ https://iptv.itv.uz/hls/live/t/OlPqoxEsw10P0jWCaX7Few/e/1785480969/1003/index.m3
 https://iptv.itv.uz/hls/live/t/Tx3YhVhAe9JiYj5u_ztdbQ/e/1785480967/1001/index.m3u8?ip=2.59.161.252
 #EXTINF:-1 group-title="Itv.uz (🇺🇿)" tvg-logo="https://iptv.itv.uz/uploads/iptv/channels/2023/04/18//9ae8b2d0eae85af6fd49277616dc9b13-q-500x500.jpeg",Хабар 24 KZ
 https://iptv.itv.uz/hls/live/t/jbmo44kVuq-s1Uv3Ysx-OA/e/1785480967/1408/index.m3u8?ip=2.59.161.252
+#EXTINF:-1 group-title="NNT",Amedia 2
+http://45.145.32.13:20440/kineko/index.m3u8?token=test
 #EXTINF:-1 group-title="NNT",Amedia Premium
 http://45.145.32.13:20440/amedia_premium_hd/index.m3u8?token=test
 #EXTINF:-1 group-title="NNT",Bollywood HD
@@ -10919,8 +10985,6 @@ http://158.101.222.193:88/georgia_play.php?id=m1
 http://158.101.222.193:88/georgia_play.php?id=m2
 #EXTINF:-1 group-title="Oracle Corporation",Mezzo
 http://158.101.222.193:88/georgia_play.php?id=mezzo
-#EXTINF:-1 group-title="Oracle Corporation",Niki Junior
-http://158.101.222.193:88/georgia_play.php?id=nikijunior
 #EXTINF:-1 group-title="Oracle Corporation",Niki Kids
 http://158.101.222.193:88/georgia_play.php?id=nikikids
 #EXTINF:-1 group-title="Oracle Corporation",Setanta Sports 1 Georgia
@@ -11007,12 +11071,18 @@ http://api.peers.tv/timeshift/lyova/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsI
 http://api.peers.tv/timeshift/match_nash_sport/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",Москва-24
 http://api.peers.tv/timeshift/moskva_24/126/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
+#EXTINF:-1 group-title="Peers (VPN)",Мультимания
+http://api.peers.tv/timeshift/multimania/126/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",НТС
 http://api.peers.tv/timeshift/nts/126/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",Наша сибирь HD
 http://api.peers.tv/timeshift/nasha_sibir/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",ОРТРК 12 канал
 http://api.peers.tv/timeshift/ortrk12/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
+#EXTINF:-1 group-title="Peers (VPN)",ОТР (+4)
+http://api.peers.tv/timeshift/otvrus/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
+#EXTINF:-1 group-title="Peers (VPN)",ОТС HD
+http://api.peers.tv/timeshift/ots/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",Первый канал +4
 http://api.peers.tv/timeshift/1kanal/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",Первый канал HD +4
@@ -11027,6 +11097,8 @@ http://api.peers.tv/timeshift/ren_tv_hd/16/playlist.m3u8?token=eyJhbGciOiJIUzI1N
 http://api.peers.tv/timeshift/rentv/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",Россия-1 +4
 http://api.peers.tv/timeshift/rossija/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
+#EXTINF:-1 group-title="Peers (VPN)",СТС Kids HD
+http://api.peers.tv/timeshift/sts_kids_hd/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",СТС love
 http://api.peers.tv/timeshift/sts_love/16/playlist.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhY2Nlc3MiLCJleHAiOjE3ODU0ODA5NjEsImlhdCI6MTc4NTM5NDU2MSwiY2lkIjo2LCJ1aWQiOjEwNzIzNTQzNjUsInJlZyI6ZmFsc2UsImlwIjozNzQ2MjUyNCwiYWR1bHQiOmZhbHNlfQ.Cj9oBUZqWcvRQc7sXA6mg-DWQyuEK8j7sgxcgWNoaQQ&offset=10
 #EXTINF:-1 group-title="Peers (VPN)",Сказки Зайки
@@ -11559,8 +11631,6 @@ https://api-tv.ipnet.ua/api/v1/manifest/1311962630.m3u8
 https://jmp2.uk/stvp-USBA3400003IP
 #EXTINF:-1 group-title="TEST ⓵",Star Cinema
 http://starcius-cinema.com/12042/index.m3u8
-#EXTINF:-1 group-title="TEST ⓵",Tiji
-https://live-3.otcnet.ru/Tiji/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="TEST ⓵",UA: ПЕРШИЙ HD
 https://api-tv.ipnet.ua/api/v1/manifest/2118742505.m3u8
 #EXTINF:-1 group-title="TEST ⓵",Viasat Kino Comedy
@@ -11775,8 +11845,6 @@ http://uiptv.do.am/1ufc/116316122/playlist.m3u8
 https://rt-sib-omsk-htlive.cdn.ngenix.net/hls/CH_R01_OTT_SIB_OMSK_12CHANNEL/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="kanal-12-cherepovec",12 канал Череповец
 https://rt-nw-vol-htlive.cdn.ngenix.net/hls/CH_R01_12CHANNEL/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",2x2 (+2)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_2X2_2/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",31 канал (Челябинск)
 https://rt-ural-chel-htlive.cdn.ngenix.net/hls/CH_R01_OTT_31TVK_CHEL/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",6 ТВ
@@ -11847,6 +11915,8 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY_4/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNY_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="enisey-region",Енисей HD
 https://rt-sib-krsk-htlive.cdn.ngenix.net/hls/CH_R01_OTT_SIB_KRSK_ENISEY/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Звезда (+2)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_ZVEZDA_2/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Ивановское общественное телевидение
 https://rt-ct-ivan-htlive.cdn.ngenix.net/hls/CH_R02_OTT_CT_IVAN_IOT/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-logo="http://fe-ural.svc.iptv.rt.ru/images/broadcastChannel1550219150031.png",Инфо 24 (Шадринск)
@@ -11859,8 +11929,10 @@ http://rt-ct-vrzh-htlive.cdn.ngenix.net/hls/CH_R02_OTT_CT_VRZH_CTVGOROD/variant.
 https://rt-vlg-nn-htlive.cdn.ngenix.net/hls/CH_R05_KAMINTV/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="no_epg_news",Камчатка HD
 https://s14131.cdn.ngenix.net/hls/CH_R41_OTT_DV_KAM_KAMCHATKA/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="karusel-pl2",Карусель (+2)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_2/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="karusel-pl4",Карусель (+4)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_4/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="karusel-pl7",Карусель (+7)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="katun-24",Катунь 24
 https://rt-sib-bul-htlive.cdn.ngenix.net/hls/CH_R01_OTT_SIB_BUL_KATUN24/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="kotlastv",Котлас ТВ (Арх. область)
@@ -11871,10 +11943,12 @@ https://rt-sth-krdar-htlive.cdn.ngenix.net/hls/CH_R04_KUBAN24/variant.m3u8
 https://rt-sib-kem-htlive.cdn.ngenix.net/hls/CH_R01_OTT_SIB_KEM_GTRK/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="mig-tv-noyabrsk",МИГ ТВ
 http://rt-ural-nbk-htlive.cdn.ngenix.net/hls/CH_R04_OTT_MIG_TV_URAL_YNF/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",МИР (+7)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_7/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",МИР (+4)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_4/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",МУЗ ТВ (+4)
 http://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_4/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",МУЗ ТВ (+7)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",МЭТР
 https://rt-vlg-yola-htlive.cdn.ngenix.net/hls/CH_R03_METR/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="kuban-24",Майкопское Телевидение
@@ -11929,10 +12003,10 @@ https://rt-vlg-saratov-htlive.cdn.ngenix.net/hls/CH_R03_OTT_VLG_SARATOV_1TV/vari
 https://rt-ural-ekt-htlive.cdn.ngenix.net/hls/CH_R03_OTT_1TV_EKT/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Первый канал (+3)
 https://rt-sib-omsk-htlive.cdn.ngenix.net/hls/CH_R03_OTT_SIB_OMSK_1TV_OMSKOBL/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Первый канал (+5)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_1TVSD_5/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Первый канал (+7)
 https://s97982.cdn.ngenix.net/hls/CH_R27_1TV/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Первый канал (+8)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_1TVSD_8/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Первый канал (+9)
 https://s14131.cdn.ngenix.net/hls/CH_R41_OTT_DV_KAM_1TV/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="pervy-oblastnoy-orel",Первый областной
@@ -11945,14 +12019,18 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_2/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_PYATNIZZA_4/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="piatnica-pl7",Пятница! (+7)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_FRIDAY_7/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Пятый канал +7
-http://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="rts-abakan",РТС-Абакан
 https://rt-sib-abakan-htlive.cdn.ngenix.net/hls/CH_R01_OTT_SIB_ABAKAN_RTS/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Регион 29
 https://rt-nw-arkh-htlive.cdn.ngenix.net/hls/CH_R02_PRAVDASEVERA/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Рен ТВ +7
+http://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Репортер 73
 http://rt-vlg-ul-htlive.cdn.ngenix.net/hls/CH_R03_REP73/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Россия К (+2)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_2/variant.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Россия К (+7)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Русский Север
 https://rt-nw-vol-htlive.cdn.ngenix.net/hls/CH_R01_TV7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",СОЛНЦЕ (+2)
@@ -11963,10 +12041,6 @@ http://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_7/variant.m3u8
 https://rt-nw-arkh-htlive.cdn.ngenix.net/hls/CH_R01_STV24/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="stv-baykal",СТВ-Байкал
 http://rt-sib-uude-htlive.cdn.ngenix.net/hls/CH_R01_OTT_SIB_UUDE_STVBAYKAL/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",СТС (+2)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_STS_2/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",СТС (+4)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_STS_4/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="samara24",Самара-24
 https://rt-vlg-samara-htlive.cdn.ngenix.net/hls/CH_R03_SAMARA24/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Самара-Гис
@@ -12003,8 +12077,6 @@ https://rt-ural-chel-htlive.cdn.ngenix.net/hls/CH_R01_TVIN_MAGN/variant.m3u8
 https://s20441.cdn.ngenix.net/hls/CH_R49_OTT_DV_MGDN_KOLYMA/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",ТВ21+
 https://rt-nw-murm-htlive.cdn.ngenix.net/hls/CH_R01_TV21PLUS/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",ТВ3 (+4)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_4/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",ТВЦ +7
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TVC_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",ТК Центр Красноярск
@@ -12017,8 +12089,6 @@ https://rt-vlg-kzn-htlive.cdn.ngenix.net/hls/CH_R01_TNVT/variant.m3u8
 https://rt-ural-sur-htlive.cdn.ngenix.net/hls/CH_R01_OTT_TNR24/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",ТНТ (+4)
 http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_4/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",ТНТ (+7)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Тивиком HD
 https://rt-sib-uude-htlive.cdn.ngenix.net/hls/CH_R01_TIVICOM/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Толк
@@ -12041,8 +12111,6 @@ http://rt-sth-elista-htlive.cdn.ngenix.net/hls/CH_R01_OTT_STH_ELISTA_HAMDAN/vari
 https://rt-ural-chel-htlive.cdn.ngenix.net/hls/CH_R02_OTT_PERETZ/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Че! (+4)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_CHE_4/variant.m3u8
-#EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Че! (+7)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_PERETZ_7/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)",Шаян ТВ
 https://s45177.cdn.ngenix.net/hls/CH_R03_SHAYNTV/variant.m3u8
 #EXTINF:-1 group-title="Wink (VPN 🇷🇺)" tvg-id="express",Экспресс HD
@@ -12083,6 +12151,8 @@ http://arbiter.bolshoe.tv/?path=abr2/arsenal/71/copy/playlist.m3u8&wmsAuthSign=c
 http://arbiter.bolshoe.tv/?path=streaming/europaplus/71/tvrec/chunks.m3u8&&wmsAuthSign=c2VydmVyX3RpbWU9Ny8zMC8yMDI2IDY6NTY6MDIgQU0maGFzaF92YWx1ZT1KVnliOGZwRm1YT0sxeXMxSVBxNUl3PT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
 #EXTINF:-1 group-title="Большое ТВ (VPN)",Еда HD
 http://arbiter.bolshoe.tv/?path=abr2/edahd/71/copy/playlist.m3u8&wmsAuthSign=c2VydmVyX3RpbWU9Ny8zMC8yMDI2IDY6NTY6MDIgQU0maGFzaF92YWx1ZT1KVnliOGZwRm1YT0sxeXMxSVBxNUl3PT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
+#EXTINF:-1 group-title="Большое ТВ (VPN)",Капитан фантастика HD
+http://arbiter.bolshoe.tv/?path=abr1/GingerHD/71/copy/playlist.m3u8&wmsAuthSign=c2VydmVyX3RpbWU9Ny8zMC8yMDI2IDY6NTY6MDIgQU0maGFzaF92YWx1ZT1KVnliOGZwRm1YT0sxeXMxSVBxNUl3PT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
 #EXTINF:-1 group-title="Большое ТВ (VPN)",Мосфильм. Золотая коллекция HD
 http://arbiter.bolshoe.tv/?path=abr4/mosfilm/71/copy/playlist.m3u8&wmsAuthSign=c2VydmVyX3RpbWU9Ny8zMC8yMDI2IDY6NTY6MDIgQU0maGFzaF92YWx1ZT1KVnliOGZwRm1YT0sxeXMxSVBxNUl3PT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
 #EXTINF:-1 group-title="Большое ТВ (VPN)",Первый космический
@@ -12117,8 +12187,6 @@ http://stream1.cinerama.uz/1271/tracks-v1a1/mono.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_KARUSEL/variant.m3u8
 #EXTINF:-1 group-title="Детям" tvg-id="solnce",Солнце (Архив)
 http://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY/variant.m3u8
-#EXTINF:-1 group-title="Детям" tvg-id="solnce-pl7",Солнце +7 (Архив)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_DISNEY_7/variant.m3u8
 #EXTINF:-1 group-title="Детям",Тооку HD
 http://live-saha.cdnvideo.ru/saha/tooky/playlist.m3u8
 #EXTINF:-1 group-title="Знания",Love Nature
@@ -12127,14 +12195,16 @@ https://jmp2.uk/stvp-USBA3400003IP
 http://s1.tv-nano.com/Nano_rec/video.m3u8
 #EXTINF:-1 group-title="Знания",National Geographic Wild HD
 http://stream1.cinerama.uz/1042/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Знания",RTД HD
+http://rt-doc.rttv.com/dvr/rtdru/rtdru1080.m3u8
 #EXTINF:-1 group-title="Знания",TV BRICS HD
 http://brics.bonus-tv.ru/cdn/brics/russian/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Знания",Univer
 http://cdn.universmotri.ru/live/mq.sdp/playlist.m3u8
 #EXTINF:-1 group-title="Знания",Univer HD
 https://cdn.universmotri.ru/live/smil:univer.smil/chunklist_w911267907_b3628000_slru.m3u8
-#EXTINF:-1 group-title="Знания",viju Explore HD
-http://stream.mcquack.net/239/index.m3u8
+#EXTINF:-1 group-title="Знания",viju Explore
+https://flussonic.mkpnet.ru/tv-7c57a4c3f9a896ea/video.m3u8
 #EXTINF:-1 group-title="Знания",viju History HD
 https://stream1.cinerama.uz/1046/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Знания",viju Nature
@@ -12161,8 +12231,6 @@ http://stream1.cinerama.uz/1416/index.m3u8
 https://live-4.otcnet.ru/504/135/1080p/index.m3u8
 #EXTINF:-1 group-title="Знания",ЛДПР ТВ HD
 http://46.46.143.222:1935/live/ldpr.stream/playlist.m3u8
-#EXTINF:-1 group-title="Знания",Наука HD
-http://stream.mcquack.net/125/index.m3u8
 #EXTINF:-1 group-title="Знания",Неизвестная Россия HD
 http://cdn2.ntv.ru/unknown_russia/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Знания",Неизвестная планета HD
@@ -12273,14 +12341,24 @@ http://kinowalk.hopto.org/aisman_live
 http://kinowalk.hopto.org/akudjitv_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",Alex.Films
 http://kinowalk.hopto.org/alex.films_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",Blockbusters Time
+http://kinowalk.hopto.org/blockbusterstime_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",Disney XD
+http://kinowalk.hopto.org/disneyxd_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",InMuNa Live
+http://kinowalk.hopto.org/inmuna_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://lastfm.freetls.fastly.net/i/u/300x300/e6ac114abd700e4d57b230a703187a26.jpg",KINOPRO
 http://kinowalk.hopto.org/kinopro_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",KINOWALK
 http://kinowalk.hopto.org/kinowalk_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://i.postimg.cc/ZK8brxhb/Kino-Jam.png",KinoJam
 http://kinowalk.hopto.org/kinojam_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",KinoMix
+http://kinowalk.hopto.org/yurich_kinomix_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://images.live.vkvideo.ru/user/20655827/avatar?change_time=1752925345&croped=1&mh=140&mw=140",Kinofon
 http://kinowalk.hopto.org/kinofon_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",Kycman
+http://kinowalk.hopto.org/kycman_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://i.imgur.com/FOhNoZe.png",Legion tv
 https://kinowalk.hopto.org/legion-tv_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",MAX
@@ -12291,18 +12369,32 @@ http://kinowalk.hopto.org/mmaxim0vich_live
 http://kinowalk.hopto.org/movietoper_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",NikNik-TV
 https://hostrec.ru/live/wic2AtEFCLwsZcUkAgtZcjlYgjc.m3u8
+#EXTINF:-1 group-title="Кинозалы (VPN)",Play 4 Fun
+http://kinowalk.hopto.org/play4fun_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://images.live.vkvideo.ru/user/20292590/avatar?change_time=1746735412&croped=1&mh=140&mw=140",ROMEO Video
 http://kinowalk.hopto.org/romantic_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",Scripach TV
 http://kinowalk.hopto.org/scripachtv_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",Solo ink
+http://kinowalk.hopto.org/soloink_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",TopMoment LiVE
+http://kinowalk.hopto.org/topmomentlive_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",VHS Forever
 http://kinowalk.hopto.org/vhs-forever_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",VHS кино
+http://kinowalk.hopto.org/and7610_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://images.live.vkvideo.ru/user/20737705/avatar?change_time=1746958066&croped=1&mh=140&mw=140",Video Channel
 http://kinowalk.hopto.org/video_channel_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",VideoArsenal
+http://kinowalk.hopto.org/videoarsenal_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",VideoVk
 http://kinowalk.hopto.org/videovk_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",Video_Prokat
 http://kinowalk.hopto.org/video_prokat_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",Wfliq
+http://kinowalk.hopto.org/wfliq_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",ZubrilomFilm
+http://kinowalk.hopto.org/zubrilomfilm_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",ZumiBox
 http://kinowalk.hopto.org/zumibox_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",aleksey_24RUS
@@ -12313,10 +12405,18 @@ http://kinowalk.hopto.org/zsmedia_live
 http://kinowalk.hopto.org/kinolampa_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://images.live.vkvideo.ru/user/20555010/avatar?change_time=1742524384&croped=1&mh=140&mw=140",serial4u
 http://kinowalk.hopto.org/serial4u_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",Егор Егорыч
+http://kinowalk.hopto.org/yegor_yegorych_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://images.live.vkvideo.ru/user/18725544/avatar?change_time=1764060712&croped=1&mh=140&mw=140",КОМЕДИИ 24/7
 http://kinowalk.hopto.org/cmexye4ku_live
 #EXTINF:-1 group-title="Кинозалы (VPN)" tvg-logo="https://images.live.vkvideo.ru/user/20495921/avatar?change_time=1742225886&croped=1&mh=140&mw=140",Мы из 90-х
 http://kinowalk.hopto.org/miiz90x_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",Назад в СССР
+http://kinowalk.hopto.org/backtotheussr_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",ОсторожноМодерн
+http://kinowalk.hopto.org/ostorozhnomodern2_live
+#EXTINF:-1 group-title="Кинозалы (VPN)",Тоха Киноман
+http://kinowalk.hopto.org/kinomania_stream_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",Тоха Стрим
 http://kinowalk.hopto.org/toxa_stream_live
 #EXTINF:-1 group-title="Кинозалы (VPN)",У КРАЯ БЕЗДНЫ 24/7
@@ -12331,8 +12431,6 @@ http://176.118.197.101/1HD/index.m3u8
 http://stream.mcquack.net/318/index.m3u8
 #EXTINF:-1 group-title="Музыка",Bridge Classic
 http://stream.mcquack.net/272/index.m3u8
-#EXTINF:-1 group-title="Музыка",Bridge Deluxe HD
-http://stream.mcquack.net/92/index.m3u8
 #EXTINF:-1 group-title="Музыка",CHD RU Rock HD
 http://194.26.229.213/chdtv_ru_rock/index.m3u8
 #EXTINF:-1 group-title="Музыка",CHD Rock HD
@@ -12351,8 +12449,6 @@ http://206.212.244.63/117/index.m3u8
 http://live-maidantv.cdnvideo.ru/maidantv/maidantv.smil/playlist.m3u8
 #EXTINF:-1 group-title="Музыка",Mezzo HD
 http://live-3.otcnet.ru/Mezzo/index.m3u8
-#EXTINF:-1 group-title="Музыка",Mezzo Live HD
-http://stream.mcquack.net/276/index.m3u8
 #EXTINF:-1 group-title="Музыка",RU.TV HD
 http://flussonic.mkpnet.ru/tv-64b2c4ff13365817/video.m3u8
 #EXTINF:-1 group-title="Музыка",Radio M2O
@@ -12367,6 +12463,8 @@ http://stream.mcquack.net/386/index.m3u8
 http://bsttv.bonus-tv.ru/cdn/kurai/playlist.m3u8
 #EXTINF:-1 group-title="Музыка",Матур ТВ HD
 http://public.streaming.matur-tv.ru/hls/h264_aac/stream.m3u8
+#EXTINF:-1 group-title="Музыка" tvg-id="muztv",Муз-ТВ (Архив)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV/variant.m3u8
 #EXTINF:-1 group-title="Музыка" tvg-id="muztv",Муз-ТВ +7 (Архив)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MUZTV_7/variant.m3u8
 #EXTINF:-1 group-title="Музыка",Музыка Live
@@ -12639,6 +12737,8 @@ https://ext.cdn.nashnet.tv/228.0.1.60/index.m3u8
 https://edge-tv-ll.facecast.io/evacoder_hls_hi/UBZfFgtKB1JwTwoDERNQVGGs/0.m3u8
 #EXTINF:-1 group-title="Новости",Deutsche Welle HD
 http://stream.mcquack.net/440/index.m3u8
+#EXTINF:-1 group-title="Новости",RT English
+https://rt-glb.rttv.com/dvr/rtnews/playlist_1600Kb.m3u8
 #EXTINF:-1 group-title="Новости",RT English HD
 https://rumble-foxo.cdn.rumble.cloud/live/hr6yv36f/slot-4/mxtm-wdfe_1080p/chunklist_DVR.m3u8
 #EXTINF:-1 group-title="Новости" tvg-id="belarus24",Беларусь 24 HD
@@ -12655,6 +12755,8 @@ http://online.video.rbc.ru/online2/rbctv_1080p/index.m3u8
 http://vgtrkregion-reg.cdnvideo.ru/vgtrk/0/russia24-hd/1080p.m3u8
 #EXTINF:-1 group-title="Новости",Соловьев Live HD
 https://stream.smotrim.ru/hls/solovievlive/playlist_6.m3u8
+#EXTINF:-1 group-title="Новости",ТАСС
+https://tass-hls.servicecdn.ru/httpstreamer/tass-loop-main.stream_480p/playlist.m3u8
 #EXTINF:-1 group-title="Общие",CGTN Русский HD
 https://russian-liveali.cgtn.com/hls/LSvexABhNipibK5KRuUkvHZ7220802LSTeze9o8tdFXMHsb1VosgoT220802cd/playlist.m3u8
 #EXTINF:-1 group-title="Общие",loganettv all
@@ -12675,8 +12777,6 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_MIR_7/variant.m3u8
 #EXTINF:-1 group-title="Общие" tvg-id="ntv",НТВ (Архив)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/variant.m3u8
-#EXTINF:-1 group-title="Общие" tvg-id="ntv-pl7",НТВ +7 (Архив)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_NTV_7/variant.m3u8
 #EXTINF:-1 group-title="Общие",НТС Севастополь HD
 http://peqk71plnjy.a.trbcdn.net/livemaster/w4kz7pki62_nts_tv/playlist.m3u8
 #EXTINF:-1 group-title="Общие",ОНТ
@@ -12695,16 +12795,14 @@ https://s14131.cdn.ngenix.net/hls/CH_R41_OTT_DV_KAM_1TV/variant.m3u8
 https://streaming.thestream.cyou/live/210-req_offset_28000000-req_window_0-3k_v5.m3u8
 #EXTINF:-1 group-title="Общие" tvg-id="5kanal-ru",Пятый канал (Архив)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_5TV/variant.m3u8
-#EXTINF:-1 group-title="Общие" tvg-id="5kanal-ru-pl7",Пятый канал +7 (Архив)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_5TV_7/variant.m3u8
 #EXTINF:-1 group-title="Общие" tvg-id="5kanal-ru",Пятый канал HD
 http://stream.mcquack.net/291/index.m3u8
 #EXTINF:-1 group-title="Общие" tvg-id="piaty-int",Пятый канал Int.
 http://178.124.153.123:44400/5kanal
 #EXTINF:-1 group-title="Общие" tvg-id="rentv",Рен ТВ (Архив)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV/variant.m3u8
-#EXTINF:-1 group-title="Общие" tvg-id="rentv-pl7",Рен ТВ +7 (Архив)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV_7/variant.m3u8
+#EXTINF:-1 group-title="Общие",Рен ТВ Int.
+http://fs.uplink.kz/ren/tracks-v1a1/mono.ts.m3u8?token=onlinetv
 #EXTINF:-1 group-title="Общие" tvg-id="rossia1",Россия 1 (Архив)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIA1/variant.m3u8
 #EXTINF:-1 group-title="Общие" tvg-id="rossia1-pl9",Россия 1 +9 (Архив)
@@ -12761,6 +12859,8 @@ http://185.46.16.239:8000/Rossiya_K
 https://zabava-htlive.cdn.ngenix.net/hls/CH_RUSSIAK/variant.m3u8
 #EXTINF:-1 group-title="Развлечение" tvg-id="sts",СТС (Архив)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_STS/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="sts-pl7",СТС +7 (Архив)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_STS_7/variant.m3u8
 #EXTINF:-1 group-title="Развлечение",СТС Int.
 http://178.134.1.158:8081/CTC/index.m3u8
 #EXTINF:-1 group-title="Развлечение" tvg-id="sts-love",СТС Love (Архив)
@@ -12771,6 +12871,8 @@ https://zabava-htlive.cdn.ngenix.net/hls/CH_SUPER/variant.m3u8
 https://zabava-htlive.cdn.ngenix.net/hls/CH_SUPER_7/variant.m3u8
 #EXTINF:-1 group-title="Развлечение" tvg-id="tv3-ru",ТВ3 (Архив)
 https://zabava-htlive.cdn.ngenix.net/hls/CH_TV3/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="tv3-ru-pl7",ТВ3 +7 (Архив)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TV3_7/variant.m3u8
 #EXTINF:-1 group-title="Развлечение",ТВ3 Беларусь
 http://radio.tvs.by:8080/TB-3/index.m3u8
 #EXTINF:-1 group-title="Развлечение" tvg-id="tnt",ТНТ (Архив)
@@ -12785,10 +12887,12 @@ http://zabava-htlive.cdn.ngenix.net/hls/CH_TNT4_7/variant.m3u8
 http://uiptv.do.am/1ufc/109121273/playlist.m3u8
 #EXTINF:-1 group-title="Развлечение" tvg-id="che",Че! (Архив)
 http://zabava-htlive.cdn.ngenix.net/hls/CH_PERETZ/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="che-pl7",Че! +7 (Архив)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_PERETZ_7/variant.m3u8
 #EXTINF:-1 group-title="Развлечение",Ю ТВ
 http://flussonic.mkpnet.ru/tv-3b21847ece4b1c19/video.m3u8
-#EXTINF:-1 group-title="Развлечение" tvg-id="yu",Ю ТВ (Архив)
-http://zabava-htlive.cdn.ngenix.net/hls/CH_U/variant.m3u8
+#EXTINF:-1 group-title="Развлечение" tvg-id="yu-pl7",Ю ТВ +7 (Архив)
+http://zabava-htlive.cdn.ngenix.net/hls/CH_U_7/variant.m3u8
 #EXTINF:-1 group-title="Релакс",Fireplace
 https://jmp2.uk/stvp-KRBD44000025L
 #EXTINF:-1 group-title="Религия",МузСоюз HD
@@ -12873,10 +12977,14 @@ https://bsttv.bonus-tv.ru/cdn/bst/playlist_sdhigh.m3u8
 https://bst.bratsk.ru/hls/bst2/sd/stream.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",Башкортостан 24
 https://vgtrkregion-reg.cdnvideo.ru/vgtrk/ufa/bashkortostan24-hd/index.m3u8
+#EXTINF:-1 group-title="С сайтов (VPN)",БелРос
+https://live3.mediacdn.ru/sr1/tro/playlist_1.5M.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",Белгород 24
 https://belnovosti.cdn.easyhoster.ru:8443/stream.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",Волгоград 24
 https://vgtrkregion-reg.cdnvideo.ru/vgtrk/volgograd/volgograd24-hd/index.m3u8
+#EXTINF:-1 group-title="С сайтов (VPN)" tvg-logo="http://epg.it999.ru/img/6755.png",Волжский Плюс FHD
+http://flussonic.powernet.com.ru:8080/volplus/index.fmp4.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",Восток 24
 https://vgtrkregion-reg.cdnvideo.ru/vgtrk/vladivostok/vostok24-hd/index.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",ГИС Самара
@@ -12977,8 +13085,6 @@ http://bsttv.bonus-tv.ru/cdn/salyam/playlist.m3u8
 https://vgtrkregion-reg.cdnvideo.ru/vgtrk/samara/samara24-hd/index.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",Своё ТВ Ставрополь
 https://svoetv.mediacdn.ru/cdn/svoetv/tracks-v1a1/mono.m3u8
-#EXTINF:-1 group-title="С сайтов (VPN)",Север
-https://live2.mediacdn.ru/sr1/sever/playlist_hdhigh.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",Сибирь 24
 https://vgtrkregion-reg.cdnvideo.ru/vgtrk/novosibirsk/sibir24-hd/index.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",Смайлик ТВ
@@ -13007,6 +13113,8 @@ https://rtpmedia-pull-hls.cdnvideo.ru/rtpmedia-pull/stream1/playlist.m3u8
 https://bsttv.bonus-tv.ru/cdn/tamyr/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)" tvg-logo="https://i.postimg.cc/ydG9W9Pz/1.jpg",Тел+ Астрахань
 https://streaming.astrakhan.ru/telplushd/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="С сайтов (VPN)",Теледом ТВ HD
+https://iam-profi.ru/hls-live/livepkgr/_definst_/liveevent/td720.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)",Тивиком
 https://stream.trafjam.ru/tvcom/studio/tracks-v1a1/rewind-43200.m3u8
 #EXTINF:-1 group-title="С сайтов (VPN)" tvg-logo="https://i.postimg.cc/8ctzKFD6/2024-06-21-210652798.png",Тосно ТВ
@@ -13067,6 +13175,8 @@ http://streaming.astrakhan.ru/astrakhanrusporthd/tracks-v5a1/index.m3u8
 http://streaming.astrakhan.ru/astrakhanrusporthd/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="Спорт",Eurosport 1
 http://znty.dyndns.org:5010/hls/eurosport.m3u8
+#EXTINF:-1 group-title="Спорт",Extreme
+https://flussonic.mkpnet.ru/tv-1a9441fd32d63873/video.m3u8
 #EXTINF:-1 group-title="Спорт",Fuel TV HD
 https://stream1.cinerama.uz/1061/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Спорт",Okko Спорт. Прайм HD
