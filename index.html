@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IPTV Player</title>
+
+    <!-- Плееры для всех форматов -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dashjs@latest/dist/dash.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mpegts.js@latest/dist/mpegts.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -12,7 +17,7 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #0a0e1a;
@@ -20,13 +25,13 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-        
+
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 10px;
         }
-        
+
         .player-wrapper {
             position: sticky;
             top: 0;
@@ -34,7 +39,7 @@
             background: #0a0e1a;
             padding-bottom: 10px;
         }
-        
+
         .video-container {
             position: relative;
             background: #000;
@@ -42,13 +47,14 @@
             overflow: hidden;
             aspect-ratio: 16/9;
         }
-        
+
         video {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
-        
+
+        /* Оверлей загрузки/буферизации */
         .overlay {
             position: absolute;
             inset: 0;
@@ -58,12 +64,11 @@
             justify-content: center;
             background: rgba(0,0,0,0.8);
             gap: 15px;
+            z-index: 10;
         }
-        
-        .overlay.hidden {
-            display: none;
-        }
-        
+
+        .overlay.hidden { display: none; }
+
         .play-button {
             width: 80px;
             height: 80px;
@@ -75,18 +80,55 @@
             cursor: pointer;
             transition: transform 0.2s;
         }
-        
-        .play-button:active {
-            transform: scale(0.95);
-        }
-        
+
+        .play-button:active { transform: scale(0.95); }
+
         .play-button svg {
             width: 32px;
             height: 32px;
             fill: #000;
             margin-left: 4px;
         }
-        
+
+        /* Спиннер буферизации */
+        .buffering {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.5);
+            z-index: 9;
+        }
+
+        .buffering.hidden { display: none; }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(255,165,0,0.3);
+            border-top-color: #ffa500;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Индикатор формата */
+        .format-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: #4ecdc4;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: monospace;
+            z-index: 5;
+        }
+
         .controls {
             position: absolute;
             bottom: 0;
@@ -97,8 +139,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            z-index: 11;
         }
-        
+
         .btn {
             background: rgba(255,255,255,0.2);
             border: none;
@@ -110,31 +153,21 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            flex-shrink: 0;
         }
-        
+
         .btn.main {
             background: #ffa500;
             color: #000;
             width: 56px;
             height: 56px;
         }
-        
-        .btn svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-        
-        .btn.main svg {
-            width: 24px;
-            height: 24px;
-        }
-        
-        .volume {
-            flex: 1;
-            max-width: 100px;
-        }
-        
+
+        .btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .btn.main svg { width: 24px; height: 24px; }
+
+        .volume { flex: 1; max-width: 100px; }
+
         .volume input {
             width: 100%;
             height: 4px;
@@ -142,7 +175,7 @@
             border-radius: 2px;
             -webkit-appearance: none;
         }
-        
+
         .volume input::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 14px;
@@ -150,28 +183,25 @@
             background: #ffa500;
             border-radius: 50%;
         }
-        
+
         .channel-info {
             margin-top: 10px;
             padding: 12px;
             background: rgba(255,255,255,0.05);
             border-radius: 10px;
         }
-        
-        .channel-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
+
+        .channel-title { font-size: 18px; font-weight: 700; margin-bottom: 5px; }
+
         .channel-meta {
             font-size: 13px;
             color: #888;
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
+            align-items: center;
         }
-        
+
         .badge {
             background: rgba(255,165,0,0.2);
             color: #ffa500;
@@ -179,7 +209,7 @@
             border-radius: 4px;
             font-size: 11px;
         }
-        
+
         .live {
             position: absolute;
             top: 10px;
@@ -193,8 +223,9 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            z-index: 5;
         }
-        
+
         .live::before {
             content: '';
             width: 6px;
@@ -203,37 +234,27 @@
             border-radius: 50%;
             animation: pulse 1.5s infinite;
         }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
+
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
         .channel-number {
             font-size: 28px;
             font-weight: 800;
             color: #ffa500;
             margin-bottom: 10px;
         }
-        
-        .section {
-            margin-top: 15px;
-        }
-        
+
+        .section { margin-top: 15px; }
+
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
-        
-        .section-title {
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #888;
-        }
-        
+
+        .section-title { font-size: 14px; font-weight: 700; text-transform: uppercase; color: #888; }
+
         .count {
             background: #ffa500;
             color: #000;
@@ -242,7 +263,7 @@
             font-size: 12px;
             font-weight: 700;
         }
-        
+
         .search {
             background: rgba(255,255,255,0.08);
             border-radius: 10px;
@@ -252,7 +273,7 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .search input {
             flex: 1;
             background: none;
@@ -261,11 +282,9 @@
             font-size: 15px;
             outline: none;
         }
-        
-        .search input::placeholder {
-            color: #666;
-        }
-        
+
+        .search input::placeholder { color: #666; }
+
         .tabs {
             display: flex;
             gap: 5px;
@@ -274,7 +293,7 @@
             border-radius: 10px;
             margin-bottom: 12px;
         }
-        
+
         .tab {
             flex: 1;
             padding: 10px;
@@ -286,12 +305,9 @@
             border-radius: 8px;
             cursor: pointer;
         }
-        
-        .tab.active {
-            background: rgba(255,165,0,0.2);
-            color: #ffa500;
-        }
-        
+
+        .tab.active { background: rgba(255,165,0,0.2); color: #ffa500; }
+
         .categories {
             display: flex;
             gap: 8px;
@@ -299,11 +315,9 @@
             margin-bottom: 12px;
             padding-bottom: 5px;
         }
-        
-        .categories::-webkit-scrollbar {
-            display: none;
-        }
-        
+
+        .categories::-webkit-scrollbar { display: none; }
+
         .category {
             background: rgba(255,255,255,0.08);
             padding: 8px 16px;
@@ -313,19 +327,11 @@
             cursor: pointer;
             border: 1px solid rgba(255,255,255,0.1);
         }
-        
-        .category.active {
-            background: #ffa500;
-            color: #000;
-            border-color: #ffa500;
-        }
-        
-        .channel-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
+
+        .category.active { background: #ffa500; color: #000; border-color: #ffa500; }
+
+        .channel-list { display: flex; flex-direction: column; gap: 8px; }
+
         .channel-item {
             background: rgba(255,255,255,0.05);
             border: 2px solid rgba(255,255,255,0.08);
@@ -337,28 +343,13 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
-        .channel-item:hover {
-            background: rgba(255,255,255,0.08);
-        }
-        
-        .channel-item.active {
-            background: rgba(255,165,0,0.15);
-            border-color: #ffa500;
-        }
-        
-        .channel-item-num {
-            font-size: 14px;
-            font-weight: 700;
-            color: #666;
-            width: 40px;
-            text-align: center;
-        }
-        
-        .channel-item.active .channel-item-num {
-            color: #ffa500;
-        }
-        
+
+        .channel-item:hover { background: rgba(255,255,255,0.08); }
+        .channel-item.active { background: rgba(255,165,0,0.15); border-color: #ffa500; }
+
+        .channel-item-num { font-size: 14px; font-weight: 700; color: #666; width: 40px; text-align: center; }
+        .channel-item.active .channel-item-num { color: #ffa500; }
+
         .channel-item-logo {
             width: 48px;
             height: 48px;
@@ -370,20 +361,13 @@
             font-size: 20px;
             font-weight: 700;
             overflow: hidden;
+            flex-shrink: 0;
         }
-        
-        .channel-item-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 5px;
-        }
-        
-        .channel-item-info {
-            flex: 1;
-            min-width: 0;
-        }
-        
+
+        .channel-item-logo img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+
+        .channel-item-info { flex: 1; min-width: 0; }
+
         .channel-item-name {
             font-weight: 600;
             font-size: 15px;
@@ -392,12 +376,9 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        
-        .channel-item-group {
-            font-size: 12px;
-            color: #888;
-        }
-        
+
+        .channel-item-group { font-size: 12px; color: #888; }
+
         .favorite {
             width: 36px;
             height: 36px;
@@ -406,18 +387,12 @@
             justify-content: center;
             color: #666;
             cursor: pointer;
+            flex-shrink: 0;
         }
-        
-        .favorite.active {
-            color: #ffa500;
-        }
-        
-        .favorite svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-        }
-        
+
+        .favorite.active { color: #ffa500; }
+        .favorite svg { width: 22px; height: 22px; fill: currentColor; }
+
         .error-box {
             background: rgba(255,68,68,0.1);
             border: 2px solid rgba(255,68,68,0.3);
@@ -426,18 +401,10 @@
             text-align: center;
             margin: 15px 0;
         }
-        
-        .error-box h3 {
-            color: #ff4444;
-            margin-bottom: 8px;
-        }
-        
-        .error-box p {
-            color: #888;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-        
+
+        .error-box h3 { color: #ff4444; margin-bottom: 8px; }
+        .error-box p { color: #888; font-size: 13px; margin-bottom: 15px; }
+
         .btn-load {
             background: #ffa500;
             color: #000;
@@ -448,13 +415,9 @@
             cursor: pointer;
             margin: 4px;
         }
-        
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #888;
-        }
-        
+
+        .loading { text-align: center; padding: 40px; color: #888; }
+
         .status {
             padding: 10px;
             background: rgba(255,255,255,0.03);
@@ -466,14 +429,9 @@
             align-items: center;
             margin-top: 10px;
         }
-        
-        .switch {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        
+
+        .switch { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+
         .toggle {
             width: 44px;
             height: 24px;
@@ -481,11 +439,9 @@
             border-radius: 12px;
             position: relative;
         }
-        
-        .toggle.active {
-            background: #ffa500;
-        }
-        
+
+        .toggle.active { background: #ffa500; }
+
         .toggle::after {
             content: '';
             position: absolute;
@@ -497,13 +453,40 @@
             border-radius: 50%;
             transition: 0.2s;
         }
-        
-        .toggle.active::after {
-            left: 22px;
+
+        .toggle.active::after { left: 22px; }
+
+        .hidden { display: none !important; }
+
+        /* Лог ошибок в плеере */
+        .player-error {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.9);
+            z-index: 12;
+            gap: 10px;
+            padding: 20px;
+            text-align: center;
         }
-        
-        .hidden {
-            display: none !important;
+
+        .player-error.hidden { display: none; }
+        .player-error .err-icon { font-size: 40px; }
+        .player-error .err-msg { color: #ff6b6b; font-size: 14px; }
+        .player-error .err-detail { color: #666; font-size: 12px; max-width: 300px; word-break: break-all; }
+
+        .player-error .btn-retry {
+            background: #ffa500;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -511,17 +494,32 @@
     <div class="container">
         <div class="player-wrapper">
             <div class="channel-number" id="chNum">—</div>
-            
+
             <div class="video-container">
                 <video id="video" playsinline preload="metadata"></video>
                 <div class="live">LIVE</div>
-                
+                <div class="format-badge hidden" id="formatBadge">—</div>
+
+                <!-- Буферизация -->
+                <div class="buffering hidden" id="buffering">
+                    <div class="spinner"></div>
+                </div>
+
+                <!-- Ошибка в плеере -->
+                <div class="player-error hidden" id="playerError">
+                    <div class="err-icon">📡</div>
+                    <div class="err-msg" id="errMsg">Поток недоступен</div>
+                    <div class="err-detail" id="errDetail"></div>
+                    <button class="btn-retry" id="btnRetry">Повторить</button>
+                </div>
+
+                <!-- Стартовый оверлей -->
                 <div class="overlay" id="overlay">
                     <div class="play-button" id="bigPlay">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
-                
+
                 <div class="controls">
                     <button class="btn" id="btnPrev">
                         <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
@@ -534,7 +532,7 @@
                         <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
                     </button>
                     <div class="volume">
-                        <input type="range" id="vol" min="0" max="1" step="0.1" value="1">
+                        <input type="range" id="vol" min="0" max="1" step="0.05" value="1">
                     </div>
                     <button class="btn" id="btnMute">
                         <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
@@ -544,50 +542,49 @@
                     </button>
                 </div>
             </div>
-            
+
             <div class="channel-info">
                 <div class="channel-title" id="chTitle">Выберите канал</div>
                 <div class="channel-meta">
                     <span class="badge" id="chGroup">—</span>
+                    <span class="badge" id="chFormat" style="background:rgba(78,205,196,0.2);color:#4ecdc4">—</span>
                     <span id="chHost"></span>
                 </div>
             </div>
         </div>
-        
+
         <div class="section">
             <div class="section-header">
                 <div class="section-title">КАНАЛЫ</div>
                 <div class="count" id="count">0</div>
             </div>
-            
+
             <div class="search">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"/>
-                    <path d="m21 21-4.35-4.35"/>
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                 </svg>
                 <input type="text" id="search" placeholder="Поиск каналов...">
             </div>
-            
+
             <div class="tabs">
                 <button class="tab active" data-tab="all">Все</button>
                 <button class="tab" data-tab="fav">★ Избранное</button>
                 <button class="tab" data-tab="hist">История</button>
             </div>
-            
+
             <div class="categories" id="categories"></div>
-            
             <div class="channel-list" id="list"></div>
-            
             <div class="loading hidden" id="loading">Загрузка...</div>
-            
+
             <div class="error-box hidden" id="error">
                 <h3>Ошибка загрузки плейлиста</h3>
-                <p>Не удалось загрузить плейлист с GitHub. Проверьте интернет-соединение.</p>
-                <button class="btn-load" onclick="document.getElementById('file').click()">Выбрать файл вручную</button>
-                <input type="file" id="file" accept=".m3u,.m3u8" class="hidden">
+                <p>Не удалось загрузить плейлист. Проверьте соединение.</p>
+                <button class="btn-load" onclick="document.getElementById('file').click()">Выбрать файл</button>
+                <button class="btn-load" onclick="loadPlaylist()">Повторить</button>
+                <input type="file" id="file" accept=".m3u,.m3u8,.txt" class="hidden">
             </div>
         </div>
-        
+
         <div class="status">
             <span id="status">Загрузка...</span>
             <label class="switch">
@@ -597,441 +594,716 @@
         </div>
     </div>
 
-    <script>
-        // Состояние
-        const state = {
-            channels: [],
-            current: -1,
-            favorites: new Set(JSON.parse(localStorage.getItem('fav') || '[]')),
-            history: JSON.parse(localStorage.getItem('hist') || '[]'),
-            tab: 'all',
-            category: 'all',
-            search: '',
-            auto: true,
-            fails: 0,
-            hls: null
-        };
+<script>
+// ═══════════════════════════════════════════
+//  СОСТОЯНИЕ
+// ═══════════════════════════════════════════
+const state = {
+    channels: [],
+    current: -1,
+    favorites: new Set(safeParse('fav', [])),
+    history: safeParse('hist', []),
+    tab: 'all',
+    category: 'all',
+    search: '',
+    auto: true,
+    fails: 0,
+    player: null,       // текущий инстанс плеера
+    playerType: null,   // 'hls' | 'dash' | 'mpegts' | 'native'
+    fallbackChain: [],  // цепочка форматов для retry
+    fallbackIdx: 0
+};
 
-        // Элементы
-        const $ = id => document.getElementById(id);
-        const video = $('video');
-        
-        // Парсинг M3U
-        function parseM3U(text) {
-            const channels = [];
-            const lines = text.split('\n');
-            let current = null;
-            const seen = new Set();
-            
-            for (let line of lines) {
-                line = line.trim();
-                
-                if (line.startsWith('#EXTINF:')) {
-                    // Извлекаем group-title
-                    const groupMatch = line.match(/group-title="([^"]*)"/);
-                    const group = groupMatch ? groupMatch[1].trim() : 'Без группы';
-                    
-                    // Извлекаем tvg-logo
-                    const logoMatch = line.match(/tvg-logo="([^"]*)"/);
-                    const logo = logoMatch ? logoMatch[1].trim() : '';
-                    
-                    // Извлекаем имя канала (после последней запятой)
-                    const lastComma = line.lastIndexOf(',');
-                    let name = lastComma > -1 ? line.substring(lastComma + 1).trim() : '';
-                    
-                    // Очищаем имя от кавычек и мусора
-                    name = name
-                        .replace(/^["']|["']$/g, '')
-                        .replace(/\s+/g, ' ')
-                        .trim();
-                    
-                    // Если имя пустое, используем дефолт
-                    if (!name) name = 'Канал ' + (channels.length + 1);
-                    
-                    current = { name, group, logo };
-                }
-                else if (line && !line.startsWith('#') && current) {
-                    if (line.match(/^https?:\/\//i)) {
-                        const key = current.name.toLowerCase() + '|' + line;
-                        if (!seen.has(key)) {
-                            seen.add(key);
-                            channels.push({
-                                ...current,
-                                url: line
-                            });
+function safeParse(key, def) {
+    try { return JSON.parse(localStorage.getItem(key)) || def; }
+    catch { return def; }
+}
+
+function safeSave(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+const $ = id => document.getElementById(id);
+const video = $('video');
+
+// ═══════════════════════════════════════════
+//  ОПРЕДЕЛЕНИЕ ФОРМАТА ПОТОКА
+// ═══════════════════════════════════════════
+function detectFormat(url) {
+    const u = url.toLowerCase().split('?')[0]; // убираем query-параметры
+
+    if (u.endsWith('.m3u8') || u.includes('/hls/') || u.includes('m3u8'))
+        return 'hls';
+
+    if (u.endsWith('.mpd') || u.includes('/dash/') || u.includes('manifest.mpd'))
+        return 'dash';
+
+    if (u.endsWith('.ts') || u.includes('/mpegts/') || u.includes('/ts/'))
+        return 'mpegts';
+
+    if (u.endsWith('.flv') || u.includes('/flv/') || u.includes('http-flv'))
+        return 'flv';
+
+    if (u.endsWith('.mp4') || u.endsWith('.webm') || u.endsWith('.ogg') || u.endsWith('.ogv'))
+        return 'native';
+
+    if (u.endsWith('.aac') || u.endsWith('.mp3') || u.endsWith('.opus'))
+        return 'native';
+
+    // Неизвестный — попробуем цепочку
+    return 'unknown';
+}
+
+// Цепочка fallback для неизвестных URL
+function getFallbackChain(url) {
+    const primary = detectFormat(url);
+    if (primary !== 'unknown') return [primary];
+
+    // Для неизвестных: HLS → MPEG-TS → DASH → native
+    return ['hls', 'mpegts', 'dash', 'native'];
+}
+
+function formatLabel(type) {
+    const labels = {
+        hls: 'HLS',
+        dash: 'DASH',
+        mpegts: 'MPEG-TS',
+        flv: 'HTTP-FLV',
+        native: 'DIRECT'
+    };
+    return labels[type] || type.toUpperCase();
+}
+
+// ═══════════════════════════════════════════
+//  УНИВЕРСАЛЬНЫЙ ПЛЕЕР
+// ═══════════════════════════════════════════
+function destroyPlayer() {
+    if (state.player) {
+        try {
+            if (state.playerType === 'hls') state.player.destroy();
+            else if (state.playerType === 'dash') state.player.reset();
+            else if (state.playerType === 'mpegts') { state.player.pause(); state.player.unload(); state.player.detachMediaElement(); state.player.destroy(); }
+        } catch(e) {}
+        state.player = null;
+        state.playerType = null;
+    }
+    video.removeAttribute('src');
+    video.load();
+}
+
+function playWithFormat(url, format) {
+    destroyPlayer();
+    state.playerType = format;
+
+    $('formatBadge').textContent = formatLabel(format);
+    $('formatBadge').classList.remove('hidden');
+    $('chFormat').textContent = formatLabel(format);
+    $('playerError').classList.add('hidden');
+    showBuffering(true);
+
+    switch (format) {
+        case 'hls':
+            playHLS(url);
+            break;
+        case 'dash':
+            playDASH(url);
+            break;
+        case 'mpegts':
+        case 'flv':
+            playMpegts(url, format);
+            break;
+        case 'native':
+        default:
+            playNative(url);
+            break;
+    }
+}
+
+// --- HLS ---
+function playHLS(url) {
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // Нативный HLS (Safari, iOS)
+        state.playerType = 'native';
+        video.src = url;
+        video.play().catch(() => {});
+        return;
+    }
+
+    if (window.Hls && Hls.isSupported()) {
+        const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+            backBufferLength: 90,
+            manifestLoadingMaxRetry: 3,
+            manifestLoadingRetryDelay: 1000,
+            levelLoadingMaxRetry: 3,
+            fragLoadingMaxRetry: 4,
+            fragLoadingRetryDelay: 1000,
+            // Для проблемных потоков
+            xhrSetup: (xhr) => {
+                xhr.withCredentials = false;
+            }
+        });
+
+        hls.loadSource(url);
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.play().catch(() => {});
+        });
+
+        hls.on(Hls.Events.ERROR, (e, data) => {
+            if (data.fatal) {
+                switch (data.type) {
+                    case Hls.ErrorTypes.NETWORK_ERROR:
+                        if (state.fails < 2) {
+                            state.fails++;
+                            hls.startLoad();
+                        } else {
+                            handleStreamError('HLS: сетевая ошибка', data.details);
                         }
-                        current = null;
-                    }
+                        break;
+                    case Hls.ErrorTypes.MEDIA_ERROR:
+                        hls.recoverMediaError();
+                        break;
+                    default:
+                        handleStreamError('HLS: фатальная ошибка', data.details);
+                        break;
                 }
             }
-            
-            return channels;
-        }
-        
-        // Получение инициалов и цвета
-        function getInitial(name) {
-            return (name.match(/[a-zA-Zа-яА-Я0-9]/) || ['?'])[0].toUpperCase();
-        }
-        
-        function getColor(name) {
-            const colors = ['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8','#a29bfe','#fdcb6e'];
-            let hash = 0;
-            for (let i = 0; i < name.length; i++) {
-                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        });
+
+        state.player = hls;
+    } else {
+        // Фоллбэк: пробуем как native
+        playNative(url);
+    }
+}
+
+// --- DASH ---
+function playDASH(url) {
+    if (window.dashjs) {
+        const player = dashjs.MediaPlayer().create();
+        player.initialize(video, url, true);
+
+        player.updateSettings({
+            streaming: {
+                abr: { autoSwitchBitrate: { video: true, audio: true } },
+                buffer: { bufferTimeAtTopQuality: 30, bufferToKeep: 20 },
+                retryAttempts: { MPD: 3, MediaSegment: 4, InitializationSegment: 3 },
+                retryIntervals: { MPD: 1000, MediaSegment: 1000 }
             }
-            return colors[Math.abs(hash) % colors.length];
+        });
+
+        player.on(dashjs.MediaPlayer.events.ERROR, (e) => {
+            handleStreamError('DASH: ошибка', e.error?.message || '');
+        });
+
+        player.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, () => {
+            state.fails = 0;
+            showBuffering(false);
+        });
+
+        state.player = player;
+    } else {
+        // dash.js не загрузился — пробуем native
+        playNative(url);
+    }
+}
+
+// --- MPEG-TS / HTTP-FLV ---
+function playMpegts(url, format) {
+    if (window.mpegts && mpegts.getFeatureList().mseLivePlayback) {
+        const type = format === 'flv' ? 'flv' : 'mpegts';
+
+        const player = mpegts.createPlayer({
+            type: type,
+            isLive: true,
+            url: url
+        }, {
+            enableWorker: true,
+            enableStashBuffer: true,
+            stashInitialSize: 1024,
+            liveBufferLatencyChasing: true,
+            autoCleanupSourceBuffer: true,
+            // Для HTTP-FLV с chunked transfer
+            fixAudioTimestampGap: true
+        });
+
+        player.attachMediaElement(video);
+        player.load();
+        player.play();
+
+        player.on(mpegts.Events.ERROR, (errType, errDetail) => {
+            handleStreamError(`MPEG-TS: ${errType}`, errDetail);
+        });
+
+        state.player = player;
+    } else {
+        // mpegts.js не поддерживается — пробуем native
+        playNative(url);
+    }
+}
+
+// --- Native (MP4, WebM, audio, fallback) ---
+function playNative(url) {
+    state.playerType = 'native';
+    video.src = url;
+    video.play().catch(() => {});
+}
+
+// ═══════════════════════════════════════════
+//  ОБРАБОТКА ОШИБОК И FALLBACK
+// ═══════════════════════════════════════════
+function handleStreamError(msg, detail) {
+    state.fails++;
+    showBuffering(false);
+
+    // Пробуем следующий формат из цепочки
+    if (state.fallbackIdx < state.fallbackChain.length - 1) {
+        state.fallbackIdx++;
+        const nextFormat = state.fallbackChain[state.fallbackIdx];
+        console.log(`Fallback: пробуем ${nextFormat}`);
+        setTimeout(() => {
+            playWithFormat(state.channels[state.current]?.url, nextFormat);
+        }, 500);
+        return;
+    }
+
+    // Все форматы исчерпаны
+    if (state.auto && state.fails < 4) {
+        setTimeout(nextChannel, 1500);
+    } else {
+        $('playerError').classList.remove('hidden');
+        $('errMsg').textContent = msg || 'Поток недоступен';
+        $('errDetail').textContent = detail || '';
+    }
+}
+
+function showBuffering(show) {
+    $('buffering').classList.toggle('hidden', !show);
+}
+
+// ═══════════════════════════════════════════
+//  ПАРСИНГ M3U (расширенный)
+// ═══════════════════════════════════════════
+function parseM3U(text) {
+    const channels = [];
+    const lines = text.split(/\r?\n/);
+    let current = null;
+    const seen = new Set();
+
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+
+        if (line.startsWith('#EXTINF:')) {
+            const group = extractAttr(line, 'group-title') || 'Без группы';
+            const logo = extractAttr(line, 'tvg-logo') || '';
+            const tvgId = extractAttr(line, 'tvg-id') || '';
+            const tvgName = extractAttr(line, 'tvg-name') || '';
+
+            // Имя канала: после последней запятой
+            const lastComma = line.lastIndexOf(',');
+            let name = lastComma > -1 ? line.substring(lastComma + 1).trim() : '';
+            name = name.replace(/^["']|["']$/g, '').replace(/\s+/g, ' ').trim();
+            if (!name) name = tvgName || 'Канал ' + (channels.length + 1);
+
+            current = { name, group, logo, tvgId };
         }
-        
-        // Рендер логотипа
-        function renderLogo(ch) {
-            if (ch.logo && ch.logo.startsWith('http')) {
-                return `<img src="${ch.logo}" onerror="this.parentElement.innerHTML='<span style=\\'color:${getColor(ch.name)}\\'>${getInitial(ch.name)}</span>'">`;
-            }
-            return `<span style="color:${getColor(ch.name)}">${getInitial(ch.name)}</span>`;
+        else if (line.startsWith('#EXTGRP:')) {
+            if (current) current.group = line.substring(8).trim();
         }
-        
-        // Фильтрация каналов
-        function filter() {
-            let result = [...state.channels];
-            
-            if (state.tab === 'fav') {
-                result = result.filter(c => state.favorites.has(c.name));
-            } else if (state.tab === 'hist') {
-                const set = new Set(state.history);
-                result = result.filter(c => set.has(c.name));
+        else if (line.startsWith('#EXTVLCOPT:')) {
+            // Сохраняем опции VLC (http-user-agent, http-referrer и т.д.)
+            if (current) {
+                if (!current.opts) current.opts = {};
+                const opt = line.substring(11);
+                const eq = opt.indexOf('=');
+                if (eq > -1) current.opts[opt.substring(0, eq)] = opt.substring(eq + 1);
             }
-            
-            if (state.category !== 'all') {
-                result = result.filter(c => c.group === state.category);
-            }
-            
-            if (state.search) {
-                const s = state.search.toLowerCase();
-                result = result.filter(c => 
-                    c.name.toLowerCase().includes(s) || 
-                    c.group.toLowerCase().includes(s)
-                );
-            }
-            
-            return result;
         }
-        
-        // Рендер списка
-        function render() {
-            const filtered = filter();
-            $('count').textContent = filtered.length;
-            
-            if (filtered.length === 0) {
-                $('list').innerHTML = '<div style="text-align:center;padding:40px;color:#666">Нет каналов</div>';
+        else if (line && !line.startsWith('#') && current) {
+            // URL потока
+            if (line.match(/^https?:\/\//i) || line.match(/^rtmp:\/\//i)) {
+                const key = current.name.toLowerCase() + '|' + line;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    channels.push({ ...current, url: line });
+                }
+                current = null;
+            }
+        }
+    }
+
+    return channels;
+}
+
+function extractAttr(line, attr) {
+    const re = new RegExp(attr + '="([^"]*)"', 'i');
+    const m = line.match(re);
+    return m ? m[1].trim() : '';
+}
+
+// ═══════════════════════════════════════════
+//  РЕНДЕРИНГ
+// ═══════════════════════════════════════════
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function escapeAttr(str) {
+    return str.replace(/["'<>&]/g, c =>
+        ({'"':'&quot;',"'":'&#39;','<':'&lt;','>':'&gt;','&':'&amp;'}[c])
+    );
+}
+
+function getInitial(name) {
+    return (name.match(/[a-zA-Zа-яА-Я0-9]/) || ['?'])[0].toUpperCase();
+}
+
+function getColor(name) {
+    const colors = ['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8','#a29bfe','#fdcb6e'];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    return colors[Math.abs(hash) % colors.length];
+}
+
+function renderLogo(ch) {
+    if (ch.logo && ch.logo.startsWith('http')) {
+        const safe = escapeAttr(ch.logo);
+        const color = getColor(ch.name);
+        const init = getInitial(ch.name);
+        return `<img src="${safe}" loading="lazy" onerror="this.parentElement.innerHTML='<span style=\\'color:${color}\\'>${init}</span>'">`;
+    }
+    return `<span style="color:${getColor(ch.name)}">${getInitial(ch.name)}</span>`;
+}
+
+function filter() {
+    let result = [...state.channels];
+
+    if (state.tab === 'fav') result = result.filter(c => state.favorites.has(c.name));
+    else if (state.tab === 'hist') {
+        const set = new Set(state.history);
+        result = result.filter(c => set.has(c.name));
+        // Сортировка по порядку истории
+        result.sort((a, b) => state.history.indexOf(a.name) - state.history.indexOf(b.name));
+    }
+
+    if (state.category !== 'all') result = result.filter(c => c.group === state.category);
+
+    if (state.search) {
+        const s = state.search.toLowerCase();
+        result = result.filter(c =>
+            c.name.toLowerCase().includes(s) || c.group.toLowerCase().includes(s)
+        );
+    }
+
+    return result;
+}
+
+function render() {
+    const filtered = filter();
+    $('count').textContent = filtered.length;
+
+    if (!filtered.length) {
+        $('list').innerHTML = '<div style="text-align:center;padding:40px;color:#666">Нет каналов</div>';
+        return;
+    }
+
+    // Виртуализация: рендерим максимум 200 элементов
+    const toRender = filtered.slice(0, 200);
+
+    $('list').innerHTML = toRender.map(ch => {
+        const idx = state.channels.indexOf(ch);
+        const active = idx === state.current;
+        const fav = state.favorites.has(ch.name);
+        const fmt = formatLabel(detectFormat(ch.url));
+
+        return `
+            <div class="channel-item ${active ? 'active' : ''}" data-idx="${idx}">
+                <div class="channel-item-num">${String(idx + 1).padStart(3, '0')}</div>
+                <div class="channel-item-logo">${renderLogo(ch)}</div>
+                <div class="channel-item-info">
+                    <div class="channel-item-name">${escapeHtml(ch.name)}</div>
+                    <div class="channel-item-group">${escapeHtml(ch.group)} · ${fmt}</div>
+                </div>
+                <div class="favorite ${fav ? 'active' : ''}" data-fav="${idx}">
+                    <svg viewBox="0 0 24 24" fill="${fav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </div>
+            </div>`;
+    }).join('');
+
+    if (filtered.length > 200) {
+        $('list').innerHTML += `<div style="text-align:center;padding:15px;color:#666;font-size:13px">
+            Показано 200 из ${filtered.length}. Уточните поиск.
+        </div>`;
+    }
+
+    // Делегирование событий
+    $('list').onclick = e => {
+        const favEl = e.target.closest('.favorite');
+        if (favEl) { toggleFav(+favEl.dataset.fav); return; }
+        const item = e.target.closest('.channel-item');
+        if (item) selectChannel(+item.dataset.idx);
+    };
+}
+
+function renderCategories() {
+    const groups = {};
+    state.channels.forEach(c => { groups[c.group] = (groups[c.group] || 0) + 1; });
+    const sorted = Object.entries(groups).sort((a, b) => b[1] - a[1]);
+
+    $('categories').innerHTML = `
+        <div class="category ${state.category === 'all' ? 'active' : ''}" data-cat="all">
+            Все • ${state.channels.length}
+        </div>
+        ${sorted.map(([name, count]) => `
+            <div class="category ${state.category === name ? 'active' : ''}" data-cat="${escapeAttr(name)}">
+                ${escapeHtml(name)} • ${count}
+            </div>`).join('')}`;
+
+    $('categories').onclick = e => {
+        const el = e.target.closest('.category');
+        if (!el) return;
+        state.category = el.dataset.cat;
+        render();
+        $('categories').querySelectorAll('.category').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+    };
+}
+
+// ═══════════════════════════════════════════
+//  ВЫБОР КАНАЛА И ВОСПРОИЗВЕДЕНИЕ
+// ═══════════════════════════════════════════
+function selectChannel(idx) {
+    if (idx < 0 || idx >= state.channels.length) return;
+
+    state.current = idx;
+    state.fails = 0;
+    state.fallbackIdx = 0;
+
+    const ch = state.channels[idx];
+    state.fallbackChain = getFallbackChain(ch.url);
+
+    $('chNum').textContent = String(idx + 1).padStart(3, '0');
+    $('chTitle').textContent = ch.name;
+    $('chGroup').textContent = ch.group;
+    try { $('chHost').textContent = new URL(ch.url).host; } catch {}
+    document.title = ch.name + ' — IPTV';
+
+    $('overlay').classList.add('hidden');
+    $('playerError').classList.add('hidden');
+
+    // Запускаем с основного формата
+    playWithFormat(ch.url, state.fallbackChain[0]);
+
+    addHistory(ch.name);
+    render();
+
+    const item = document.querySelector(`.channel-item[data-idx="${idx}"]`);
+    if (item) item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ═══════════════════════════════════════════
+//  ИСТОРИЯ / ИЗБРАННОЕ
+// ═══════════════════════════════════════════
+function addHistory(name) {
+    state.history = [name, ...state.history.filter(n => n !== name)].slice(0, 50);
+    safeSave('hist', state.history);
+}
+
+function toggleFav(idx) {
+    const name = state.channels[idx].name;
+    state.favorites.has(name) ? state.favorites.delete(name) : state.favorites.add(name);
+    safeSave('fav', [...state.favorites]);
+    render();
+}
+
+// ═══════════════════════════════════════════
+//  НАВИГАЦИЯ
+// ═══════════════════════════════════════════
+function prevChannel() {
+    if (!state.channels.length) return;
+    selectChannel(state.current > 0 ? state.current - 1 : state.channels.length - 1);
+}
+
+function nextChannel() {
+    if (!state.channels.length) return;
+    selectChannel(state.current < state.channels.length - 1 ? state.current + 1 : 0);
+}
+
+// ═══════════════════════════════════════════
+//  ЗАГРУЗКА ПЛЕЙЛИСТА
+// ═══════════════════════════════════════════
+async function loadPlaylist() {
+    $('loading').classList.remove('hidden');
+    $('error').classList.add('hidden');
+    $('status').textContent = 'Загрузка плейлиста...';
+
+    const urls = [
+        'https://raw.githubusercontent.com/SlayerHasher/OnlineTV/main/playlist.m3u',
+        // Можно добавить зеркала:
+        // 'https://cdn.jsdelivr.net/gh/SlayerHasher/OnlineTV@main/playlist.m3u',
+    ];
+
+    for (const url of urls) {
+        try {
+            const res = await fetch(url, { signal: AbortSignal.timeout(15000) });
+            if (!res.ok) continue;
+            const text = await res.text();
+            state.channels = parseM3U(text);
+            if (state.channels.length) {
+                $('status').textContent = `${state.channels.length} каналов загружено`;
+                renderCategories();
+                render();
+                if (state.current === -1) selectChannel(0);
+                $('loading').classList.add('hidden');
                 return;
             }
-            
-            $('list').innerHTML = filtered.map(ch => {
-                const idx = state.channels.indexOf(ch);
-                const active = idx === state.current;
-                const fav = state.favorites.has(ch.name);
-                
-                return `
-                    <div class="channel-item ${active ? 'active' : ''}" data-idx="${idx}">
-                        <div class="channel-item-num">${String(idx + 1).padStart(3, '0')}</div>
-                        <div class="channel-item-logo">${renderLogo(ch)}</div>
-                        <div class="channel-item-info">
-                            <div class="channel-item-name">${escapeHtml(ch.name)}</div>
-                            <div class="channel-item-group">${escapeHtml(ch.group)}</div>
-                        </div>
-                        <div class="favorite ${fav ? 'active' : ''}" data-fav="${idx}">
-                            <svg viewBox="0 0 24 24" fill="${fav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                            </svg>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            // Обработчики
-            document.querySelectorAll('.channel-item').forEach(el => {
-                el.onclick = e => {
-                    if (!e.target.closest('.favorite')) {
-                        selectChannel(+el.dataset.idx);
-                    }
-                };
-            });
-            
-            document.querySelectorAll('.favorite').forEach(el => {
-                el.onclick = e => {
-                    e.stopPropagation();
-                    toggleFav(+el.dataset.fav);
-                };
-            });
-        }
-        
-        // Рендер категорий
-        function renderCategories() {
-            const groups = {};
-            state.channels.forEach(c => {
-                groups[c.group] = (groups[c.group] || 0) + 1;
-            });
-            
-            const sorted = Object.entries(groups).sort((a, b) => b[1] - a[1]);
-            
-            $('categories').innerHTML = `
-                <div class="category ${state.category === 'all' ? 'active' : ''}" data-cat="all">
-                    Все • ${state.channels.length}
-                </div>
-                ${sorted.map(([name, count]) => `
-                    <div class="category ${state.category === name ? 'active' : ''}" data-cat="${name}">
-                        ${escapeHtml(name)} • ${count}
-                    </div>
-                `).join('')}
-            `;
-            
-            document.querySelectorAll('.category').forEach(el => {
-                el.onclick = () => {
-                    state.category = el.dataset.cat;
-                    render();
-                    document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
-                    el.classList.add('active');
-                };
-            });
-        }
-        
-        // Escape HTML
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        // Выбор канала
-        function selectChannel(idx) {
-            if (idx < 0 || idx >= state.channels.length) return;
-            
-            state.current = idx;
-            const ch = state.channels[idx];
-            
-            $('chNum').textContent = String(idx + 1).padStart(3, '0');
-            $('chTitle').textContent = ch.name;
-            $('chGroup').textContent = ch.group;
-            try { $('chHost').textContent = new URL(ch.url).host; } catch(e) {}
-            document.title = ch.name + ' — IPTV';
-            
-            play(ch.url);
-            addHistory(ch.name);
-            render();
-            
-            const item = document.querySelector(`.channel-item[data-idx="${idx}"]`);
-            if (item) item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        // Воспроизведение
-        function play(url) {
-            if (state.hls) {
-                state.hls.destroy();
-                state.hls = null;
-            }
-            
-            state.fails = 0;
-            $('overlay').classList.remove('hidden');
-            
-            const canPlayNative = video.canPlayType('application/vnd.apple.mpegurl');
-            
-            if (canPlayNative) {
-                video.src = url;
-                video.play().catch(() => {});
-            } else if (window.Hls && Hls.isSupported()) {
-                state.hls = new Hls({
-                    enableWorker: true,
-                    manifestLoadingMaxRetry: 2,
-                    levelLoadingMaxRetry: 2,
-                    fragLoadingMaxRetry: 2
-                });
-                
-                state.hls.loadSource(url);
-                state.hls.attachMedia(video);
-                
-                state.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    video.play().catch(() => {});
-                });
-                
-                state.hls.on(Hls.Events.ERROR, (e, data) => {
-                    if (data.fatal) {
-                        state.fails++;
-                        if (state.auto && state.fails < 3) {
-                            setTimeout(() => nextChannel(), 1000);
-                        }
-                    }
-                });
-            } else {
-                video.src = url;
-                video.play().catch(() => {});
-            }
-        }
-        
-        // История
-        function addHistory(name) {
-            state.history = [name, ...state.history.filter(n => n !== name)].slice(0, 50);
-            localStorage.setItem('hist', JSON.stringify(state.history));
-        }
-        
-        // Избранное
-        function toggleFav(idx) {
-            const name = state.channels[idx].name;
-            if (state.favorites.has(name)) {
-                state.favorites.delete(name);
-            } else {
-                state.favorites.add(name);
-            }
-            localStorage.setItem('fav', JSON.stringify([...state.favorites]));
-            render();
-        }
-        
-        // Навигация
-        function prevChannel() {
-            if (state.current > 0) selectChannel(state.current - 1);
-            else if (state.channels.length) selectChannel(state.channels.length - 1);
-        }
-        
-        function nextChannel() {
-            if (state.current < state.channels.length - 1) selectChannel(state.current + 1);
-            else if (state.channels.length) selectChannel(0);
-        }
-        
-        // Загрузка плейлиста (ИЗМЕНЕНО: теперь грузит с GitHub)
-        async function loadPlaylist() {
-            $('loading').classList.remove('hidden');
-            $('error').classList.add('hidden');
-            $('status').textContent = 'Загрузка плейлиста...';
-            
-            try {
-                const url = 'https://raw.githubusercontent.com/SlayerHasher/OnlineTV/main/playlist.m3u';
-                const res = await fetch(url);
-                if (!res.ok) throw new Error();
-                
-                const text = await res.text();
-                state.channels = parseM3U(text);
-                
-                if (!state.channels.length) throw new Error();
-                
-                $('status').textContent = `${state.channels.length} каналов`;
-                renderCategories();
-                render();
-                
-                if (state.current === -1) selectChannel(0);
-            } catch (e) {
-                $('error').classList.remove('hidden');
-                $('status').textContent = 'Ошибка загрузки';
-            } finally {
-                $('loading').classList.add('hidden');
-            }
-        }
-        
-        // Загрузка файла (ручной режим, если GitHub не доступен)
-        $('file').onchange = e => {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = ev => {
-                state.channels = parseM3U(ev.target.result);
-                $('status').textContent = `${state.channels.length} каналов · ${file.name}`;
-                $('error').classList.add('hidden');
-                renderCategories();
-                render();
-                if (state.current === -1) selectChannel(0);
-            };
-            reader.readAsText(file);
-        };
-        
-        // Обработчики
-        $('btnPlay').onclick = () => {
-            if (video.paused) video.play();
-            else video.pause();
-        };
-        
-        $('bigPlay').onclick = () => {
-            if (state.current >= 0) {
-                if (video.paused) video.play();
-            } else if (state.channels.length) {
-                selectChannel(0);
-            }
-        };
-        
-        $('btnPrev').onclick = prevChannel;
-        $('btnNext').onclick = nextChannel;
-        
-        $('btnFull').onclick = () => {
-            if (document.fullscreenElement) document.exitFullscreen();
-            else document.querySelector('.video-container').requestFullscreen?.();
-        };
-        
-        $('btnMute').onclick = () => {
-            video.muted = !video.muted;
-        };
-        
-        $('vol').oninput = e => {
-            video.volume = e.target.value;
-            video.muted = e.target.value == 0;
-        };
-        
-        $('autoSwitch').onclick = () => {
-            state.auto = !state.auto;
-            $('autoSwitch').classList.toggle('active', state.auto);
-        };
-        
-        // Табы
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.onclick = () => {
-                state.tab = tab.dataset.tab;
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                render();
-            };
-        });
-        
-        // Поиск
-        $('search').oninput = e => {
-            state.search = e.target.value;
-            render();
-        };
-        
-        // События видео
-        video.onplay = () => {
-            $('overlay').classList.add('hidden');
-            $('iconPlay').classList.add('hidden');
-            $('iconPause').classList.remove('hidden');
-        };
-        
-        video.onpause = () => {
-            $('iconPlay').classList.remove('hidden');
-            $('iconPause').classList.add('hidden');
-        };
-        
-        video.onplaying = () => {
-            state.fails = 0;
-            $('overlay').classList.add('hidden');
-        };
-        
-        video.onerror = () => {
-            state.fails++;
-            if (state.auto && state.fails < 3) {
-                setTimeout(nextChannel, 1000);
-            }
-        };
-        
-        // Клавиатура
-        document.onkeydown = e => {
-            if (e.target.tagName === 'INPUT') return;
-            
-            switch(e.key) {
-                case 'ArrowUp': e.preventDefault(); prevChannel(); break;
-                case 'ArrowDown': e.preventDefault(); nextChannel(); break;
-                case ' ': e.preventDefault(); video.paused ? video.play() : video.pause(); break;
-                case 'f': case 'F': if (state.current >= 0) toggleFav(state.current); break;
-            }
-        };
-        
-        // Старт
-        loadPlaylist();
-    </script>
+        } catch (e) { continue; }
+    }
+
+    $('error').classList.remove('hidden');
+    $('status').textContent = 'Ошибка загрузки';
+    $('loading').classList.add('hidden');
+}
+
+// Ручной файл
+$('file').onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+        state.channels = parseM3U(ev.target.result);
+        $('status').textContent = `${state.channels.length} каналов · ${file.name}`;
+        $('error').classList.add('hidden');
+        renderCategories();
+        render();
+        if (state.current === -1 && state.channels.length) selectChannel(0);
+    };
+    reader.readAsText(file);
+};
+
+// ═══════════════════════════════════════════
+//  ОБРАБОТЧИКИ UI
+// ═══════════════════════════════════════════
+$('btnPlay').onclick = () => video.paused ? video.play() : video.pause();
+
+$('bigPlay').onclick = () => {
+    if (state.current >= 0) video.play();
+    else if (state.channels.length) selectChannel(0);
+};
+
+$('btnPrev').onclick = prevChannel;
+$('btnNext').onclick = nextChannel;
+
+$('btnFull').onclick = () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.querySelector('.video-container').requestFullscreen?.();
+};
+
+$('btnMute').onclick = () => { video.muted = !video.muted; };
+
+$('vol').oninput = e => {
+    video.volume = e.target.value;
+    video.muted = e.target.value == 0;
+    safeSave('vol', e.target.value);
+};
+
+// Восстановление громкости
+const savedVol = safeParse('vol', null);
+if (savedVol !== null) { video.volume = savedVol; $('vol').value = savedVol; }
+
+$('autoSwitch').onclick = () => {
+    state.auto = !state.auto;
+    $('autoSwitch').classList.toggle('active', state.auto);
+};
+
+$('btnRetry').onclick = () => {
+    if (state.current >= 0) {
+        state.fails = 0;
+        state.fallbackIdx = 0;
+        selectChannel(state.current);
+    }
+};
+
+// Табы
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.onclick = () => {
+        state.tab = tab.dataset.tab;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        render();
+    };
+});
+
+// Поиск с debounce
+let searchTimer;
+$('search').oninput = e => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        state.search = e.target.value;
+        render();
+    }, 250);
+};
+
+// ═══════════════════════════════════════════
+//  СОБЫТИЯ ВИДЕО
+// ═══════════════════════════════════════════
+video.onplay = () => {
+    $('overlay').classList.add('hidden');
+    $('playerError').classList.add('hidden');
+    $('iconPlay').classList.add('hidden');
+    $('iconPause').classList.remove('hidden');
+};
+
+video.onpause = () => {
+    $('iconPlay').classList.remove('hidden');
+    $('iconPause').classList.add('hidden');
+};
+
+video.onplaying = () => {
+    state.fails = 0;
+    showBuffering(false);
+    $('overlay').classList.add('hidden');
+};
+
+video.onwaiting = () => showBuffering(true);
+video.oncanplay = () => showBuffering(false);
+video.onstalled = () => showBuffering(true);
+
+video.onerror = () => {
+    showBuffering(false);
+    // Только для native-режима (hls/dash/mpegts обрабатывают сами)
+    if (state.playerType === 'native') {
+        handleStreamError('Native: ошибка декодирования', video.error?.message || '');
+    }
+};
+
+// ═══════════════════════════════════════════
+//  КЛАВИАТУРА
+// ═══════════════════════════════════════════
+document.onkeydown = e => {
+    if (e.target.tagName === 'INPUT') return;
+    switch (e.key) {
+        case 'ArrowUp': e.preventDefault(); prevChannel(); break;
+        case 'ArrowDown': e.preventDefault(); nextChannel(); break;
+        case ' ': e.preventDefault(); video.paused ? video.play() : video.pause(); break;
+        case 'f': case 'F': if (state.current >= 0) toggleFav(state.current); break;
+        case 'm': case 'M': video.muted = !video.muted; break;
+        case 'ArrowRight': video.volume = Math.min(1, video.volume + 0.1); $('vol').value = video.volume; break;
+        case 'ArrowLeft': video.volume = Math.max(0, video.volume - 0.1); $('vol').value = video.volume; break;
+    }
+};
+
+// ═══════════════════════════════════════════
+//  СТАРТ
+// ═══════════════════════════════════════════
+loadPlaylist();
+</script>
 </body>
 </html>
