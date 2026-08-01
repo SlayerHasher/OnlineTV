@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Арсенал "как в Televizo", но для веба -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dashjs@4.7.4/dist/dash.all.min.js"></script>
@@ -186,6 +185,13 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
 </style>
 </head>
 <body>
+<noscript>
+<div style="padding:40px;text-align:center;color:#ff5252;font-family:sans-serif">
+    <h2>JavaScript отключён</h2>
+    <p>Для работы IPTV-плеера необходимо включить JavaScript.</p>
+</div>
+</noscript>
+
 <div class="container">
     <div class="topbar">
         <div class="brand">IPTV<b>·</b>PRO</div>
@@ -195,7 +201,8 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
     <div class="player-wrapper">
         <div class="channel-number" id="chNum">—</div>
         <div class="video-container" id="videoWrap">
-            <video id="video" playsinline webkit-playsinline preload="auto" crossorigin="anonymous"></video>
+            <!-- FIX #2: crossorigin убирается динамически, если поток без CORS -->
+            <video id="video" playsinline webkit-playsinline preload="auto"></video>
             <div class="live">LIVE</div>
             <div class="format-badge hidden" id="formatBadge">—</div>
             <div class="buffering hidden" id="buffering"><div class="spinner"></div></div>
@@ -257,7 +264,7 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
     </div>
 
     <div class="status">
-        <div class="status-row"><span id="status">Инициализация...</span><span id="statusClock"></span></div>
+        <div class="status-row"><span id="statusText">Инициализация...</span><span id="statusClock"></span></div>
         <div class="status-row"><div class="codecs" id="codecs"></div></div>
     </div>
 </div>
@@ -266,95 +273,172 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
 <script>
 'use strict';
 
+/* ═══════════════════════════════════════════════════════════
+   КОНФИГУРАЦИЯ
+   ═══════════════════════════════════════════════════════════ */
 const CONFIG = {
     PLAYLIST_URL: 'https://raw.githubusercontent.com/SlayerHasher/OnlineTV/main/playlist.m3u',
     MAX_RENDER: 150,
-    // Публичный прокси только как крайняя мера для обхода CORS/Mixed Content
-    PUBLIC_PROXY: 'https://corsproxy.io/?url='
+
+    /*  FIX #1: Каскад CORS-прокси.
+        Порядок: свой → публичные.
+        Чтобы добавить свой прокси, укажите URL:
+        CUSTOM_PROXY: 'https://my-proxy.example.com/?url='
+        Прокси должен принимать URL через ?url= и возвращать поток с CORS-заголовками.
+    */
+    CUSTOM_PROXY: '',  // ← впишите свой прокси сюда
+    PUBLIC_PROXIES: [
+        'https://corsproxy.io/?url=',
+        'https://api.allorigins.win/raw?url=',
+        'https://proxy.cors.sh/'
+    ],
+
+    FETCH_TIMEOUT: 15000,
+    HLS_RECOVERY_ATTEMPTS: 2
 };
 
+/* ═══ Утилиты ═══ */
 const $ = id => document.getElementById(id);
 const video = $('video');
 const isHttps = location.protocol === 'https:';
 
-function safeParse(k,d){ try{ const v=JSON.parse(localStorage.getItem(k)); return v ?? d; }catch{ return d; } }
-function safeSave(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{} }
-function escapeHtml(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function escapeAttr(s){ return String(s).replace(/["'<>&]/g, c => ({'"':'&quot;',"'":'&#39;','<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
-function debounce(fn,ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
+function safeParse(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch { return d; } }
+function safeSave(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+function escapeHtml(t) { return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escapeAttr(s) { return String(s).replace(/["'<>&]/g, c => ({'"':'&quot;',"'":'&#39;','<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
+function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
 
+/* ═══ Состояние ═══ */
 const state = {
-    channels: [], current: -1,
+    channels: [],
+    channelIndex: new Map(),   // FIX #4: Map name+url → idx для O(1)
+    current: -1,
     favorites: new Set(safeParse('iptv_fav', [])),
     history: safeParse('iptv_hist', []),
     tab: 'all', category: 'all', search: '',
     player: null, playerType: null,
-    controlsTimer: null, toastTimer: null
+    controlsTimer: null, toastTimer: null,
+    playlistAbort: null,       // FIX #7: AbortController для загрузки плейлиста
+    hlsRecoveryCount: 0,       // FIX #3: счётчик попыток восстановления HLS
+    proxyLevel: 0              // текущий уровень прокси (0 = без прокси)
 };
 
-/* ═══ ПРОДВИНУТЫЙ ПАРСЕР M3U (читает заголовки как Televizo) ═══ */
-function parseM3U(text){
-    const channels=[], lines=text.split(/\r?\n/), seen=new Set();
-    let cur=null;
-    for (let i=0;i<lines.length;i++){
-        const line=lines[i].trim();
+/* ═══════════════════════════════════════════════════════════
+   ПАРСЕР M3U
+   ═══════════════════════════════════════════════════════════ */
+function parseM3U(text) {
+    const channels = [], lines = text.split(/\r?\n/), seen = new Set();
+    let cur = null;
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
         if (!line) continue;
-        if (line.charCodeAt(0)===35){
-            if (line.startsWith('#EXTINF:')){
-                const group=extractAttr(line,'group-title')||'Без группы';
-                const logo=extractAttr(line,'tvg-logo')||'';
-                const c=line.lastIndexOf(',');
-                let name=c>-1?line.substring(c+1).trim():'';
-                name=name.replace(/^["']+|["']+$/g,'').replace(/\s+/g,' ');
-                if (!name) name='Канал '+(channels.length+1);
-                cur={ name, group, logo, opts:{} };
-            } else if (line.startsWith('#EXTGRP:')&&cur){
-                cur.group=line.substring(8).trim()||cur.group;
-            } else if (line.startsWith('#EXTVLCOPT:')&&cur){
-                const opt=line.substring(11), eq=opt.indexOf('=');
-                if (eq>-1) cur.opts[opt.substring(0,eq).toLowerCase()]=opt.substring(eq+1).trim();
+        if (line.charCodeAt(0) === 35) {
+            if (line.startsWith('#EXTINF:')) {
+                const group = extractAttr(line, 'group-title') || 'Без группы';
+                const logo = extractAttr(line, 'tvg-logo') || '';
+                const c = line.lastIndexOf(',');
+                let name = c > -1 ? line.substring(c + 1).trim() : '';
+                name = name.replace(/^["']+|["']+$/g, '').replace(/\s+/g, ' ');
+                if (!name) name = 'Канал ' + (channels.length + 1);
+                cur = { name, group, logo, opts: {} };
+            } else if (line.startsWith('#EXTGRP:') && cur) {
+                cur.group = line.substring(8).trim() || cur.group;
+            } else if (line.startsWith('#EXTVLCOPT:') && cur) {
+                const opt = line.substring(11), eq = opt.indexOf('=');
+                if (eq > -1) cur.opts[opt.substring(0, eq).toLowerCase()] = opt.substring(eq + 1).trim();
             }
-        } else if (cur && (line.startsWith('http://')||line.startsWith('https://')||line.startsWith('rtmp://')||line.startsWith('rtp://')||line.startsWith('udp://'))){
-            const key=cur.name+'|'+line;
-            if (!seen.has(key)){ seen.add(key); channels.push({ name:cur.name, group:cur.group, logo:cur.logo, opts:cur.opts, url:line }); }
-            cur=null;
+        } else if (cur && /^(https?|rtmp|rtp|udp):\/\//.test(line)) {
+            const key = cur.name + '|' + line;
+            if (!seen.has(key)) {
+                seen.add(key);
+                channels.push({ name: cur.name, group: cur.group, logo: cur.logo, opts: cur.opts, url: line });
+            }
+            cur = null;
         }
     }
     return channels;
 }
-function extractAttr(line,attr){
-    const i=line.indexOf(attr+'="'); if (i===-1) return '';
-    const s=i+attr.length+2, e=line.indexOf('"',s);
-    return e>s?line.substring(s,e).trim():'';
+
+function extractAttr(line, attr) {
+    const i = line.indexOf(attr + '="');
+    if (i === -1) return '';
+    const s = i + attr.length + 2, e = line.indexOf('"', s);
+    return e > s ? line.substring(s, e).trim() : '';
 }
 
-/* ═══ ВСЕЯДНЫЙ ДВИЖОК ВОСПРОИЗВЕДЕНИЯ ═══ */
-function destroyPlayer(){
-    if (state.player){
-        try{
-            if (state.playerType==='hls') state.player.destroy();
-            else if (state.playerType==='mpegts'||state.playerType==='flv'){
-                state.player.pause(); state.player.unload(); state.player.detachMediaElement(); state.player.destroy();
+/* ═══════════════════════════════════════════════════════════
+   CORS-ПРОКСИ: КАСКАДНАЯ СТРАТЕГИЯ
+   ═══════════════════════════════════════════════════════════ */
+function getProxyChain() {
+    const chain = [];
+    // Уровень 0: без прокси (прямой запрос или HTTPS-апгрейд)
+    chain.push(null);
+    // Уровень 1: свой прокси (если задан)
+    if (CONFIG.CUSTOM_PROXY) chain.push(CONFIG.CUSTOM_PROXY);
+    // Уровень 2+: публичные прокси
+    for (const p of CONFIG.PUBLIC_PROXIES) chain.push(p);
+    return chain;
+}
+
+function applyProxy(url, proxyPrefix) {
+    if (!proxyPrefix) return url;
+    return proxyPrefix + encodeURIComponent(url);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ДВИЖОК ВОСПРОИЗВЕДЕНИЯ
+   ═══════════════════════════════════════════════════════════ */
+function destroyPlayer() {
+    if (state.player) {
+        try {
+            if (state.playerType === 'hls') {
+                state.player.destroy();
+            } else if (state.playerType === 'mpegts' || state.playerType === 'flv') {
+                state.player.pause();
+                state.player.unload();
+                state.player.detachMediaElement();
+                state.player.destroy();
+            } else if (state.playerType === 'dash') {
+                state.player.reset();
             }
-            else if (state.playerType==='dash') state.player.reset();
-        }catch(e){}
-        state.player=null; state.playerType=null;
+        } catch (e) { /* ignore */ }
+        state.player = null;
+        state.playerType = null;
     }
-    video.removeAttribute('src'); video.load();
+    // FIX #6: pause перед load для предотвращения AbortError
+    try { video.pause(); } catch {}
+    video.removeAttribute('src');
+    video.load();
 }
 
-function playStream(url, opts, useProxy=false){
+function playStream(url, opts, proxyLevel = 0) {
     destroyPlayer();
     $('playerError').classList.add('hidden');
     showBuffering(true);
+    state.hlsRecoveryCount = 0;
+    state.proxyLevel = proxyLevel;
+
+    const proxyChain = getProxyChain();
+    const proxyPrefix = proxyChain[proxyLevel] || null;
 
     let targetUrl = url;
-    if (useProxy) {
-        targetUrl = CONFIG.PUBLIC_PROXY + encodeURIComponent(url);
-        toast('Режим совместимости: прокси', 'proxy');
+
+    if (proxyPrefix) {
+        // Через прокси — CORS гарантирован
+        targetUrl = applyProxy(url, proxyPrefix);
+        toast('Прокси: ' + (proxyPrefix === CONFIG.CUSTOM_PROXY ? 'свой' : 'публичный #' + proxyLevel), 'proxy');
     } else if (isHttps && url.startsWith('http://')) {
-        // Попытка 1: Авто-апгрейд до HTTPS (работает для 80% потоков)
+        // Попытка авто-апгрейда до HTTPS
         targetUrl = 'https://' + url.substring(7);
+    }
+
+    // FIX #2: Управляем crossorigin динамически
+    // Если через прокси — прокси отдаёт CORS-заголовки, ставим anonymous
+    // Если напрямую — не ставим, чтобы не блокировать потоки без CORS
+    if (proxyPrefix) {
+        video.setAttribute('crossorigin', 'anonymous');
+    } else {
+        video.removeAttribute('crossorigin');
     }
 
     const lowerUrl = targetUrl.toLowerCase();
@@ -366,11 +450,33 @@ function playStream(url, opts, useProxy=false){
     if (opts['http-referrer'] || opts['http-referer']) headers['Referer'] = opts['http-referrer'] || opts['http-referer'];
     if (opts['http-user-agent']) headers['User-Agent'] = opts['http-user-agent'];
 
+    // Каскадный fallback: следующий прокси
+    const tryNextProxy = (reason) => {
+        const nextLevel = proxyLevel + 1;
+        if (nextLevel < proxyChain.length) {
+            console.warn(`[IPTV] Fallback → proxy level ${nextLevel}. Reason: ${reason}`);
+            setTimeout(() => playStream(url, opts, nextLevel), 400);
+        } else {
+            handleStreamError(reason, url);
+        }
+    };
+
     const onError = (details) => {
-        // Если это была первая попытка с HTTPS или без прокси, и она не сработала из-за сети/CORS
-        if (!useProxy && (isHttps && url.startsWith('http://') || details.toLowerCase().includes('cors') || details.toLowerCase().includes('network'))) {
-            console.warn('Fallback to proxy for:', url);
-            setTimeout(() => playStream(url, opts, true), 300);
+        const d = String(details).toLowerCase();
+        const isNetworkIssue = d.includes('cors') || d.includes('network') ||
+                               d.includes('fetch') || d.includes('neterror') ||
+                               d.includes('manifest') || d.includes('level') ||
+                               d.includes('frag') || d.includes('buffer');
+        const isHttpError = d.includes('403') || d.includes('401') || d.includes('forbidden');
+
+        // Если HTTPS-апгрейд не сработал или CORS — пробуем прокси
+        if (!proxyPrefix && (isHttps && url.startsWith('http://') || isNetworkIssue)) {
+            tryNextProxy(details);
+            return;
+        }
+        // Если текущий прокси не сработал — пробуем следующий
+        if (proxyPrefix && (isNetworkIssue || isHttpError)) {
+            tryNextProxy(details);
             return;
         }
         handleStreamError(details, url);
@@ -378,77 +484,146 @@ function playStream(url, opts, useProxy=false){
 
     try {
         if (isHls && window.Hls && Hls.isSupported()) {
-            $('formatBadge').textContent = useProxy ? 'HLS (Proxy)' : 'HLS';
+            $('formatBadge').textContent = proxyPrefix ? 'HLS·PROXY' : 'HLS';
             $('chFormat').textContent = 'HLS';
+
             const hls = new Hls({
-                enableWorker: true, lowLatencyMode: true, backBufferLength: 30,
+                enableWorker: true,
+                lowLatencyMode: true,
+                backBufferLength: 30,
+                fragLoadingTimeOut: 12000,
+                manifestLoadingTimeOut: 10000,
+                levelLoadingTimeOut: 10000,
                 xhrSetup: (xhr) => {
-                    for (const k in headers) { try { xhr.setRequestHeader(k, headers[k]); } catch(e){} }
+                    for (const k in headers) {
+                        try { xhr.setRequestHeader(k, headers[k]); } catch {}
+                    }
                 }
             });
+
             hls.loadSource(targetUrl);
             hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(()=>{}); showBuffering(false); });
-            hls.on(Hls.Events.ERROR, (e, data) => {
-                if (data.fatal) onError('hls:' + data.type + ' ' + data.details);
+
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                video.play().catch(() => {});
+                showBuffering(false);
             });
-            state.player = hls; state.playerType = 'hls';
-        } 
-        else if (isDash && window.dashjs) {
-            $('formatBadge').textContent = useProxy ? 'DASH (Proxy)' : 'DASH';
+
+            // FIX #3: Восстановление HLS перед полным fallback
+            hls.on(Hls.Events.ERROR, (e, data) => {
+                if (!data.fatal) return;
+
+                switch (data.type) {
+                    case Hls.ErrorTypes.MEDIA_ERROR:
+                        if (state.hlsRecoveryCount < CONFIG.HLS_RECOVERY_ATTEMPTS) {
+                            state.hlsRecoveryCount++;
+                            console.warn(`[HLS] Media error, recovery attempt ${state.hlsRecoveryCount}`);
+                            if (state.hlsRecoveryCount === 1) {
+                                hls.recoverMediaError();
+                            } else {
+                                hls.swapAudioCodec();
+                                hls.recoverMediaError();
+                            }
+                        } else {
+                            onError('hls:media:' + data.details);
+                        }
+                        break;
+                    case Hls.ErrorTypes.NETWORK_ERROR:
+                        onError('hls:network:' + data.details);
+                        break;
+                    default:
+                        onError('hls:other:' + data.details);
+                        break;
+                }
+            });
+
+            state.player = hls;
+            state.playerType = 'hls';
+
+        } else if (isDash && window.dashjs) {
+            $('formatBadge').textContent = proxyPrefix ? 'DASH·PROXY' : 'DASH';
             $('chFormat').textContent = 'DASH';
+
             const p = dashjs.MediaPlayer().create();
-            // dash.js сложнее заставить использовать кастомные заголовки, но базовый поток пойдет
             p.initialize(video, targetUrl, true);
-            p.on(dashjs.MediaPlayer.events.ERROR, e => onError('dash:' + (e.error?.message||'')));
+            p.updateSettings({
+                streaming: {
+                    timeout: 12000,
+                    retryAttempts: { lowLevel: 2, highLevel: 1 }
+                }
+            });
+            p.on(dashjs.MediaPlayer.events.ERROR, e => {
+                onError('dash:' + (e.error?.message || e.error?.code || 'unknown'));
+            });
             p.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, () => showBuffering(false));
-            state.player = p; state.playerType = 'dash';
-        }
-        else if (isTsFlv && window.mpegts && mpegts.getFeatureList().mseLivePlayback) {
-            $('formatBadge').textContent = useProxy ? 'TS/FLV (Proxy)' : 'MPEG-TS/FLV';
+            state.player = p;
+            state.playerType = 'dash';
+
+        } else if (isTsFlv && window.mpegts && mpegts.getFeatureList().mseLivePlayback) {
+            $('formatBadge').textContent = proxyPrefix ? 'TS/FLV·PROXY' : 'MPEG-TS/FLV';
             $('chFormat').textContent = 'TS/FLV';
-            const cfg = { enableWorker: true, enableStashBuffer: true, liveBufferLatencyChasing: true };
-            if (Object.keys(headers).length && !useProxy) cfg.headers = headers; // Прокси сам разберется с заголовками
-            const p = mpegts.createPlayer({ type: lowerUrl.includes('.flv') ? 'flv' : 'mpegts', isLive: true, url: targetUrl }, cfg);
-            p.attachMediaElement(video); p.load(); p.play();
-            p.on(mpegts.Events.ERROR, (t, d) => onError('mpegts:' + t));
+
+            const cfg = {
+                enableWorker: true,
+                enableStashBuffer: true,
+                liveBufferLatencyChasing: true,
+                lazyLoad: false
+            };
+            if (Object.keys(headers).length && !proxyPrefix) cfg.headers = headers;
+
+            const p = mpegts.createPlayer({
+                type: lowerUrl.includes('.flv') ? 'flv' : 'mpegts',
+                isLive: true,
+                url: targetUrl
+            }, cfg);
+
+            p.attachMediaElement(video);
+            p.load();
+            p.play();
+            p.on(mpegts.Events.ERROR, (t, d) => onError('mpegts:' + t + ':' + d));
             p.on(mpegts.Events.RECOVERED_EARLY_EOF, () => showBuffering(false));
-            state.player = p; state.playerType = 'mpegts';
-        }
-        else {
-            $('formatBadge').textContent = useProxy ? 'NATIVE (Proxy)' : 'NATIVE';
+            state.player = p;
+            state.playerType = 'mpegts';
+
+        } else {
+            // Нативное воспроизведение (mp4, webm, etc.)
+            $('formatBadge').textContent = proxyPrefix ? 'NATIVE·PROXY' : 'NATIVE';
             $('chFormat').textContent = 'NATIVE';
             video.src = targetUrl;
             video.play().catch(err => onError('native:' + err.message));
             state.playerType = 'native';
         }
+
         $('formatBadge').classList.remove('hidden');
     } catch (e) {
         onError('init:' + e.message);
     }
 }
 
-function handleStreamError(details, originalUrl){
+function handleStreamError(details, originalUrl) {
     showBuffering(false);
     const d = String(details).toLowerCase();
     let title = 'Поток недоступен';
     let detail = 'Канал офлайн или в неподдерживаемом формате.';
 
-    if (originalUrl.startsWith('udp://') || originalUrl.startsWith('rtp://') || originalUrl.startsWith('rtsp://')) {
-        title = 'Протокол не поддерживается браузером';
-        detail = 'Браузеры не умеют воспроизводить UDP/RTP/RTSP напрямую. Для этого нужен локальный прокси-сервер (например, VLC или IPTV Proxy).';
-    } else if (d.includes('403') || d.includes('forbidden')) {
-        title = 'Доступ запрещён (403)';
-        detail = 'Провайдер проверяет Referer/User-Agent или привязал поток к конкретному приложению (например, только для Smart TV).';
+    if (/^(udp|rtp|rtsp):\/\//.test(originalUrl)) {
+        title = 'Протокол не поддерживается';
+        detail = 'Браузер не воспроизводит UDP/RTP/RTSP. Нужен локальный прокси (VLC, IPTV Proxy, udpxy).';
+    } else if (d.includes('403') || d.includes('401') || d.includes('forbidden')) {
+        title = 'Доступ запрещён (403/401)';
+        detail = 'Сервер проверяет Referer/User-Agent или привязал поток к приложению.';
     } else if (d.includes('404') || d.includes('not found')) {
         title = 'Поток не найден (404)';
-        detail = 'Адрес канала устарел.';
-    } else if (d.includes('cors') || d.includes('network') || d.includes('fetch')) {
+        detail = 'Адрес канала устарел или был удалён.';
+    } else if (d.includes('cors') || d.includes('network') || d.includes('fetch') || d.includes('neterror')) {
         title = 'Ошибка сети / CORS';
-        detail = 'Сервер потока блокирует запросы из браузера. Попробуйте установить расширение "Allow CORS" или запустите файл локально.';
-    } else if (d.includes('codec') || d.includes('format') || d.includes('native')) {
+        detail = 'Все прокси исчерпаны. Сервер блокирует запросы. Попробуйте расширение "Allow CORS" или локальный прокси.';
+    } else if (d.includes('codec') || d.includes('format') || d.includes('mediasource')) {
         title = 'Кодек не поддерживается';
-        detail = 'Браузер не может декодировать этот поток (часто бывает с MPEG-2, H.265/HEVC или AC3 на некоторых устройствах).';
+        detail = 'Браузер не декодирует этот поток (MPEG-2, HEVC, AC3). Попробуйте другой браузер или VLC.';
+    } else if (d.includes('timeout') || d.includes('timed out')) {
+        title = 'Таймаут соединения';
+        detail = 'Сервер потока не отвечает. Возможно, канал временно недоступен.';
     }
 
     $('playerError').classList.remove('hidden');
@@ -457,221 +632,421 @@ function handleStreamError(details, originalUrl){
     toast(title, 'err');
 }
 
-function showBuffering(show){ $('buffering').classList.toggle('hidden', !show); }
-function toast(msg,type){
-    const t=$('toast'); t.textContent=msg; t.className='toast show'+(type==='err'?' err':(type==='proxy'?' proxy':''));
-    clearTimeout(state.toastTimer); state.toastTimer=setTimeout(()=>t.classList.remove('show'),3500);
+function showBuffering(show) { $('buffering').classList.toggle('hidden', !show); }
+
+function toast(msg, type) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (type === 'err' ? ' err' : (type === 'proxy' ? ' proxy' : ''));
+    clearTimeout(state.toastTimer);
+    state.toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-/* ═══ ВЫБОР КАНАЛА ═══ */
-function selectChannel(idx){
-    if (idx<0||idx>=state.channels.length) return;
-    state.current=idx;
-    const ch=state.channels[idx];
+/* ═══════════════════════════════════════════════════════════
+   ВЫБОР КАНАЛА
+   ═══════════════════════════════════════════════════════════ */
+function selectChannel(idx) {
+    if (idx < 0 || idx >= state.channels.length) return;
+    state.current = idx;
+    const ch = state.channels[idx];
 
-    $('chNum').textContent=String(idx+1).padStart(3,'0');
-    $('chTitle').textContent=ch.name;
-    $('chGroup').textContent=ch.group;
-    try{ $('chHost').textContent=new URL(ch.url).host; }catch{}
-    document.title=ch.name+' — IPTV';
+    $('chNum').textContent = String(idx + 1).padStart(3, '0');
+    $('chTitle').textContent = ch.name;
+    $('chGroup').textContent = ch.group;
+    try { $('chHost').textContent = new URL(ch.url).host; } catch {}
+    document.title = ch.name + ' — IPTV';
     $('overlay').classList.add('hidden');
 
-    playStream(ch.url, ch.opts);
+    // Сброс на уровень 0 (без прокси) при каждом новом выборе
+    playStream(ch.url, ch.opts, 0);
     addHistory(ch.name);
     renderList();
-    requestAnimationFrame(()=>{ const el=document.querySelector('.channel-item.active'); if (el) el.scrollIntoView({ behavior:'smooth', block:'nearest' }); });
+    requestAnimationFrame(() => {
+        const el = document.querySelector('.channel-item.active');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
 }
 
-/* ═══ РЕНДЕР И ЛОГИКА UI ═══ */
-function getInitial(name){
-    for (let i=0;i<name.length;i++){ const c=name.charCodeAt(i);
-        if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=1040&&c<=1103)||(c>=48&&c<=57)) return name[i].toUpperCase(); }
+/* ═══════════════════════════════════════════════════════════
+   РЕНДЕР И UI
+   ═══════════════════════════════════════════════════════════ */
+function getInitial(name) {
+    for (let i = 0; i < name.length; i++) {
+        const c = name.charCodeAt(i);
+        if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 1040 && c <= 1103) || (c >= 48 && c <= 57))
+            return name[i].toUpperCase();
+    }
     return '?';
 }
-const COLORS=['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8','#a29bfe','#fdcb6e'];
-function getColor(name){ let h=0; for (let i=0;i<name.length;i++) h=name.charCodeAt(i)+((h<<5)-h); return COLORS[Math.abs(h)%COLORS.length]; }
 
-function filterChannels(){
-    let r=state.channels;
-    if (state.tab==='fav') r=r.filter(c=>state.favorites.has(c.name));
-    else if (state.tab==='hist'){ const s=new Set(state.history); r=r.filter(c=>s.has(c.name)); }
-    if (state.category!=='all') r=r.filter(c=>c.group===state.category);
-    if (state.search){ const q=state.search.toLowerCase(); r=r.filter(c=>c.name.toLowerCase().includes(q)||c.group.toLowerCase().includes(q)); }
+const COLORS = ['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8','#a29bfe','#fdcb6e'];
+function getColor(name) {
+    let h = 0;
+    for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
+    return COLORS[Math.abs(h) % COLORS.length];
+}
+
+function filterChannels() {
+    let r = state.channels;
+    if (state.tab === 'fav') r = r.filter(c => state.favorites.has(c.name));
+    else if (state.tab === 'hist') {
+        const s = new Set(state.history);
+        r = r.filter(c => s.has(c.name));
+    }
+    if (state.category !== 'all') r = r.filter(c => c.group === state.category);
+    if (state.search) {
+        const q = state.search.toLowerCase();
+        r = r.filter(c => c.name.toLowerCase().includes(q) || c.group.toLowerCase().includes(q));
+    }
     return r;
 }
-let lastRenderKey='';
-function renderList(){
-    const filtered=filterChannels();
-    $('count').textContent=filtered.length;
-    const key=state.tab+'|'+state.category+'|'+state.search+'|'+state.current;
-    if (key===lastRenderKey) return; lastRenderKey=key;
-    if (!filtered.length){ $('list').innerHTML='<div style="text-align:center;padding:40px;color:#4d5766;font-size:14px">Нет каналов</div>'; return; }
-    const slice=filtered.slice(0,CONFIG.MAX_RENDER), frag=document.createDocumentFragment();
-    for (let i=0;i<slice.length;i++){
-        const ch=slice[i], idx=state.channels.indexOf(ch), active=idx===state.current, fav=state.favorites.has(ch.name);
-        const color=getColor(ch.name), init=getInitial(ch.name);
-        const div=document.createElement('div');
-        div.className='channel-item'+(active?' active':''); div.dataset.idx=idx;
-        div.style.animationDelay=Math.min(i*14,280)+'ms';
-        const numCell=active?'<span class="eq"><i></i><i></i><i></i></span>':String(idx+1).padStart(3,'0');
-        const logoHtml=ch.logo&&ch.logo.startsWith('http')
-            ? `<img src="${escapeAttr(ch.logo)}" loading="lazy" decoding="async" onerror="this.outerHTML='<span style=color:${color}>${init}</span>'">`
+
+let lastRenderKey = '';
+
+function renderList() {
+    const filtered = filterChannels();
+    $('count').textContent = filtered.length;
+
+    // FIX #5: Включаем favorites в ключ рендера
+    const favKey = state.favorites.size + ':' + [...state.favorites].sort().join(',');
+    const key = state.tab + '|' + state.category + '|' + state.search + '|' + state.current + '|' + favKey;
+    if (key === lastRenderKey) return;
+    lastRenderKey = key;
+
+    if (!filtered.length) {
+        $('list').innerHTML = '<div style="text-align:center;padding:40px;color:#4d5766;font-size:14px">Нет каналов</div>';
+        return;
+    }
+
+    const slice = filtered.slice(0, CONFIG.MAX_RENDER);
+    const frag = document.createDocumentFragment();
+
+    for (let i = 0; i < slice.length; i++) {
+        const ch = slice[i];
+        // FIX #4: O(1) вместо indexOf
+        const idx = state.channelIndex.get(ch.name + '|' + ch.url);
+        if (idx === undefined) continue;
+
+        const active = idx === state.current;
+        const fav = state.favorites.has(ch.name);
+        const color = getColor(ch.name);
+        const init = getInitial(ch.name);
+
+        const div = document.createElement('div');
+        div.className = 'channel-item' + (active ? ' active' : '');
+        div.dataset.idx = idx;
+        // FIX: ограничиваем анимацию первыми 20 видимыми
+        if (i < 20) div.style.animationDelay = (i * 14) + 'ms';
+        else div.style.animation = 'none';
+
+        const numCell = active
+            ? '<span class="eq"><i></i><i></i><i></i></span>'
+            : String(idx + 1).padStart(3, '0');
+
+        // FIX #8: Без inline onerror — используем data-атрибуты + делегирование
+        const logoHtml = ch.logo && ch.logo.startsWith('http')
+            ? `<img src="${escapeAttr(ch.logo)}" loading="lazy" decoding="async" data-fallback="<span style='color:${color}'>${init}</span>">`
             : `<span style="color:${color}">${init}</span>`;
-        div.innerHTML=`
+
+        div.innerHTML = `
             <div class="channel-item-num">${numCell}</div>
             <div class="channel-item-logo">${logoHtml}</div>
             <div class="channel-item-info">
                 <div class="channel-item-name">${escapeHtml(ch.name)}</div>
                 <div class="channel-item-group">${escapeHtml(ch.group)}</div>
             </div>
-            <div class="favorite${fav?' active':''}" data-fav="${idx}">
-                <svg viewBox="0 0 24 24" fill="${fav?'currentColor':'none'}" stroke="currentColor" stroke-width="2">
+            <div class="favorite${fav ? ' active' : ''}" data-fav="${idx}">
+                <svg viewBox="0 0 24 24" fill="${fav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                 </svg>
             </div>`;
         frag.appendChild(div);
     }
-    if (filtered.length>CONFIG.MAX_RENDER){
-        const more=document.createElement('div'); more.style.cssText='text-align:center;padding:15px;color:#4d5766;font-size:12px';
-        more.textContent=`Показано ${CONFIG.MAX_RENDER} из ${filtered.length}. Уточните поиск.`; frag.appendChild(more);
+
+    if (filtered.length > CONFIG.MAX_RENDER) {
+        const more = document.createElement('div');
+        more.style.cssText = 'text-align:center;padding:15px;color:#4d5766;font-size:12px';
+        more.textContent = `Показано ${CONFIG.MAX_RENDER} из ${filtered.length}. Уточните поиск.`;
+        frag.appendChild(more);
     }
-    $('list').innerHTML=''; $('list').appendChild(frag);
-}
-function renderCategories(){
-    const groups=Object.create(null);
-    for (const c of state.channels) groups[c.group]=(groups[c.group]||0)+1;
-    const sorted=Object.entries(groups).sort((a,b)=>b[1]-a[1]);
-    $('categories').innerHTML=
-        `<div class="category${state.category==='all'?' active':''}" data-cat="all">Все · ${state.channels.length}</div>`+
-        sorted.map(([n,c])=>`<div class="category${state.category===n?' active':''}" data-cat="${escapeAttr(n)}">${escapeHtml(n)} · ${c}</div>`).join('');
-}
-function renderCodecs(){
-    const tests=[['H.264','video/mp4; codecs="avc1.42E01E,mp4a.40.2"'],['HEVC','video/mp4; codecs="hvc1.1.6.L93.B0"'],
-        ['MPEG-2','video/mp2t; codecs="mp4v.20.9"'],['AC3','audio/mp4; codecs="ac-3"'],['AAC','audio/mp4; codecs="mp4a.40.2"']];
-    $('codecs').innerHTML=tests.map(([l,m])=>{ const ok=!!video.canPlayType(m);
-        return `<span class="codec ${ok?'ok':'no'}" title="${escapeAttr(m)}">${l} ${ok?'✓':'✕'}</span>`; }).join('');
+
+    $('list').innerHTML = '';
+    $('list').appendChild(frag);
 }
 
-function addHistory(name){ state.history=[name,...state.history.filter(n=>n!==name)].slice(0,50); safeSave('iptv_hist',state.history); }
-function toggleFav(idx){
-    const name=state.channels[idx]?.name; if (!name) return;
-    state.favorites.has(name)?state.favorites.delete(name):state.favorites.add(name);
-    safeSave('iptv_fav',[...state.favorites]); lastRenderKey=''; renderList();
+function renderCategories() {
+    const groups = Object.create(null);
+    for (const c of state.channels) groups[c.group] = (groups[c.group] || 0) + 1;
+    const sorted = Object.entries(groups).sort((a, b) => b[1] - a[1]);
+    $('categories').innerHTML =
+        `<div class="category${state.category === 'all' ? ' active' : ''}" data-cat="all">Все · ${state.channels.length}</div>` +
+        sorted.map(([n, c]) => `<div class="category${state.category === n ? ' active' : ''}" data-cat="${escapeAttr(n)}">${escapeHtml(n)} · ${c}</div>`).join('');
 }
-function prevChannel(){ if (!state.channels.length) return; selectChannel(state.current>0?state.current-1:state.channels.length-1); }
-function nextChannel(){ if (!state.channels.length) return; selectChannel(state.current<state.channels.length-1?state.current+1:0); }
 
-async function loadPlaylist(){
-    $('loading').classList.remove('hidden'); $('error').classList.add('hidden'); $('status').textContent='Загрузка...';
-    try{
-        const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),12000);
-        const res=await fetch(CONFIG.PLAYLIST_URL,{ signal:ctrl.signal }); clearTimeout(timer);
-        if (res.ok){
-            state.channels=parseM3U(await res.text());
-            if (state.channels.length){
-                $('status').textContent=state.channels.length+' каналов';
-                renderCategories(); renderList();
-                if (state.current===-1) selectChannel(0);
-                $('loading').classList.add('hidden'); return;
+function renderCodecs() {
+    const tests = [
+        ['H.264', 'video/mp4; codecs="avc1.42E01E,mp4a.40.2"'],
+        ['HEVC', 'video/mp4; codecs="hvc1.1.6.L93.B0"'],
+        ['MPEG-2', 'video/mp2t; codecs="mp4v.20.9"'],
+        ['AC3', 'audio/mp4; codecs="ac-3"'],
+        ['AAC', 'audio/mp4; codecs="mp4a.40.2"']
+    ];
+    $('codecs').innerHTML = tests.map(([l, m]) => {
+        const ok = !!video.canPlayType(m);
+        return `<span class="codec ${ok ? 'ok' : 'no'}" title="${escapeAttr(m)}">${l} ${ok ? '✓' : '✕'}</span>`;
+    }).join('');
+}
+
+function addHistory(name) {
+    state.history = [name, ...state.history.filter(n => n !== name)].slice(0, 50);
+    safeSave('iptv_hist', state.history);
+}
+
+function toggleFav(idx) {
+    const name = state.channels[idx]?.name;
+    if (!name) return;
+    if (state.favorites.has(name)) state.favorites.delete(name);
+    else state.favorites.add(name);
+    safeSave('iptv_fav', [...state.favorites]);
+    lastRenderKey = '';  // FIX #5: принудительный перерендер
+    renderList();
+}
+
+function prevChannel() {
+    if (!state.channels.length) return;
+    selectChannel(state.current > 0 ? state.current - 1 : state.channels.length - 1);
+}
+function nextChannel() {
+    if (!state.channels.length) return;
+    selectChannel(state.current < state.channels.length - 1 ? state.current + 1 : 0);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ЗАГРУЗКА ПЛЕЙЛИСТА
+   ═══════════════════════════════════════════════════════════ */
+async function loadPlaylist() {
+    // FIX #7: Отменяем предыдущий запрос
+    if (state.playlistAbort) state.playlistAbort.abort();
+    state.playlistAbort = new AbortController();
+
+    $('loading').classList.remove('hidden');
+    $('error').classList.add('hidden');
+    $('statusText').textContent = 'Загрузка...';
+
+    try {
+        const timer = setTimeout(() => state.playlistAbort.abort(), CONFIG.FETCH_TIMEOUT);
+        const res = await fetch(CONFIG.PLAYLIST_URL, { signal: state.playlistAbort.signal });
+        clearTimeout(timer);
+
+        if (res.ok) {
+            const text = await res.text();
+            state.channels = parseM3U(text);
+
+            // FIX #4: Строим Map индексов
+            state.channelIndex.clear();
+            state.channels.forEach((ch, i) => state.channelIndex.set(ch.name + '|' + ch.url, i));
+
+            if (state.channels.length) {
+                $('statusText').textContent = state.channels.length + ' каналов';
+                renderCategories();
+                renderList();
+                if (state.current === -1) selectChannel(0);
+                $('loading').classList.add('hidden');
+                return;
             }
         }
-    }catch{}
-    $('error').classList.remove('hidden'); $('status').textContent='Ошибка загрузки'; $('loading').classList.add('hidden');
+    } catch (e) {
+        if (e.name === 'AbortError') console.warn('[IPTV] Playlist fetch aborted');
+    }
+
+    $('error').classList.remove('hidden');
+    $('statusText').textContent = 'Ошибка загрузки';
+    $('loading').classList.add('hidden');
 }
 
-/* ═══ ОБРАБОТЧИКИ СОБЫТИЙ ═══ */
-$('list').addEventListener('click', e=>{
-    const fav=e.target.closest('.favorite'); if (fav){ toggleFav(+fav.dataset.fav); return; }
-    const item=e.target.closest('.channel-item'); if (item) selectChannel(+item.dataset.idx);
-}, { passive:true });
-$('categories').addEventListener('click', e=>{
-    const el=e.target.closest('.category'); if (!el) return;
-    state.category=el.dataset.cat; lastRenderKey=''; renderList();
-    $('categories').querySelectorAll('.category').forEach(c=>c.classList.remove('active')); el.classList.add('active');
-}, { passive:true });
-document.querySelectorAll('.tab').forEach(tab=>{
-    tab.addEventListener('click', ()=>{
-        state.tab=tab.dataset.tab; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-        tab.classList.add('active'); lastRenderKey=''; renderList();
-    }, { passive:true });
-});
-$('search').addEventListener('input', debounce(e=>{ state.search=e.target.value.trim(); lastRenderKey=''; renderList(); },200), { passive:true });
+/* ═══════════════════════════════════════════════════════════
+   ОБРАБОТЧИКИ СОБЫТИЙ
+   ═══════════════════════════════════════════════════════════ */
 
-$('btnPlay').addEventListener('click', ()=>video.paused?video.play():video.pause());
-$('bigPlay').addEventListener('click', ()=>{ if (state.current>=0) video.play(); else if (state.channels.length) selectChannel(0); });
+// FIX #8: Делегирование ошибок изображений (вместо inline onerror)
+$('list').addEventListener('error', e => {
+    if (e.target.tagName === 'IMG') {
+        const fallback = e.target.dataset.fallback;
+        if (fallback) e.target.outerHTML = fallback;
+        else e.target.outerHTML = '<span>?</span>';
+    }
+}, true);  // capture phase для ошибок
+
+$('list').addEventListener('click', e => {
+    const fav = e.target.closest('.favorite');
+    if (fav) { toggleFav(+fav.dataset.fav); return; }
+    const item = e.target.closest('.channel-item');
+    if (item) selectChannel(+item.dataset.idx);
+}, { passive: true });
+
+$('categories').addEventListener('click', e => {
+    const el = e.target.closest('.category');
+    if (!el) return;
+    state.category = el.dataset.cat;
+    lastRenderKey = '';
+    renderList();
+    $('categories').querySelectorAll('.category').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+}, { passive: true });
+
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        state.tab = tab.dataset.tab;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        lastRenderKey = '';
+        renderList();
+    }, { passive: true });
+});
+
+$('search').addEventListener('input', debounce(e => {
+    state.search = e.target.value.trim();
+    lastRenderKey = '';
+    renderList();
+}, 200), { passive: true });
+
+$('btnPlay').addEventListener('click', () => video.paused ? video.play() : video.pause());
+$('bigPlay').addEventListener('click', () => {
+    if (state.current >= 0) video.play();
+    else if (state.channels.length) selectChannel(0);
+});
 $('btnPrev').addEventListener('click', prevChannel);
 $('btnNext').addEventListener('click', nextChannel);
-$('btnMute').addEventListener('click', ()=>{ video.muted=!video.muted; });
-$('vol').addEventListener('input', e=>{ video.volume=+e.target.value; video.muted=+e.target.value===0; safeSave('iptv_vol',+e.target.value); }, { passive:true });
-$('btnFull').addEventListener('click', ()=>{
-    const el=$('videoWrap');
-    if (document.fullscreenElement||document.webkitFullscreenElement){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
-    else if (el.requestFullscreen) el.requestFullscreen();
-    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+$('btnMute').addEventListener('click', () => { video.muted = !video.muted; });
+$('vol').addEventListener('input', e => {
+    video.volume = +e.target.value;
+    video.muted = +e.target.value === 0;
+    safeSave('iptv_vol', +e.target.value);
+}, { passive: true });
+
+$('btnFull').addEventListener('click', () => {
+    const el = $('videoWrap');
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    } else if (el.requestFullscreen) {
+        el.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+    } else if (video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
+    }
 });
-$('btnRetry').addEventListener('click', ()=>{ if (state.current>=0) selectChannel(state.current); });
-$('btnFile').addEventListener('click', ()=>$('file').click());
+
+$('btnRetry').addEventListener('click', () => {
+    if (state.current >= 0) selectChannel(state.current);
+});
+$('btnFile').addEventListener('click', () => $('file').click());
 $('btnReload').addEventListener('click', loadPlaylist);
-$('file').addEventListener('change', e=>{
-    const f=e.target.files[0]; if (!f) return;
-    const reader=new FileReader();
-    reader.onload=ev=>{
-        state.channels=parseM3U(ev.target.result);
-        $('status').textContent=state.channels.length+' каналов · '+f.name;
-        $('error').classList.add('hidden'); renderCategories(); lastRenderKey=''; renderList();
-        if (state.current===-1&&state.channels.length) selectChannel(0);
+
+$('file').addEventListener('change', e => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+        state.channels = parseM3U(ev.target.result);
+        state.channelIndex.clear();
+        state.channels.forEach((ch, i) => state.channelIndex.set(ch.name + '|' + ch.url, i));
+        $('statusText').textContent = state.channels.length + ' каналов · ' + f.name;
+        $('error').classList.add('hidden');
+        renderCategories();
+        lastRenderKey = '';
+        renderList();
+        if (state.current === -1 && state.channels.length) selectChannel(0);
     };
     reader.readAsText(f);
 });
 
-video.addEventListener('play', ()=>{ $('overlay').classList.add('hidden'); $('playerError').classList.add('hidden'); $('iconPlay').classList.add('hidden'); $('iconPause').classList.remove('hidden'); });
-video.addEventListener('pause', ()=>{ $('iconPlay').classList.remove('hidden'); $('iconPause').classList.add('hidden'); });
-video.addEventListener('playing', ()=>{ showBuffering(false); $('overlay').classList.add('hidden'); });
-video.addEventListener('waiting', ()=>showBuffering(true), { passive:true });
-video.addEventListener('canplay', ()=>showBuffering(false), { passive:true });
-video.addEventListener('error', ()=>{
-    if (state.playerType!=='native') return;
+/* ═══ События видео ═══ */
+video.addEventListener('play', () => {
+    $('overlay').classList.add('hidden');
+    $('playerError').classList.add('hidden');
+    $('iconPlay').classList.add('hidden');
+    $('iconPause').classList.remove('hidden');
+});
+video.addEventListener('pause', () => {
+    $('iconPlay').classList.remove('hidden');
+    $('iconPause').classList.add('hidden');
+});
+video.addEventListener('playing', () => {
     showBuffering(false);
-    const c=video.error?.code;
-    if (c===4) handleStreamError('codec not supported', state.channels[state.current]?.url);
-    else if (c===2) handleStreamError('network load error', state.channels[state.current]?.url);
-    else handleStreamError('media error '+c, state.channels[state.current]?.url);
-}, { passive:true });
+    $('overlay').classList.add('hidden');
+});
+video.addEventListener('waiting', () => showBuffering(true), { passive: true });
+video.addEventListener('canplay', () => showBuffering(false), { passive: true });
+video.addEventListener('error', () => {
+    if (state.playerType !== 'native') return;
+    showBuffering(false);
+    const c = video.error?.code;
+    const url = state.channels[state.current]?.url || '';
+    if (c === 4) handleStreamError('codec not supported', url);
+    else if (c === 2) handleStreamError('network load error', url);
+    else handleStreamError('media error ' + c, url);
+}, { passive: true });
 
-function showControls(){ $('controls').classList.remove('idle'); clearTimeout(state.controlsTimer); state.controlsTimer=setTimeout(()=>{ if (!video.paused) $('controls').classList.add('idle'); },3500); }
-$('videoWrap').addEventListener('touchstart', showControls, { passive:true });
-$('videoWrap').addEventListener('mousemove', ()=>showControls(), { passive:true });
+/* ═══ Контролы: автоскрытие ═══ */
+function showControls() {
+    $('controls').classList.remove('idle');
+    clearTimeout(state.controlsTimer);
+    state.controlsTimer = setTimeout(() => {
+        if (!video.paused) $('controls').classList.add('idle');
+    }, 3500);
+}
+$('videoWrap').addEventListener('touchstart', showControls, { passive: true });
+$('videoWrap').addEventListener('mousemove', showControls, { passive: true });
 
-let tX=0,tY=0,tT=0,lastTap=0;
-$('videoWrap').addEventListener('touchstart', e=>{ const t=e.touches[0]; tX=t.clientX; tY=t.clientY; tT=Date.now(); }, { passive:true });
-$('videoWrap').addEventListener('touchend', e=>{
-    const t=e.changedTouches[0], dx=t.clientX-tX, dy=t.clientY-tY, dt=Date.now()-tT;
-    if (Math.abs(dx)>60&&Math.abs(dy)<40&&dt<300){ dx>0?prevChannel():nextChannel(); return; }
-    const now=Date.now(); if (now-lastTap<300){ $('btnFull').click(); e.preventDefault(); } lastTap=now;
+/* ═══ Жесты ═══ */
+let tX = 0, tY = 0, tT = 0, lastTap = 0;
+$('videoWrap').addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    tX = t.clientX; tY = t.clientY; tT = Date.now();
+}, { passive: true });
+$('videoWrap').addEventListener('touchend', e => {
+    const t = e.changedTouches[0];
+    const dx = t.clientX - tX, dy = t.clientY - tY, dt = Date.now() - tT;
+    if (Math.abs(dx) > 60 && Math.abs(dy) < 40 && dt < 300) {
+        dx > 0 ? prevChannel() : nextChannel();
+        return;
+    }
+    const now = Date.now();
+    if (now - lastTap < 300) { $('btnFull').click(); e.preventDefault(); }
+    lastTap = now;
 });
 
-document.addEventListener('keydown', e=>{
-    if (e.target.tagName==='INPUT') return;
-    switch (e.key){
+/* ═══ Клавиатура ═══ */
+document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT') return;
+    switch (e.key) {
         case 'ArrowUp': e.preventDefault(); prevChannel(); break;
         case 'ArrowDown': e.preventDefault(); nextChannel(); break;
-        case ' ': e.preventDefault(); video.paused?video.play():video.pause(); break;
-        case 'f': case 'F': if (state.current>=0) toggleFav(state.current); break;
-        case 'm': case 'M': video.muted=!video.muted; break;
-        case 'ArrowRight': video.volume=Math.min(1,video.volume+.1); $('vol').value=video.volume; break;
-        case 'ArrowLeft': video.volume=Math.max(0,video.volume-.1); $('vol').value=video.volume; break;
+        case ' ': e.preventDefault(); video.paused ? video.play() : video.pause(); break;
+        case 'f': case 'F': case 'а': case 'А':
+            if (state.current >= 0) toggleFav(state.current); break;
+        case 'm': case 'M': case 'ь': case 'Ь':
+            video.muted = !video.muted; break;
+        case 'ArrowRight': video.volume = Math.min(1, video.volume + .1); $('vol').value = video.volume; break;
+        case 'ArrowLeft': video.volume = Math.max(0, video.volume - .1); $('vol').value = video.volume; break;
     }
 });
 
-function tickClock(){
-    const t=new Date().toLocaleTimeString('ru-RU',{ hour:'2-digit', minute:'2-digit' });
-    $('clock').textContent=t; $('statusClock').textContent=new Date().toLocaleDateString('ru-RU')+' · '+t;
+/* ═══ Часы ═══ */
+function tickClock() {
+    // FIX: один Date на оба вывода
+    const now = new Date();
+    const t = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    $('clock').textContent = t;
+    $('statusClock').textContent = now.toLocaleDateString('ru-RU') + ' · ' + t;
 }
-setInterval(tickClock,1000); tickClock();
+setInterval(tickClock, 1000);
+tickClock();
 
-const savedVol=safeParse('iptv_vol',null);
-if (savedVol!==null){ video.volume=savedVol; $('vol').value=savedVol; }
+/* ═══ Инициализация ═══ */
+const savedVol = safeParse('iptv_vol', null);
+if (savedVol !== null) { video.volume = savedVol; $('vol').value = savedVol; }
 renderCodecs();
 loadPlaylist();
 </script>
