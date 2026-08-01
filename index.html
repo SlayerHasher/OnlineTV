@@ -201,7 +201,6 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
     <div class="player-wrapper">
         <div class="channel-number" id="chNum">—</div>
         <div class="video-container" id="videoWrap">
-            <!-- FIX #2: crossorigin убирается динамически, если поток без CORS -->
             <video id="video" playsinline webkit-playsinline preload="auto"></video>
             <div class="live">LIVE</div>
             <div class="format-badge hidden" id="formatBadge">—</div>
@@ -279,22 +278,22 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
 const CONFIG = {
     PLAYLIST_URL: 'https://raw.githubusercontent.com/SlayerHasher/OnlineTV/main/playlist.m3u',
     MAX_RENDER: 150,
-
-    /*  FIX #1: Каскад CORS-прокси.
-        Порядок: свой → публичные.
-        Чтобы добавить свой прокси, укажите URL:
-        CUSTOM_PROXY: 'https://my-proxy.example.com/?url='
-        Прокси должен принимать URL через ?url= и возвращать поток с CORS-заголовками.
-    */
-    CUSTOM_PROXY: '',  // ← впишите свой прокси сюда
-    PUBLIC_PROXIES: [
-        'https://corsproxy.io/?url=',
-        'https://api.allorigins.win/raw?url=',
-        'https://proxy.cors.sh/'
-    ],
-
     FETCH_TIMEOUT: 15000,
-    HLS_RECOVERY_ATTEMPTS: 2
+    HLS_RECOVERY_ATTEMPTS: 2,
+
+    /*  СВОЙ прокси (строка-префикс, URL кодируется автоматически).
+        Пример своего прокси: 'https://my-proxy.example.com/?url='
+        Пусто = не использовать. Свой прокси идёт ПЕРВЫМ в цепочке. */
+    CUSTOM_PROXY: '',
+
+    /*  Публичные прокси. Оставлены ТОЛЬКО те, что стримят бинарные данные
+        (HLS-сегменты .ts). allorigins/cors.sh убраны — они не подходят для видео.
+        build(u) — как именно обернуть URL (у прокси разный формат). */
+    PROXIES: [
+        { name: 'corsproxy.io', build: u => 'https://corsproxy.io/?url=' + encodeURIComponent(u) },
+        { name: 'thingproxy',   build: u => 'https://thingproxy.freeboard.io/fetch/' + u },
+        { name: 'codetabs',     build: u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u) }
+    ]
 };
 
 /* ═══ Утилиты ═══ */
@@ -311,21 +310,29 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
 /* ═══ Состояние ═══ */
 const state = {
     channels: [],
-    channelIndex: new Map(),   // FIX #4: Map name+url → idx для O(1)
+    channelIndex: new Map(),
     current: -1,
     favorites: new Set(safeParse('iptv_fav', [])),
     history: safeParse('iptv_hist', []),
     tab: 'all', category: 'all', search: '',
     player: null, playerType: null,
     controlsTimer: null, toastTimer: null,
-    playlistAbort: null,       // FIX #7: AbortController для загрузки плейлиста
-    hlsRecoveryCount: 0,       // FIX #3: счётчик попыток восстановления HLS
-    proxyLevel: 0              // текущий уровень прокси (0 = без прокси)
+    playlistAbort: null,
+    hlsRecoveryCount: 0
 };
 
-/* ═══════════════════════════════════════════════════════════
-   ПАРСЕР M3U
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ Цепочка прокси: [null=прямой, свой?, ...публичные] ═══ */
+function getProxyChain() {
+    const chain = [null];
+    if (CONFIG.CUSTOM_PROXY) {
+        const p = CONFIG.CUSTOM_PROXY;
+        chain.push({ name: 'custom', build: u => p + encodeURIComponent(u) });
+    }
+    for (const pr of CONFIG.PROXIES) chain.push(pr);
+    return chain;
+}
+
+/* ═══ Парсер M3U ═══ */
 function parseM3U(text) {
     const channels = [], lines = text.split(/\r?\n/), seen = new Set();
     let cur = null;
@@ -358,7 +365,6 @@ function parseM3U(text) {
     }
     return channels;
 }
-
 function extractAttr(line, attr) {
     const i = line.indexOf(attr + '="');
     if (i === -1) return '';
@@ -367,81 +373,50 @@ function extractAttr(line, attr) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CORS-ПРОКСИ: КАСКАДНАЯ СТРАТЕГИЯ
-   ═══════════════════════════════════════════════════════════ */
-function getProxyChain() {
-    const chain = [];
-    // Уровень 0: без прокси (прямой запрос или HTTPS-апгрейд)
-    chain.push(null);
-    // Уровень 1: свой прокси (если задан)
-    if (CONFIG.CUSTOM_PROXY) chain.push(CONFIG.CUSTOM_PROXY);
-    // Уровень 2+: публичные прокси
-    for (const p of CONFIG.PUBLIC_PROXIES) chain.push(p);
-    return chain;
-}
-
-function applyProxy(url, proxyPrefix) {
-    if (!proxyPrefix) return url;
-    return proxyPrefix + encodeURIComponent(url);
-}
-
-/* ═══════════════════════════════════════════════════════════
    ДВИЖОК ВОСПРОИЗВЕДЕНИЯ
    ═══════════════════════════════════════════════════════════ */
 function destroyPlayer() {
     if (state.player) {
         try {
-            if (state.playerType === 'hls') {
-                state.player.destroy();
-            } else if (state.playerType === 'mpegts' || state.playerType === 'flv') {
-                state.player.pause();
-                state.player.unload();
-                state.player.detachMediaElement();
-                state.player.destroy();
-            } else if (state.playerType === 'dash') {
-                state.player.reset();
-            }
-        } catch (e) { /* ignore */ }
-        state.player = null;
-        state.playerType = null;
+            if (state.playerType === 'hls') state.player.destroy();
+            else if (state.playerType === 'mpegts' || state.playerType === 'flv') {
+                state.player.pause(); state.player.unload();
+                state.player.detachMediaElement(); state.player.destroy();
+            } else if (state.playerType === 'dash') state.player.reset();
+        } catch (e) {}
+        state.player = null; state.playerType = null;
     }
-    // FIX #6: pause перед load для предотвращения AbortError
     try { video.pause(); } catch {}
     video.removeAttribute('src');
     video.load();
 }
 
-function playStream(url, opts, proxyLevel = 0) {
+/**
+ * @param {string} url        исходный URL из плейлиста
+ * @param {object} opts       EXT-VLC-OPT заголовки
+ * @param {number} proxyIdx   индекс в getProxyChain() (0 = прямой запрос)
+ */
+function playStream(url, opts, proxyIdx = 0) {
     destroyPlayer();
     $('playerError').classList.add('hidden');
     showBuffering(true);
     state.hlsRecoveryCount = 0;
-    state.proxyLevel = proxyLevel;
 
-    const proxyChain = getProxyChain();
-    const proxyPrefix = proxyChain[proxyLevel] || null;
+    const chain = getProxyChain();
+    const proxy = chain[proxyIdx] || null;   // null или {name, build}
 
-    let targetUrl = url;
-
-    if (proxyPrefix) {
-        // Через прокси — CORS гарантирован
-        targetUrl = applyProxy(url, proxyPrefix);
-        toast('Прокси: ' + (proxyPrefix === CONFIG.CUSTOM_PROXY ? 'свой' : 'публичный #' + proxyLevel), 'proxy');
-    } else if (isHttps && url.startsWith('http://')) {
-        // Попытка авто-апгрейда до HTTPS
-        targetUrl = 'https://' + url.substring(7);
+    // URL для loadSource/initialize/src:
+    //  - через прокси → ИСХОДНЫЙ url (прокси сам обратится по http/https;
+    //    а сегменты HLS обернёт xhrSetup ниже)
+    //  - напрямую на https-странице с http-потоком → апгрейд до https
+    let directUrl = url;
+    if (!proxy && isHttps && url.startsWith('http://')) {
+        directUrl = 'https://' + url.substring(7);
     }
+    // Для движков без перехвата запросов (mpegts/dash/native) проксируем сразу весь URL
+    const wrappedUrl = proxy ? proxy.build(url) : directUrl;
 
-    // FIX #2: Управляем crossorigin динамически
-    // Если через прокси — прокси отдаёт CORS-заголовки, ставим anonymous
-    // Если напрямую — не ставим, чтобы не блокировать потоки без CORS
-    if (proxyPrefix) {
-        video.setAttribute('crossorigin', 'anonymous');
-    } else {
-        video.removeAttribute('crossorigin');
-    }
-
-    const lowerUrl = targetUrl.toLowerCase();
+    const lowerUrl = url.toLowerCase();
     const isHls = lowerUrl.includes('.m3u8') || lowerUrl.includes('/hls/');
     const isDash = lowerUrl.includes('.mpd') || lowerUrl.includes('/dash/');
     const isTsFlv = lowerUrl.includes('.ts') || lowerUrl.includes('.flv') || lowerUrl.includes('http-flv');
@@ -450,12 +425,11 @@ function playStream(url, opts, proxyLevel = 0) {
     if (opts['http-referrer'] || opts['http-referer']) headers['Referer'] = opts['http-referrer'] || opts['http-referer'];
     if (opts['http-user-agent']) headers['User-Agent'] = opts['http-user-agent'];
 
-    // Каскадный fallback: следующий прокси
-    const tryNextProxy = (reason) => {
-        const nextLevel = proxyLevel + 1;
-        if (nextLevel < proxyChain.length) {
-            console.warn(`[IPTV] Fallback → proxy level ${nextLevel}. Reason: ${reason}`);
-            setTimeout(() => playStream(url, opts, nextLevel), 400);
+    const tryNext = (reason) => {
+        const next = proxyIdx + 1;
+        if (next < chain.length) {
+            console.warn(`[IPTV] → proxy level ${next} (${chain[next]?.name || 'direct'}). Reason: ${reason}`);
+            setTimeout(() => playStream(url, opts, next), 350);
         } else {
             handleStreamError(reason, url);
         }
@@ -463,28 +437,21 @@ function playStream(url, opts, proxyLevel = 0) {
 
     const onError = (details) => {
         const d = String(details).toLowerCase();
-        const isNetworkIssue = d.includes('cors') || d.includes('network') ||
-                               d.includes('fetch') || d.includes('neterror') ||
-                               d.includes('manifest') || d.includes('level') ||
-                               d.includes('frag') || d.includes('buffer');
-        const isHttpError = d.includes('403') || d.includes('401') || d.includes('forbidden');
+        const net = d.includes('cors') || d.includes('network') || d.includes('fetch') ||
+                    d.includes('neterror') || d.includes('manifest') || d.includes('frag') ||
+                    d.includes('level') || d.includes('bufferstalled') || d.includes('timeout');
+        const http = d.includes('403') || d.includes('401') || d.includes('404') || d.includes('forbidden');
 
-        // Если HTTPS-апгрейд не сработал или CORS — пробуем прокси
-        if (!proxyPrefix && (isHttps && url.startsWith('http://') || isNetworkIssue)) {
-            tryNextProxy(details);
-            return;
-        }
-        // Если текущий прокси не сработал — пробуем следующий
-        if (proxyPrefix && (isNetworkIssue || isHttpError)) {
-            tryNextProxy(details);
-            return;
-        }
+        // прямой запрос упал по сети/CORS или из-за mixed-content → идём в прокси
+        if (!proxy && (net || (isHttps && url.startsWith('http://')))) { tryNext(details); return; }
+        // текущий прокси упал → следующий прокси
+        if (proxy && (net || http)) { tryNext(details); return; }
         handleStreamError(details, url);
     };
 
     try {
         if (isHls && window.Hls && Hls.isSupported()) {
-            $('formatBadge').textContent = proxyPrefix ? 'HLS·PROXY' : 'HLS';
+            $('formatBadge').textContent = proxy ? 'HLS·' + proxy.name : 'HLS';
             $('chFormat').textContent = 'HLS';
 
             const hls = new Hls({
@@ -494,107 +461,72 @@ function playStream(url, opts, proxyLevel = 0) {
                 fragLoadingTimeOut: 12000,
                 manifestLoadingTimeOut: 10000,
                 levelLoadingTimeOut: 10000,
-                xhrSetup: (xhr) => {
-                    for (const k in headers) {
-                        try { xhr.setRequestHeader(k, headers[k]); } catch {}
-                    }
+                /*  ★ КЛЮЧЕВОЙ ФИКС CORS для HLS ★
+                    Перехватываем КАЖДЫЙ запрос hls.js (манифест + все .ts-сегменты)
+                    и переоткрываем XHR на прокси-URL. hls.js уважает этот open,
+                    т.к. делает свой open только при !xhr.readyState. */
+                xhrSetup: (xhr, reqUrl) => {
+                    const finalUrl = proxy ? proxy.build(reqUrl) : reqUrl;
+                    try { xhr.open('GET', finalUrl, true); } catch (e) { /* fallback: open уже сделан hls.js */ }
+                    for (const k in headers) { try { xhr.setRequestHeader(k, headers[k]); } catch {} }
                 }
             });
 
-            hls.loadSource(targetUrl);
+            // loadSource получает url БЕЗ прокси-обёртки — обернёт xhrSetup
+            hls.loadSource(proxy ? url : directUrl);
             hls.attachMedia(video);
 
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                video.play().catch(() => {});
-                showBuffering(false);
-            });
-
-            // FIX #3: Восстановление HLS перед полным fallback
+            hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); showBuffering(false); });
             hls.on(Hls.Events.ERROR, (e, data) => {
                 if (!data.fatal) return;
-
                 switch (data.type) {
                     case Hls.ErrorTypes.MEDIA_ERROR:
                         if (state.hlsRecoveryCount < CONFIG.HLS_RECOVERY_ATTEMPTS) {
                             state.hlsRecoveryCount++;
-                            console.warn(`[HLS] Media error, recovery attempt ${state.hlsRecoveryCount}`);
-                            if (state.hlsRecoveryCount === 1) {
-                                hls.recoverMediaError();
-                            } else {
-                                hls.swapAudioCodec();
-                                hls.recoverMediaError();
-                            }
-                        } else {
-                            onError('hls:media:' + data.details);
-                        }
+                            if (state.hlsRecoveryCount === 1) hls.recoverMediaError();
+                            else { hls.swapAudioCodec(); hls.recoverMediaError(); }
+                        } else onError('hls:media:' + data.details);
                         break;
                     case Hls.ErrorTypes.NETWORK_ERROR:
                         onError('hls:network:' + data.details);
                         break;
                     default:
                         onError('hls:other:' + data.details);
-                        break;
                 }
             });
 
-            state.player = hls;
-            state.playerType = 'hls';
+            state.player = hls; state.playerType = 'hls';
 
         } else if (isDash && window.dashjs) {
-            $('formatBadge').textContent = proxyPrefix ? 'DASH·PROXY' : 'DASH';
+            $('formatBadge').textContent = proxy ? 'DASH·' + proxy.name : 'DASH';
             $('chFormat').textContent = 'DASH';
-
             const p = dashjs.MediaPlayer().create();
-            p.initialize(video, targetUrl, true);
-            p.updateSettings({
-                streaming: {
-                    timeout: 12000,
-                    retryAttempts: { lowLevel: 2, highLevel: 1 }
-                }
-            });
-            p.on(dashjs.MediaPlayer.events.ERROR, e => {
-                onError('dash:' + (e.error?.message || e.error?.code || 'unknown'));
-            });
+            p.initialize(video, wrappedUrl, true);
+            try { p.updateSettings({ streaming: { buffer: { lowLatencyEnabled: true } } }); } catch {}
+            p.on(dashjs.MediaPlayer.events.ERROR, e => onError('dash:' + (e.error?.message || e.error?.code || '')));
             p.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, () => showBuffering(false));
-            state.player = p;
-            state.playerType = 'dash';
+            state.player = p; state.playerType = 'dash';
 
         } else if (isTsFlv && window.mpegts && mpegts.getFeatureList().mseLivePlayback) {
-            $('formatBadge').textContent = proxyPrefix ? 'TS/FLV·PROXY' : 'MPEG-TS/FLV';
+            $('formatBadge').textContent = proxy ? 'TS/FLV·' + proxy.name : 'MPEG-TS/FLV';
             $('chFormat').textContent = 'TS/FLV';
-
-            const cfg = {
-                enableWorker: true,
-                enableStashBuffer: true,
-                liveBufferLatencyChasing: true,
-                lazyLoad: false
-            };
-            if (Object.keys(headers).length && !proxyPrefix) cfg.headers = headers;
-
-            const p = mpegts.createPlayer({
-                type: lowerUrl.includes('.flv') ? 'flv' : 'mpegts',
-                isLive: true,
-                url: targetUrl
-            }, cfg);
-
-            p.attachMediaElement(video);
-            p.load();
-            p.play();
+            const cfg = { enableWorker: true, enableStashBuffer: true, liveBufferLatencyChasing: true, lazyLoad: false };
+            if (Object.keys(headers).length && !proxy) cfg.headers = headers;
+            const p = mpegts.createPlayer({ type: lowerUrl.includes('.flv') ? 'flv' : 'mpegts', isLive: true, url: wrappedUrl }, cfg);
+            p.attachMediaElement(video); p.load(); p.play();
             p.on(mpegts.Events.ERROR, (t, d) => onError('mpegts:' + t + ':' + d));
             p.on(mpegts.Events.RECOVERED_EARLY_EOF, () => showBuffering(false));
-            state.player = p;
-            state.playerType = 'mpegts';
+            state.player = p; state.playerType = 'mpegts';
 
         } else {
-            // Нативное воспроизведение (mp4, webm, etc.)
-            $('formatBadge').textContent = proxyPrefix ? 'NATIVE·PROXY' : 'NATIVE';
+            $('formatBadge').textContent = proxy ? 'NATIVE·' + proxy.name : 'NATIVE';
             $('chFormat').textContent = 'NATIVE';
-            video.src = targetUrl;
+            video.src = wrappedUrl;
             video.play().catch(err => onError('native:' + err.message));
             state.playerType = 'native';
         }
-
         $('formatBadge').classList.remove('hidden');
+        if (proxy) toast('Прокси: ' + proxy.name, 'proxy');
     } catch (e) {
         onError('init:' + e.message);
     }
@@ -608,22 +540,22 @@ function handleStreamError(details, originalUrl) {
 
     if (/^(udp|rtp|rtsp):\/\//.test(originalUrl)) {
         title = 'Протокол не поддерживается';
-        detail = 'Браузер не воспроизводит UDP/RTP/RTSP. Нужен локальный прокси (VLC, IPTV Proxy, udpxy).';
+        detail = 'Браузер не воспроизводит UDP/RTP/RTSP. Нужен локальный прокси (VLC, udpxy, IPTV Proxy).';
     } else if (d.includes('403') || d.includes('401') || d.includes('forbidden')) {
         title = 'Доступ запрещён (403/401)';
-        detail = 'Сервер проверяет Referer/User-Agent или привязал поток к приложению.';
+        detail = 'Сервер проверяет Referer/Geo или привязал поток к приложению. Прокси здесь не поможет — поток закрыт на стороне источника.';
     } else if (d.includes('404') || d.includes('not found')) {
         title = 'Поток не найден (404)';
-        detail = 'Адрес канала устарел или был удалён.';
+        detail = 'Адрес канала устарел или удалён.';
     } else if (d.includes('cors') || d.includes('network') || d.includes('fetch') || d.includes('neterror')) {
         title = 'Ошибка сети / CORS';
-        detail = 'Все прокси исчерпаны. Сервер блокирует запросы. Попробуйте расширение "Allow CORS" или локальный прокси.';
+        detail = 'И прямой запрос, и все прокси не смогли достать поток. Поднимите свой прокси (см. инструкцию) — это решит проблему окончательно.';
     } else if (d.includes('codec') || d.includes('format') || d.includes('mediasource')) {
         title = 'Кодек не поддерживается';
-        detail = 'Браузер не декодирует этот поток (MPEG-2, HEVC, AC3). Попробуйте другой браузер или VLC.';
+        detail = 'Браузер не декодирует поток (MPEG-2, HEVC, AC3). Попробуйте другой браузер или VLC.';
     } else if (d.includes('timeout') || d.includes('timed out')) {
         title = 'Таймаут соединения';
-        detail = 'Сервер потока не отвечает. Возможно, канал временно недоступен.';
+        detail = 'Сервер потока не отвечает.';
     }
 
     $('playerError').classList.remove('hidden');
@@ -633,7 +565,6 @@ function handleStreamError(details, originalUrl) {
 }
 
 function showBuffering(show) { $('buffering').classList.toggle('hidden', !show); }
-
 function toast(msg, type) {
     const t = $('toast');
     t.textContent = msg;
@@ -642,22 +573,17 @@ function toast(msg, type) {
     state.toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ВЫБОР КАНАЛА
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ Выбор канала ═══ */
 function selectChannel(idx) {
     if (idx < 0 || idx >= state.channels.length) return;
     state.current = idx;
     const ch = state.channels[idx];
-
     $('chNum').textContent = String(idx + 1).padStart(3, '0');
     $('chTitle').textContent = ch.name;
     $('chGroup').textContent = ch.group;
     try { $('chHost').textContent = new URL(ch.url).host; } catch {}
     document.title = ch.name + ' — IPTV';
     $('overlay').classList.add('hidden');
-
-    // Сброс на уровень 0 (без прокси) при каждом новом выборе
     playStream(ch.url, ch.opts, 0);
     addHistory(ch.name);
     renderList();
@@ -667,9 +593,7 @@ function selectChannel(idx) {
     });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   РЕНДЕР И UI
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ Рендер ═══ */
 function getInitial(name) {
     for (let i = 0; i < name.length; i++) {
         const c = name.charCodeAt(i);
@@ -678,76 +602,39 @@ function getInitial(name) {
     }
     return '?';
 }
-
 const COLORS = ['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8','#a29bfe','#fdcb6e'];
-function getColor(name) {
-    let h = 0;
-    for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
-    return COLORS[Math.abs(h) % COLORS.length];
-}
+function getColor(name) { let h = 0; for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h); return COLORS[Math.abs(h) % COLORS.length]; }
 
 function filterChannels() {
     let r = state.channels;
     if (state.tab === 'fav') r = r.filter(c => state.favorites.has(c.name));
-    else if (state.tab === 'hist') {
-        const s = new Set(state.history);
-        r = r.filter(c => s.has(c.name));
-    }
+    else if (state.tab === 'hist') { const s = new Set(state.history); r = r.filter(c => s.has(c.name)); }
     if (state.category !== 'all') r = r.filter(c => c.group === state.category);
-    if (state.search) {
-        const q = state.search.toLowerCase();
-        r = r.filter(c => c.name.toLowerCase().includes(q) || c.group.toLowerCase().includes(q));
-    }
+    if (state.search) { const q = state.search.toLowerCase(); r = r.filter(c => c.name.toLowerCase().includes(q) || c.group.toLowerCase().includes(q)); }
     return r;
 }
-
 let lastRenderKey = '';
-
 function renderList() {
     const filtered = filterChannels();
     $('count').textContent = filtered.length;
-
-    // FIX #5: Включаем favorites в ключ рендера
     const favKey = state.favorites.size + ':' + [...state.favorites].sort().join(',');
     const key = state.tab + '|' + state.category + '|' + state.search + '|' + state.current + '|' + favKey;
-    if (key === lastRenderKey) return;
-    lastRenderKey = key;
-
-    if (!filtered.length) {
-        $('list').innerHTML = '<div style="text-align:center;padding:40px;color:#4d5766;font-size:14px">Нет каналов</div>';
-        return;
-    }
-
-    const slice = filtered.slice(0, CONFIG.MAX_RENDER);
-    const frag = document.createDocumentFragment();
-
+    if (key === lastRenderKey) return; lastRenderKey = key;
+    if (!filtered.length) { $('list').innerHTML = '<div style="text-align:center;padding:40px;color:#4d5766;font-size:14px">Нет каналов</div>'; return; }
+    const slice = filtered.slice(0, CONFIG.MAX_RENDER), frag = document.createDocumentFragment();
     for (let i = 0; i < slice.length; i++) {
         const ch = slice[i];
-        // FIX #4: O(1) вместо indexOf
         const idx = state.channelIndex.get(ch.name + '|' + ch.url);
         if (idx === undefined) continue;
-
-        const active = idx === state.current;
-        const fav = state.favorites.has(ch.name);
-        const color = getColor(ch.name);
-        const init = getInitial(ch.name);
-
+        const active = idx === state.current, fav = state.favorites.has(ch.name);
+        const color = getColor(ch.name), init = getInitial(ch.name);
         const div = document.createElement('div');
-        div.className = 'channel-item' + (active ? ' active' : '');
-        div.dataset.idx = idx;
-        // FIX: ограничиваем анимацию первыми 20 видимыми
-        if (i < 20) div.style.animationDelay = (i * 14) + 'ms';
-        else div.style.animation = 'none';
-
-        const numCell = active
-            ? '<span class="eq"><i></i><i></i><i></i></span>'
-            : String(idx + 1).padStart(3, '0');
-
-        // FIX #8: Без inline onerror — используем data-атрибуты + делегирование
+        div.className = 'channel-item' + (active ? ' active' : ''); div.dataset.idx = idx;
+        if (i < 20) div.style.animationDelay = (i * 14) + 'ms'; else div.style.animation = 'none';
+        const numCell = active ? '<span class="eq"><i></i><i></i><i></i></span>' : String(idx + 1).padStart(3, '0');
         const logoHtml = ch.logo && ch.logo.startsWith('http')
             ? `<img src="${escapeAttr(ch.logo)}" loading="lazy" decoding="async" data-fallback="<span style='color:${color}'>${init}</span>">`
             : `<span style="color:${color}">${init}</span>`;
-
         div.innerHTML = `
             <div class="channel-item-num">${numCell}</div>
             <div class="channel-item-logo">${logoHtml}</div>
@@ -762,18 +649,12 @@ function renderList() {
             </div>`;
         frag.appendChild(div);
     }
-
     if (filtered.length > CONFIG.MAX_RENDER) {
-        const more = document.createElement('div');
-        more.style.cssText = 'text-align:center;padding:15px;color:#4d5766;font-size:12px';
-        more.textContent = `Показано ${CONFIG.MAX_RENDER} из ${filtered.length}. Уточните поиск.`;
-        frag.appendChild(more);
+        const more = document.createElement('div'); more.style.cssText = 'text-align:center;padding:15px;color:#4d5766;font-size:12px';
+        more.textContent = `Показано ${CONFIG.MAX_RENDER} из ${filtered.length}. Уточните поиск.`; frag.appendChild(more);
     }
-
-    $('list').innerHTML = '';
-    $('list').appendChild(frag);
+    $('list').innerHTML = ''; $('list').appendChild(frag);
 }
-
 function renderCategories() {
     const groups = Object.create(null);
     for (const c of state.channels) groups[c.group] = (groups[c.group] || 0) + 1;
@@ -782,269 +663,144 @@ function renderCategories() {
         `<div class="category${state.category === 'all' ? ' active' : ''}" data-cat="all">Все · ${state.channels.length}</div>` +
         sorted.map(([n, c]) => `<div class="category${state.category === n ? ' active' : ''}" data-cat="${escapeAttr(n)}">${escapeHtml(n)} · ${c}</div>`).join('');
 }
-
 function renderCodecs() {
-    const tests = [
-        ['H.264', 'video/mp4; codecs="avc1.42E01E,mp4a.40.2"'],
-        ['HEVC', 'video/mp4; codecs="hvc1.1.6.L93.B0"'],
-        ['MPEG-2', 'video/mp2t; codecs="mp4v.20.9"'],
-        ['AC3', 'audio/mp4; codecs="ac-3"'],
-        ['AAC', 'audio/mp4; codecs="mp4a.40.2"']
-    ];
-    $('codecs').innerHTML = tests.map(([l, m]) => {
-        const ok = !!video.canPlayType(m);
-        return `<span class="codec ${ok ? 'ok' : 'no'}" title="${escapeAttr(m)}">${l} ${ok ? '✓' : '✕'}</span>`;
-    }).join('');
+    const tests = [['H.264','video/mp4; codecs="avc1.42E01E,mp4a.40.2"'],['HEVC','video/mp4; codecs="hvc1.1.6.L93.B0"'],
+        ['MPEG-2','video/mp2t; codecs="mp4v.20.9"'],['AC3','audio/mp4; codecs="ac-3"'],['AAC','audio/mp4; codecs="mp4a.40.2"']];
+    $('codecs').innerHTML = tests.map(([l, m]) => { const ok = !!video.canPlayType(m);
+        return `<span class="codec ${ok ? 'ok' : 'no'}" title="${escapeAttr(m)}">${l} ${ok ? '✓' : '✕'}</span>`; }).join('');
 }
 
-function addHistory(name) {
-    state.history = [name, ...state.history.filter(n => n !== name)].slice(0, 50);
-    safeSave('iptv_hist', state.history);
-}
-
+function addHistory(name) { state.history = [name, ...state.history.filter(n => n !== name)].slice(0, 50); safeSave('iptv_hist', state.history); }
 function toggleFav(idx) {
-    const name = state.channels[idx]?.name;
-    if (!name) return;
-    if (state.favorites.has(name)) state.favorites.delete(name);
-    else state.favorites.add(name);
-    safeSave('iptv_fav', [...state.favorites]);
-    lastRenderKey = '';  // FIX #5: принудительный перерендер
-    renderList();
+    const name = state.channels[idx]?.name; if (!name) return;
+    state.favorites.has(name) ? state.favorites.delete(name) : state.favorites.add(name);
+    safeSave('iptv_fav', [...state.favorites]); lastRenderKey = ''; renderList();
 }
+function prevChannel() { if (!state.channels.length) return; selectChannel(state.current > 0 ? state.current - 1 : state.channels.length - 1); }
+function nextChannel() { if (!state.channels.length) return; selectChannel(state.current < state.channels.length - 1 ? state.current + 1 : 0); }
 
-function prevChannel() {
-    if (!state.channels.length) return;
-    selectChannel(state.current > 0 ? state.current - 1 : state.channels.length - 1);
-}
-function nextChannel() {
-    if (!state.channels.length) return;
-    selectChannel(state.current < state.channels.length - 1 ? state.current + 1 : 0);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ЗАГРУЗКА ПЛЕЙЛИСТА
-   ═══════════════════════════════════════════════════════════ */
 async function loadPlaylist() {
-    // FIX #7: Отменяем предыдущий запрос
     if (state.playlistAbort) state.playlistAbort.abort();
     state.playlistAbort = new AbortController();
-
-    $('loading').classList.remove('hidden');
-    $('error').classList.add('hidden');
-    $('statusText').textContent = 'Загрузка...';
-
+    $('loading').classList.remove('hidden'); $('error').classList.add('hidden'); $('statusText').textContent = 'Загрузка...';
     try {
         const timer = setTimeout(() => state.playlistAbort.abort(), CONFIG.FETCH_TIMEOUT);
-        const res = await fetch(CONFIG.PLAYLIST_URL, { signal: state.playlistAbort.signal });
-        clearTimeout(timer);
-
+        const res = await fetch(CONFIG.PLAYLIST_URL, { signal: state.playlistAbort.signal }); clearTimeout(timer);
         if (res.ok) {
-            const text = await res.text();
-            state.channels = parseM3U(text);
-
-            // FIX #4: Строим Map индексов
+            state.channels = parseM3U(await res.text());
             state.channelIndex.clear();
             state.channels.forEach((ch, i) => state.channelIndex.set(ch.name + '|' + ch.url, i));
-
             if (state.channels.length) {
                 $('statusText').textContent = state.channels.length + ' каналов';
-                renderCategories();
-                renderList();
+                renderCategories(); renderList();
                 if (state.current === -1) selectChannel(0);
-                $('loading').classList.add('hidden');
-                return;
+                $('loading').classList.add('hidden'); return;
             }
         }
-    } catch (e) {
-        if (e.name === 'AbortError') console.warn('[IPTV] Playlist fetch aborted');
-    }
-
-    $('error').classList.remove('hidden');
-    $('statusText').textContent = 'Ошибка загрузки';
-    $('loading').classList.add('hidden');
+    } catch (e) {}
+    $('error').classList.remove('hidden'); $('statusText').textContent = 'Ошибка загрузки'; $('loading').classList.add('hidden');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ОБРАБОТЧИКИ СОБЫТИЙ
-   ═══════════════════════════════════════════════════════════ */
-
-// FIX #8: Делегирование ошибок изображений (вместо inline onerror)
+/* ═══ События ═══ */
 $('list').addEventListener('error', e => {
     if (e.target.tagName === 'IMG') {
-        const fallback = e.target.dataset.fallback;
-        if (fallback) e.target.outerHTML = fallback;
-        else e.target.outerHTML = '<span>?</span>';
+        const fb = e.target.dataset.fallback;
+        e.target.outerHTML = fb || '<span>?</span>';
     }
-}, true);  // capture phase для ошибок
-
+}, true);
 $('list').addEventListener('click', e => {
-    const fav = e.target.closest('.favorite');
-    if (fav) { toggleFav(+fav.dataset.fav); return; }
-    const item = e.target.closest('.channel-item');
-    if (item) selectChannel(+item.dataset.idx);
+    const fav = e.target.closest('.favorite'); if (fav) { toggleFav(+fav.dataset.fav); return; }
+    const item = e.target.closest('.channel-item'); if (item) selectChannel(+item.dataset.idx);
 }, { passive: true });
-
 $('categories').addEventListener('click', e => {
-    const el = e.target.closest('.category');
-    if (!el) return;
-    state.category = el.dataset.cat;
-    lastRenderKey = '';
-    renderList();
-    $('categories').querySelectorAll('.category').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
+    const el = e.target.closest('.category'); if (!el) return;
+    state.category = el.dataset.cat; lastRenderKey = ''; renderList();
+    $('categories').querySelectorAll('.category').forEach(c => c.classList.remove('active')); el.classList.add('active');
 }, { passive: true });
-
 document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
-        state.tab = tab.dataset.tab;
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        lastRenderKey = '';
-        renderList();
+        state.tab = tab.dataset.tab; document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active'); lastRenderKey = ''; renderList();
     }, { passive: true });
 });
-
-$('search').addEventListener('input', debounce(e => {
-    state.search = e.target.value.trim();
-    lastRenderKey = '';
-    renderList();
-}, 200), { passive: true });
+$('search').addEventListener('input', debounce(e => { state.search = e.target.value.trim(); lastRenderKey = ''; renderList(); }, 200), { passive: true });
 
 $('btnPlay').addEventListener('click', () => video.paused ? video.play() : video.pause());
-$('bigPlay').addEventListener('click', () => {
-    if (state.current >= 0) video.play();
-    else if (state.channels.length) selectChannel(0);
-});
+$('bigPlay').addEventListener('click', () => { if (state.current >= 0) video.play(); else if (state.channels.length) selectChannel(0); });
 $('btnPrev').addEventListener('click', prevChannel);
 $('btnNext').addEventListener('click', nextChannel);
 $('btnMute').addEventListener('click', () => { video.muted = !video.muted; });
-$('vol').addEventListener('input', e => {
-    video.volume = +e.target.value;
-    video.muted = +e.target.value === 0;
-    safeSave('iptv_vol', +e.target.value);
-}, { passive: true });
-
+$('vol').addEventListener('input', e => { video.volume = +e.target.value; video.muted = +e.target.value === 0; safeSave('iptv_vol', +e.target.value); }, { passive: true });
 $('btnFull').addEventListener('click', () => {
     const el = $('videoWrap');
-    if (document.fullscreenElement || document.webkitFullscreenElement) {
-        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-    } else if (el.requestFullscreen) {
-        el.requestFullscreen();
-    } else if (el.webkitRequestFullscreen) {
-        el.webkitRequestFullscreen();
-    } else if (video.webkitEnterFullscreen) {
-        video.webkitEnterFullscreen();
-    }
+    if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    else if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
 });
-
-$('btnRetry').addEventListener('click', () => {
-    if (state.current >= 0) selectChannel(state.current);
-});
+$('btnRetry').addEventListener('click', () => { if (state.current >= 0) selectChannel(state.current); });
 $('btnFile').addEventListener('click', () => $('file').click());
 $('btnReload').addEventListener('click', loadPlaylist);
-
 $('file').addEventListener('change', e => {
-    const f = e.target.files[0];
-    if (!f) return;
+    const f = e.target.files[0]; if (!f) return;
     const reader = new FileReader();
     reader.onload = ev => {
         state.channels = parseM3U(ev.target.result);
         state.channelIndex.clear();
         state.channels.forEach((ch, i) => state.channelIndex.set(ch.name + '|' + ch.url, i));
         $('statusText').textContent = state.channels.length + ' каналов · ' + f.name;
-        $('error').classList.add('hidden');
-        renderCategories();
-        lastRenderKey = '';
-        renderList();
+        $('error').classList.add('hidden'); renderCategories(); lastRenderKey = ''; renderList();
         if (state.current === -1 && state.channels.length) selectChannel(0);
     };
     reader.readAsText(f);
 });
 
-/* ═══ События видео ═══ */
-video.addEventListener('play', () => {
-    $('overlay').classList.add('hidden');
-    $('playerError').classList.add('hidden');
-    $('iconPlay').classList.add('hidden');
-    $('iconPause').classList.remove('hidden');
-});
-video.addEventListener('pause', () => {
-    $('iconPlay').classList.remove('hidden');
-    $('iconPause').classList.add('hidden');
-});
-video.addEventListener('playing', () => {
-    showBuffering(false);
-    $('overlay').classList.add('hidden');
-});
+video.addEventListener('play', () => { $('overlay').classList.add('hidden'); $('playerError').classList.add('hidden'); $('iconPlay').classList.add('hidden'); $('iconPause').classList.remove('hidden'); });
+video.addEventListener('pause', () => { $('iconPlay').classList.remove('hidden'); $('iconPause').classList.add('hidden'); });
+video.addEventListener('playing', () => { showBuffering(false); $('overlay').classList.add('hidden'); });
 video.addEventListener('waiting', () => showBuffering(true), { passive: true });
 video.addEventListener('canplay', () => showBuffering(false), { passive: true });
 video.addEventListener('error', () => {
     if (state.playerType !== 'native') return;
     showBuffering(false);
-    const c = video.error?.code;
-    const url = state.channels[state.current]?.url || '';
+    const c = video.error?.code, url = state.channels[state.current]?.url || '';
     if (c === 4) handleStreamError('codec not supported', url);
     else if (c === 2) handleStreamError('network load error', url);
     else handleStreamError('media error ' + c, url);
 }, { passive: true });
 
-/* ═══ Контролы: автоскрытие ═══ */
-function showControls() {
-    $('controls').classList.remove('idle');
-    clearTimeout(state.controlsTimer);
-    state.controlsTimer = setTimeout(() => {
-        if (!video.paused) $('controls').classList.add('idle');
-    }, 3500);
-}
+function showControls() { $('controls').classList.remove('idle'); clearTimeout(state.controlsTimer); state.controlsTimer = setTimeout(() => { if (!video.paused) $('controls').classList.add('idle'); }, 3500); }
 $('videoWrap').addEventListener('touchstart', showControls, { passive: true });
 $('videoWrap').addEventListener('mousemove', showControls, { passive: true });
 
-/* ═══ Жесты ═══ */
 let tX = 0, tY = 0, tT = 0, lastTap = 0;
-$('videoWrap').addEventListener('touchstart', e => {
-    const t = e.touches[0];
-    tX = t.clientX; tY = t.clientY; tT = Date.now();
-}, { passive: true });
+$('videoWrap').addEventListener('touchstart', e => { const t = e.touches[0]; tX = t.clientX; tY = t.clientY; tT = Date.now(); }, { passive: true });
 $('videoWrap').addEventListener('touchend', e => {
-    const t = e.changedTouches[0];
-    const dx = t.clientX - tX, dy = t.clientY - tY, dt = Date.now() - tT;
-    if (Math.abs(dx) > 60 && Math.abs(dy) < 40 && dt < 300) {
-        dx > 0 ? prevChannel() : nextChannel();
-        return;
-    }
-    const now = Date.now();
-    if (now - lastTap < 300) { $('btnFull').click(); e.preventDefault(); }
-    lastTap = now;
+    const t = e.changedTouches[0], dx = t.clientX - tX, dy = t.clientY - tY, dt = Date.now() - tT;
+    if (Math.abs(dx) > 60 && Math.abs(dy) < 40 && dt < 300) { dx > 0 ? prevChannel() : nextChannel(); return; }
+    const now = Date.now(); if (now - lastTap < 300) { $('btnFull').click(); e.preventDefault(); } lastTap = now;
 });
 
-/* ═══ Клавиатура ═══ */
 document.addEventListener('keydown', e => {
     if (e.target.tagName === 'INPUT') return;
     switch (e.key) {
         case 'ArrowUp': e.preventDefault(); prevChannel(); break;
         case 'ArrowDown': e.preventDefault(); nextChannel(); break;
         case ' ': e.preventDefault(); video.paused ? video.play() : video.pause(); break;
-        case 'f': case 'F': case 'а': case 'А':
-            if (state.current >= 0) toggleFav(state.current); break;
-        case 'm': case 'M': case 'ь': case 'Ь':
-            video.muted = !video.muted; break;
+        case 'f': case 'F': case 'а': case 'А': if (state.current >= 0) toggleFav(state.current); break;
+        case 'm': case 'M': case 'ь': case 'Ь': video.muted = !video.muted; break;
         case 'ArrowRight': video.volume = Math.min(1, video.volume + .1); $('vol').value = video.volume; break;
         case 'ArrowLeft': video.volume = Math.max(0, video.volume - .1); $('vol').value = video.volume; break;
     }
 });
 
-/* ═══ Часы ═══ */
 function tickClock() {
-    // FIX: один Date на оба вывода
     const now = new Date();
     const t = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-    $('clock').textContent = t;
-    $('statusClock').textContent = now.toLocaleDateString('ru-RU') + ' · ' + t;
+    $('clock').textContent = t; $('statusClock').textContent = now.toLocaleDateString('ru-RU') + ' · ' + t;
 }
-setInterval(tickClock, 1000);
-tickClock();
+setInterval(tickClock, 1000); tickClock();
 
-/* ═══ Инициализация ═══ */
 const savedVol = safeParse('iptv_vol', null);
 if (savedVol !== null) { video.volume = savedVol; $('vol').value = savedVol; }
 renderCodecs();
