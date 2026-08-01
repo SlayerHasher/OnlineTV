@@ -35,6 +35,30 @@ CONCURRENT = CONFIG.get('concurrent_requests', 50)
 CHECK_STREAM = CONFIG.get('check_stream', True)
 PREFERRED = CONFIG.get('prefered_sources', [])
 EXCLUDE_KEYWORDS = CONFIG.get('exclude_keywords', [])
+
+# Ключевые слова для определения заглушек и ошибок в потоке
+STREAM_ERROR_KEYWORDS = [
+    'wink не показывает',
+    'не верный токен',
+    'неверный токен',
+    'invalid token',
+    '403 forbidden',
+    '404 not found',
+    'stream offline',
+    'вещание временно приостановлено',
+    'технические работы',
+    'no signal',
+    'нет сигнала',
+    'test pattern',
+    'заглушка',
+    'ошибка доступа',
+    'access denied',
+    'unauthorized',
+    'forbidden',
+    'not found',
+    'service unavailable'
+]
+
 STREAM_ERROR_EXCLUDE = CONFIG.get('stream_error_exclude', STREAM_ERROR_KEYWORDS)
 KEEP_GROUP = CONFIG.get('keep_group_title', True)
 SORT_BY_GROUP = CONFIG.get('sort_by_group', True)
