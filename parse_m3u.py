@@ -204,6 +204,14 @@ CAMERA_CITY_KEYWORDS = [
     'магадан', 'анадырь', 'провидения', 'певек', 'тикси',
 ]
 
+# Слова-индикаторы онлайн-трансляций и вебкамер
+LIVE_STREAM_KEYWORDS = [
+    'онлайн', 'online', 'прямой эфир', 'live', 'stream', 'трансляция',
+    'веб-камера', 'вебкамера', 'webcam', 'web camera', 'камера',
+    'видеонаблюдение', 'cctv', 'наблюдение', 'панорама', 'panorama',
+    'эфир', 'broadcast', 'realtime', 'реалтайм'
+]
+
 # Русские слова для фильтрации
 RUSSIAN_KEYWORDS = [
     'россия', 'русский', 'москва', 'спб', 'питер', 'сибирь', 'урал',
@@ -583,25 +591,42 @@ async def main():
     filtered = [ch for ch in filtered if not any(kw in ch['name'].lower() for kw in EXCLUDE_KEYWORDS)]
     logger.info(f"После исключения ключевых слов: {len(filtered)}")
 
-    # Исключаем каналы с веб-камерами городов (проверяем название и группу)
+    # Исключаем каналы с веб-камерами городов и онлайн-трансляциями с улиц (проверяем название и группу)
     def is_camera_channel(channel: Dict) -> bool:
-        """Проверяет, является ли канал трансляцией с веб-камеры города."""
+        """Проверяет, является ли канал трансляцией с веб-камеры города или уличной камерой."""
         name_lower = channel['name'].lower()
         group_lower = channel['attrs'].get('group-title', '').lower()
         text_to_check = f"{name_lower} {group_lower}"
         
-        # Проверяем наличие ключевых слов камер
+        # Проверяем наличие ключевых слов камер и онлайн-трансляций
         camera_keywords = ['веб-камера', 'вебкамера', 'webcam', 'web camera', 'камера онлайн', 
                           'камера города', 'онлайн камера', 'live camera', 'city camera',
-                          'улица камера', 'площадь камера', 'камера улица', 'камера площадь']
-        if any(kw in text_to_check for kw in camera_keywords):
-            # Если есть слово "камера", проверяем также на наличие названия города
-            for city in CAMERA_CITY_KEYWORDS:
-                if city in text_to_check:
+                          'улица камера', 'площадь камера', 'камера улица', 'камера площадь',
+                          'панорама города', 'город онлайн', 'online city']
+        
+        # Сначала проверяем, есть ли вообще слова связанные с камерами/трансляциями
+        has_camera_keyword = any(kw in text_to_check for kw in camera_keywords)
+        has_live_keyword = any(kw in text_to_check for kw in LIVE_STREAM_KEYWORDS)
+        
+        if has_camera_keyword or has_live_keyword:
+            # Если найдено слово "камера" или связанное с ней, проверяем наличие города
+            if 'камера' in text_to_check or 'webcam' in text_to_check or 'web camera' in text_to_check:
+                for city in CAMERA_CITY_KEYWORDS:
+                    if city in text_to_check:
+                        return True
+                # Явные веб-камеры без города тоже отфильтровываем
+                if any(kw in text_to_check for kw in ['веб-камера', 'вебкамера', 'webcam', 'web camera']):
                     return True
-            # Или если просто явная камера без уточнения - тоже отфильтровываем
-            if any(kw in text_to_check for kw in ['веб-камера', 'вебкамера', 'webcam', 'web camera']):
-                return True
+            
+            # Если есть слова "онлайн"/"live"/"трансляция" + город, это скорее всего камера
+            if any(kw in text_to_check for kw in ['онлайн', 'online', 'live', 'трансляция', 'stream']):
+                for city in CAMERA_CITY_KEYWORDS:
+                    if city in text_to_check:
+                        # Но не фильтруем известные телеканалы с городами в названии
+                        known_tv_channels = ['москва 24', 'москва доверие', 'радио 1', 'русский иллюзион',
+                                           'питер тв', 'казань', 'самара гимнастика', 'тв сочи']
+                        if not any(tv_ch in text_to_check for tv_ch in known_tv_channels):
+                            return True
         
         return False
     

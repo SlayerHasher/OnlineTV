@@ -1,5 +1,9 @@
 ```
 # Logs and temp files
 *.log
-parser.log
+*.tmp
+*.swp
+
+# Original rules preserved
+*.log
 ```
