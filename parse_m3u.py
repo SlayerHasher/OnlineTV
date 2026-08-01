@@ -35,6 +35,7 @@ CONCURRENT = CONFIG.get('concurrent_requests', 50)
 CHECK_STREAM = CONFIG.get('check_stream', True)
 PREFERRED = CONFIG.get('prefered_sources', [])
 EXCLUDE_KEYWORDS = CONFIG.get('exclude_keywords', [])
+STREAM_ERROR_EXCLUDE = CONFIG.get('stream_error_exclude', STREAM_ERROR_KEYWORDS)
 KEEP_GROUP = CONFIG.get('keep_group_title', True)
 SORT_BY_GROUP = CONFIG.get('sort_by_group', True)
 RUSSIAN_ONLY = CONFIG.get('russian_only', True)
@@ -140,6 +141,44 @@ CATEGORY_MAPPING = {
     'radio': 'Радиоканалы',
     'audio': 'Радиоканалы',
 }
+
+# Список крупных городов России и СНГ для фильтрации каналов с веб-камерами
+CAMERA_CITY_KEYWORDS = [
+    # Россия - города-миллионники и крупные города
+    'москва', 'санкт-петербург', 'спб', 'питер', 'новосибирск', 'екатеринбург',
+    'казань', 'нижний новгород', 'челябинск', 'самара', 'омск', 'ростов',
+    'ростов-на-дону', 'уфа', 'красноярск', 'воронеж', 'пермь', 'волгоград',
+    'краснодар', 'саратов', 'тюмень', 'тольятти', 'ижевск', 'барнаул',
+    'ульяновск', 'иркутск', 'хабаровск', 'ярославль', 'владивосток', 'махачкала',
+    'томск', 'оренбург', 'кемерово', 'новокузнецк', 'рязань', 'астрахань',
+    'пенза', 'липецк', 'киров', 'тула', 'чебоксары', 'калининград', 'курск',
+    'брянск', 'иваново', 'магнитогорск', 'тверь', 'ставрополь', 'севастополь',
+    'симферополь', 'набережные челны', 'нижний тагил',
+    'кострома', 'мурманск', 'архангельск', 'сургут', 'владикавказ', 'грозный',
+    'петрозаводск', 'йошкар-ола', 'сыктывкар', 'саранск', 'элиста',
+    # Крым и юг
+    'ялта', 'севастополь', 'симферополь', 'евпатория', 'керчь', 'феодосия',
+    'алупка', 'судак', 'бахчисарай', 'джанкой', 'красноперекопск',
+    'анапа', 'геленджик', 'новороссийск', 'туапсе', 'адлер', ' сочи ',
+    'лоо', 'дагомыс', 'лазаревское', 'сириус',
+    # Курорты
+    'минеральные воды', 'пятигорск', 'кисловодск', 'ессентуки', 'железноводск',
+    'домбай', 'архыз', 'приэльбрусье', 'терскол',
+    'алтай', 'горно-алтайск', 'белокуриха', 'чемал', 'телецкое',
+    'байкал', 'иркутск', 'листвянка', 'слудянка', 'байкальск', 'северобайкальск',
+    'камчатка', 'петропавловск-камчатский', 'вилючинск', 'елезово',
+    'сахалин', 'южно-сахалинск', 'корсаков', 'холмск',
+    # Другие известные туристические места
+    'золотое кольцо', 'суздаль', 'владимир', 'сергиев посад', 'переславль',
+    'углич', 'мышкин', 'рыбинск', 'романов', 'борисоглебск',
+    'карелия', 'петрозаводск', 'сортавала', 'рускеала', 'кемь', 'беломорск',
+    'кижи', 'валаам', 'кондопога',
+    'кол', 'мурманская область', 'апатиты', 'кировск', 'мончегорск',
+    'воркута', 'сале', 'новый уренгой', 'ноябрьск', 'надым',
+    'мирный', 'ленск', 'удачный', 'айхал',
+    'норильск', 'дудинка', 'талнах', 'кайеркан',
+    'магадан', 'анадырь', 'провидения', 'певек', 'тикси',
+]
 
 # Русские слова для фильтрации
 RUSSIAN_KEYWORDS = [
@@ -353,13 +392,127 @@ def parse_m3u(content: str, source_url: str) -> List[Dict]:
             current = None
     return channels
 
-# ---------- Быстрая HTTP-проверка (HEAD) ----------
+# Слова-заглушки и ошибки в потоках
+STREAM_ERROR_KEYWORDS = [
+    'wink не показывает',
+    'не верный токен',
+    'неверный токен',
+    'invalid token',
+    'access denied',
+    'forbidden',
+    '403',
+    '404',
+    'not found',
+    'stream offline',
+    'канал временно недоступен',
+    'технические работы',
+    'no signal',
+    'нет сигнала',
+    'заглушка',
+    'placeholder',
+    'test card',
+    'please subscribe',
+    'подпишитесь',
+    'ошибка доступа',
+    'error access',
+    'unauthorized',
+    'authentication required',
+    'требуется авторизация',
+    'вещание приостановлено',
+    'broadcast suspended',
+    'content unavailable',
+    'контент недоступен',
+    # Камеры и веб-камеры (трансляции с улиц, площадей и т.д.)
+    'веб-камера',
+    'вебкамера',
+    'web camera',
+    'webcam',
+    'камера онлайн',
+    'камера города',
+    'улица камера',
+    'площадь камера',
+    'камера улица',
+    'камера площадь',
+    'прямой эфир камера',
+    'live camera',
+    'city camera',
+    'street camera',
+    'traffic camera',
+    'камера движения',
+    'мониторинг камеры',
+    'наблюдение камера',
+    'cctv',
+    'видеонаблюдение',
+    'камера видеонаблюдения',
+    'онлайн камера',
+    'камера realtime',
+    'панорама камера',
+    'камера панорама',
+]
+
+# ---------- Быстрая HTTP-проверка ----------
 async def http_check(url: str, timeout: int = 5) -> bool:
-    """Проверяет доступность URL через HEAD-запрос."""
+    """Проверяет доступность URL и отсутствие заглушек/ошибок."""
     try:
         async with aiohttp.ClientSession() as session:
+            # Сначала HEAD-запрос для быстрой проверки статуса
             async with session.head(url, timeout=timeout) as resp:
-                return resp.status < 400
+                if resp.status >= 400:
+                    return False
+                
+                # Проверяем Content-Type - должен быть видео или поток
+                content_type = resp.headers.get('Content-Type', '').lower()
+                # Если это текст или HTML - скорее всего это ошибка
+                if any(ct in content_type for ct in ['text/html', 'text/plain', 'application/json']):
+                    # Но не отвергаем сразу - некоторые легитимные потоки могут иметь такой тип
+                    # Нужно проверить содержимое
+                    pass
+            
+            # GET-запрос с ограничением по размеру для проверки содержимого
+            headers = {'Range': 'bytes=0-2048'}  # Первые 2KB
+            async with session.get(url, headers=headers, timeout=timeout) as resp:
+                if resp.status >= 400:
+                    return False
+                
+                content_type = resp.headers.get('Content-Type', '').lower()
+                
+                # Если это явно HTML страница с ошибкой
+                if 'text/html' in content_type:
+                    text = await resp.text(errors='ignore')
+                    text_lower = text.lower()
+                    
+                    # Проверяем на наличие ошибок в HTML
+                    error_patterns = ['error', 'ошибка', 'denied', 'forbidden', 'unauthorized', 
+                                     'token', '403', '404', 'not found', 'access']
+                    if any(pattern in text_lower for pattern in error_patterns):
+                        return False
+                
+                # Проверяем бинарные данные на текстовые заглушки
+                # Некоторые провайдеры возвращают текст даже для видеопотоков
+                try:
+                    chunk = await resp.read()
+                    # Пробуем декодировать как текст для проверки на заглушки
+                    try:
+                        text_sample = chunk.decode('utf-8', errors='ignore').lower()
+                    except:
+                        text_sample = chunk.decode('latin-1', errors='ignore').lower()
+                    
+                    # Проверяем на наличие слов-заглушек из конфигурируемого списка
+                    for keyword in STREAM_ERROR_EXCLUDE:
+                        if keyword.lower() in text_sample:
+                            logger.debug(f"Найдена заглушка '{keyword}' в {url}")
+                            return False
+                            
+                except Exception:
+                    # Если не удалось прочитать - считаем поток валидным
+                    pass
+                
+                return True
+                
+    except asyncio.TimeoutError:
+        return False
+    except aiohttp.ClientError:
+        return False
     except Exception:
         return False
 
@@ -405,6 +558,31 @@ async def main():
     # Исключаем по ключевым словам
     filtered = [ch for ch in filtered if not any(kw in ch['name'].lower() for kw in EXCLUDE_KEYWORDS)]
     logger.info(f"После исключения ключевых слов: {len(filtered)}")
+
+    # Исключаем каналы с веб-камерами городов (проверяем название и группу)
+    def is_camera_channel(channel: Dict) -> bool:
+        """Проверяет, является ли канал трансляцией с веб-камеры города."""
+        name_lower = channel['name'].lower()
+        group_lower = channel['attrs'].get('group-title', '').lower()
+        text_to_check = f"{name_lower} {group_lower}"
+        
+        # Проверяем наличие ключевых слов камер
+        camera_keywords = ['веб-камера', 'вебкамера', 'webcam', 'web camera', 'камера онлайн', 
+                          'камера города', 'онлайн камера', 'live camera', 'city camera',
+                          'улица камера', 'площадь камера', 'камера улица', 'камера площадь']
+        if any(kw in text_to_check for kw in camera_keywords):
+            # Если есть слово "камера", проверяем также на наличие названия города
+            for city in CAMERA_CITY_KEYWORDS:
+                if city in text_to_check:
+                    return True
+            # Или если просто явная камера без уточнения - тоже отфильтровываем
+            if any(kw in text_to_check for kw in ['веб-камера', 'вебкамера', 'webcam', 'web camera']):
+                return True
+        
+        return False
+    
+    filtered = [ch for ch in filtered if not is_camera_channel(ch)]
+    logger.info(f"После исключения веб-камер городов: {len(filtered)}")
 
     # Дедупликация: группировка по нормализованному названию + URL для точного совпадения
     groups = defaultdict(list)
