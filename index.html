@@ -20,32 +20,26 @@
 
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
-
 :root{
     --bg:#070b14; --panel:#0d1322; --line:rgba(255,255,255,.07);
     --acc:#ffb02e; --acc2:#55e6d0; --red:#ff5252;
     --txt:#eef2f9; --mut:#7c8698;
     --disp:'Unbounded',sans-serif; --body:'Manrope',sans-serif;
 }
-
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none;-webkit-overflow-scrolling:touch}
-
 body{
     font-family:var(--body); background:var(--bg); color:var(--txt);
     min-height:100vh; min-height:-webkit-fill-available; overflow-x:hidden;
     padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
-/* Фоновые слои: свечение + сканлайны как у ЭЛТ */
 body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;background:
     radial-gradient(640px 420px at 12% -6%, rgba(255,176,46,.09), transparent 62%),
     radial-gradient(760px 520px at 108% 104%, rgba(85,230,208,.07), transparent 62%),
     var(--bg)}
 body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.45;
     background:repeating-linear-gradient(0deg, rgba(255,255,255,.016) 0 1px, transparent 1px 3px)}
-
 .container{max-width:820px;margin:0 auto;padding:12px 12px calc(16px + env(safe-area-inset-bottom))}
 
-/* ═══ ШАПКА ═══ */
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:6px 4px 14px}
 .brand{font-family:var(--disp);font-weight:900;font-size:17px;letter-spacing:.14em}
 .brand b{color:var(--acc)}
@@ -53,19 +47,14 @@ body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .dot-live{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 1.6s infinite}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,82,82,.5)}50%{opacity:.5;box-shadow:0 0 0 5px rgba(255,82,82,0)}}
 
-/* ═══ ПЛЕЕР ═══ */
 .player-wrapper{position:sticky;top:0;z-index:100;padding-bottom:12px;
     background:rgba(7,11,20,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     box-shadow:0 10px 30px rgba(0,0,0,.55)}
-
 .channel-number{font-family:var(--disp);font-weight:900;font-size:30px;color:var(--acc);
     margin:2px 2px 10px;text-shadow:0 0 24px rgba(255,176,46,.35);font-variant-numeric:tabular-nums;line-height:1}
-
 .video-container{position:relative;background:#000;border-radius:16px;overflow:hidden;
-    padding-top:56.25%;height:0;border:1px solid var(--line);
-    transform:translateZ(0);will-change:transform}
+    padding-top:56.25%;height:0;border:1px solid var(--line);transform:translateZ(0);will-change:transform}
 @supports (aspect-ratio:16/9){.video-container{padding-top:0;height:auto;aspect-ratio:16/9}}
-
 video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;transform:translateZ(0)}
 
 .overlay{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(4,7,13,.85)}
@@ -92,7 +81,6 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
     padding:52px 12px calc(12px + env(safe-area-inset-bottom));
     background:linear-gradient(transparent, rgba(0,0,0,.92));transition:opacity .3s}
 .controls.idle{opacity:0;pointer-events:none}
-
 .btn{background:rgba(255,255,255,.14);border:none;color:#fff;width:44px;height:44px;min-width:44px;min-height:44px;
     border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;
     touch-action:manipulation;transition:background .15s,transform .12s}
@@ -100,7 +88,6 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
 .btn.main{background:var(--acc);color:#0a0e1a;width:54px;height:54px;min-width:54px;min-height:54px;box-shadow:0 4px 20px rgba(255,176,46,.35)}
 .btn svg{width:20px;height:20px;fill:currentColor;pointer-events:none}
 .btn.main svg{width:23px;height:23px}
-
 .volume{flex:1;max-width:92px;min-width:48px}
 .volume input{width:100%;height:44px;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer}
 .volume input::-webkit-slider-runnable-track{height:4px;background:rgba(255,255,255,.28);border-radius:2px}
@@ -114,7 +101,6 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
 .badge{background:rgba(255,176,46,.16);color:var(--acc);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:800;letter-spacing:.04em}
 .badge.fmt{background:rgba(85,230,208,.14);color:var(--acc2)}
 
-/* ═══ ОШИБКА В ПЛЕЕРЕ ═══ */
 .player-error{position:absolute;inset:0;z-index:12;display:flex;flex-direction:column;align-items:center;justify-content:center;
     gap:10px;padding:20px;text-align:center;background:rgba(4,7,13,.94)}
 .player-error.hidden{display:none}
@@ -125,68 +111,52 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
     cursor:pointer;margin-top:8px;min-height:44px;touch-action:manipulation;transition:transform .12s}
 .btn-retry:active{transform:scale(.94)}
 
-/* ═══ КАНАЛЫ ═══ */
 .section{margin-top:16px}
 .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .section-title{font-family:var(--disp);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.22em;color:var(--mut)}
 .count{background:var(--acc);color:#0a0e1a;padding:2px 11px;border-radius:8px;font-size:11px;font-weight:800}
-
 .search{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0 15px;margin-bottom:12px;
     display:flex;align-items:center;gap:10px;height:48px;transition:border-color .2s}
 .search:focus-within{border-color:rgba(255,176,46,.5)}
 .search svg{flex-shrink:0;opacity:.45}
 .search input{flex:1;background:none;border:none;color:#fff;font-size:16px;outline:none;height:100%;font-family:var(--body)}
 .search input::placeholder{color:#4d5766}
-
 .tabs{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);padding:4px;border-radius:12px;margin-bottom:12px}
 .tab{flex:1;padding:12px 8px;background:none;border:none;color:var(--mut);font-size:13px;font-weight:700;border-radius:9px;
     cursor:pointer;touch-action:manipulation;min-height:44px;font-family:var(--body);transition:background .2s,color .2s}
 .tab.active{background:rgba(255,176,46,.18);color:var(--acc)}
-
-.categories{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;padding-bottom:5px;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+.categories{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;padding-bottom:5px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .categories::-webkit-scrollbar{display:none}
 .category{background:var(--panel);border:1px solid var(--line);padding:10px 16px;border-radius:20px;font-size:12px;font-weight:600;
-    white-space:nowrap;cursor:pointer;touch-action:manipulation;min-height:40px;display:flex;align-items:center;
-    transition:background .2s,color .2s,border-color .2s}
+    white-space:nowrap;cursor:pointer;touch-action:manipulation;min-height:40px;display:flex;align-items:center;transition:background .2s,color .2s,border-color .2s}
 .category.active{background:var(--acc);color:#0a0e1a;border-color:var(--acc);font-weight:800}
-
 .channel-list{display:flex;flex-direction:column;gap:6px;contain:layout style}
-
 .channel-item{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:10px 12px;
     display:flex;align-items:center;gap:11px;cursor:pointer;touch-action:manipulation;min-height:64px;
-    transform:translateZ(0);contain:layout;animation:fadeUp .35s both;
-    transition:border-color .18s,background .18s,translate .18s}
+    transform:translateZ(0);contain:layout;animation:fadeUp .35s both;transition:border-color .18s,background .18s,translate .18s}
 .channel-item:hover{border-color:rgba(255,255,255,.16);translate:0 -1px}
 .channel-item:active{background:rgba(255,255,255,.06)}
 .channel-item.active{background:rgba(255,176,46,.1);border-color:var(--acc);box-shadow:0 0 0 1px rgba(255,176,46,.25),0 6px 24px rgba(255,176,46,.08)}
 @keyframes fadeUp{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
-
 .channel-item-num{font-size:12px;font-weight:800;color:#4d5766;width:36px;text-align:center;flex-shrink:0;font-variant-numeric:tabular-nums}
 .channel-item.active .channel-item-num{color:var(--acc)}
-
-/* Эквалайзер на активном канале */
 .eq{display:inline-flex;gap:2.5px;align-items:flex-end;height:14px}
 .eq i{width:3px;background:var(--acc);border-radius:1px;animation:eq .9s ease-in-out infinite}
 .eq i:nth-child(2){animation-delay:.22s}.eq i:nth-child(3){animation-delay:.44s}
 @keyframes eq{0%,100%{height:4px}50%{height:14px}}
-
 .channel-item-logo{width:44px;height:44px;background:rgba(255,255,255,.05);border-radius:9px;flex-shrink:0;
     display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;overflow:hidden;transition:transform .18s}
 .channel-item:hover .channel-item-logo{transform:scale(1.06)}
 .channel-item-logo img{width:100%;height:100%;object-fit:contain;padding:4px}
-
 .channel-item-info{flex:1;min-width:0}
 .channel-item-name{font-weight:700;font-size:14px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .channel-item-group{font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
 .favorite{width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#4d5766;
     cursor:pointer;touch-action:manipulation;transition:color .15s,transform .12s}
 .favorite:active{transform:scale(.85)}
 .favorite.active{color:var(--acc)}
 .favorite svg{width:20px;height:20px;fill:currentColor;pointer-events:none}
 
-/* ═══ СЛУЖЕБНОЕ ═══ */
 .error-box{background:rgba(255,82,82,.07);border:1px solid rgba(255,82,82,.3);border-radius:14px;padding:24px 16px;text-align:center;margin:15px 0}
 .error-box h3{color:var(--red);margin-bottom:8px;font-size:16px;font-family:var(--disp)}
 .error-box p{color:var(--mut);font-size:13px;margin-bottom:16px;line-height:1.5}
@@ -194,57 +164,39 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
     cursor:pointer;margin:4px;min-height:48px;touch-action:manipulation;transition:transform .12s}
 .btn-load:active{transform:scale(.95)}
 .loading{text-align:center;padding:40px;color:var(--mut);font-size:14px}
-
-.status{padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-top:14px;
-    display:flex;flex-direction:column;gap:8px}
+.status{padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-top:14px;display:flex;flex-direction:column;gap:8px}
 .status-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--mut)}
 .codecs{display:flex;gap:5px;flex-wrap:wrap}
 .codec{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:800;letter-spacing:.03em}
 .codec.ok{background:rgba(85,230,208,.12);color:var(--acc2)}
 .codec.no{background:rgba(255,82,82,.1);color:var(--red);text-decoration:line-through}
-
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));translate:-50% 20px;z-index:999;
     background:#161d30;border:1px solid var(--line);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;
-    opacity:0;pointer-events:none;transition:opacity .25s,translate .25s;max-width:88vw;text-align:center;
-    box-shadow:0 10px 40px rgba(0,0,0,.6)}
+    opacity:0;pointer-events:none;transition:opacity .25s,translate .25s;max-width:88vw;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.6)}
 .toast.show{opacity:1;translate:-50% 0}
 .toast.err{border-color:rgba(255,82,82,.5);color:#ffb3b3}
-
 .hidden{display:none!important}
 
-/* ═══ АДАПТИВ ═══ */
 @media (max-width:360px){
     .container{padding:8px 8px calc(12px + env(safe-area-inset-bottom))}
-    .channel-item{padding:8px 10px;gap:8px}
-    .channel-item-logo{width:38px;height:38px}
-    .channel-item-num{width:30px;font-size:11px}
-    .channel-title{font-size:14px}
-    .channel-number{font-size:24px}
-    .controls{gap:5px;padding:42px 8px 8px}
-    .btn{width:40px;height:40px;min-width:40px;min-height:40px}
-    .btn.main{width:48px;height:48px;min-width:48px;min-height:48px}
-    .volume{max-width:60px}
+    .channel-item{padding:8px 10px;gap:8px}.channel-item-logo{width:38px;height:38px}
+    .channel-item-num{width:30px;font-size:11px}.channel-title{font-size:14px}.channel-number{font-size:24px}
+    .controls{gap:5px;padding:42px 8px 8px}.btn{width:40px;height:40px;min-width:40px;min-height:40px}
+    .btn.main{width:48px;height:48px;min-width:48px;min-height:48px}.volume{max-width:60px}
 }
 @media (min-width:768px){
-    .container{padding:20px 20px 28px}
-    .channel-item{padding:13px 16px}
-    .channel-item-logo{width:52px;height:52px}
-    .channel-title{font-size:18px}
-    .channel-number{font-size:36px}
+    .container{padding:20px 20px 28px}.channel-item{padding:13px 16px}
+    .channel-item-logo{width:52px;height:52px}.channel-title{font-size:18px}.channel-number{font-size:36px}
 }
 @media (max-height:500px) and (orientation:landscape){
-    .player-wrapper{position:relative}
-    .video-container{max-height:46vh}
+    .player-wrapper{position:relative}.video-container{max-height:46vh}
     .channel-number,.channel-info,.topbar{display:none}
 }
-@media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 <div class="container">
-
     <div class="topbar">
         <div class="brand">ONLINE<b>·</b>TV</div>
         <div class="top-right"><span class="dot-live"></span><span id="clock">--:--</span></div>
@@ -252,27 +204,21 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
 
     <div class="player-wrapper">
         <div class="channel-number" id="chNum">—</div>
-
         <div class="video-container" id="videoWrap">
             <video id="video" playsinline webkit-playsinline preload="auto"
                    x5-video-player-type="h5" x5-video-player-fullscreen="true"></video>
             <div class="live">LIVE</div>
             <div class="format-badge hidden" id="formatBadge">—</div>
             <div class="buffering hidden" id="buffering"><div class="spinner"></div></div>
-
             <div class="player-error hidden" id="playerError">
                 <div class="err-icon">📡</div>
                 <div class="err-msg" id="errMsg">Поток недоступен</div>
                 <div class="err-detail" id="errDetail"></div>
                 <button class="btn-retry" id="btnRetry">Повторить</button>
             </div>
-
             <div class="overlay" id="overlay">
-                <div class="play-button" id="bigPlay">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
+                <div class="play-button" id="bigPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
             </div>
-
             <div class="controls" id="controls">
                 <button class="btn" id="btnPrev" aria-label="Предыдущий"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
                 <button class="btn main" id="btnPlay" aria-label="Play/Pause">
@@ -285,7 +231,6 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
                 <button class="btn" id="btnFull" aria-label="Fullscreen"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
             </div>
         </div>
-
         <div class="channel-info">
             <div class="channel-title" id="chTitle">Выберите канал</div>
             <div class="channel-meta">
@@ -301,22 +246,18 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
             <div class="section-title">Каналы</div>
             <div class="count" id="count">0</div>
         </div>
-
         <div class="search">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             <input type="text" id="search" placeholder="Поиск каналов..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
         </div>
-
         <div class="tabs">
             <button class="tab active" data-tab="all">Все</button>
             <button class="tab" data-tab="fav">★ Избр.</button>
             <button class="tab" data-tab="hist">История</button>
         </div>
-
         <div class="categories" id="categories"></div>
         <div class="channel-list" id="list"></div>
         <div class="loading hidden" id="loading">Загрузка плейлиста...</div>
-
         <div class="error-box hidden" id="error">
             <h3>Ошибка загрузки</h3>
             <p>Не удалось загрузить плейлист. Проверьте интернет-соединение.</p>
@@ -331,54 +272,86 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
         <div class="status-row"><div class="codecs" id="codecs"></div></div>
     </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 'use strict';
 
-/* ═══════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════
    НАСТРОЙКИ
-   Если каналы не открываются из-за CORS — раскомментируй
-   строку с прокси (публичные прокси медленные, лучше свой).
-   ═══════════════════════════════════════════════════ */
+   WORKER_URL — твой Cloudflare Worker (см. инструкцию выше).
+                Когда впишешь — HTTP-потоки на HTTPS-сайте заработают.
+   USE_PUBLIC_PROXY — последний шанс через публичный прокси, если своего нет.
+                Нестабильно для live, но лучше чем ничего.
+   ═══════════════════════════════════════════════════════ */
 const CONFIG = {
     PLAYLIST_URL: 'https://raw.githubusercontent.com/SlayerHasher/OnlineTV/main/playlist.m3u',
-    CORS_PROXY: '', // например: 'https://corsproxy.io/?url='
+    WORKER_URL: '',                       // ← сюда: 'https://имя.аккаунт.workers.dev'
+    USE_PUBLIC_PROXY: true,               // авто-fallback через corsproxy.io
+    PUBLIC_PROXY: 'https://corsproxy.io/?url=',
     MAX_RENDER: 150
 };
 
 const $ = id => document.getElementById(id);
 const video = $('video');
+const PAGE_HTTPS = location.protocol === 'https:';
 
-function safeParse(k, d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? d; }catch{ return d; } }
-function safeSave(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{} }
+function safeParse(k,d){ try{ const v=JSON.parse(localStorage.getItem(k)); return v ?? d; }catch{ return d; } }
+function safeSave(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{} }
 function escapeHtml(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function escapeAttr(s){ return String(s).replace(/["'<>&]/g, c => ({'"':'&quot;',"'":'&#39;','<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
-function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
-function throttle(fn, ms){ let l=0; return (...a)=>{ const n=Date.now(); if(n-l>=ms){ l=n; fn(...a); } }; }
+function debounce(fn,ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
+function throttle(fn,ms){ let l=0; return (...a)=>{ const n=Date.now(); if(n-l>=ms){ l=n; fn(...a); } }; }
 
 const state = {
     channels: [], current: -1,
     favorites: new Set(safeParse('iptv_fav', [])),
     history: safeParse('iptv_hist', []),
     tab: 'all', category: 'all', search: '',
-    fails: 0, player: null, playerType: null,
-    fallbackChain: [], fallbackIdx: 0, triedProxy: false,
+    variants: [],     // [{url, baseFmt}] — безопасные варианты URL
+    vi: 0,            // индекс варианта
+    chain: [],        // форматы декодеров для текущего варианта
+    fi: 0,            // индекс формата
+    player: null, playerType: null,
     controlsTimer: null, toastTimer: null
 };
 
-/* ═══ URL (с учётом прокси) ═══ */
-function streamUrl(url){
-    return (CONFIG.CORS_PROXY && url.startsWith('http')) ? CONFIG.CORS_PROXY + encodeURIComponent(url) : url;
-}
-function currentStreamUrl(){
-    const ch = state.channels[state.current];
-    if (!ch) return '';
-    return state.triedProxy ? streamUrl(ch.url) : ch.url;
+/* ═══ ВАРИАНТЫ URL: превентивный обход mixed content ═══ */
+function toHttps(u){ try{ const x=new URL(u); x.protocol='https:'; return x.toString(); }catch{ return u; } }
+function viaProxy(u, base){ return base + encodeURIComponent(u); }
+
+function buildUrlVariants(rawUrl){
+    const fmt = detectFormat(rawUrl);
+    const isHttp = rawUrl.startsWith('http://');
+    const out = [];
+    const seen = new Set();
+    const push = (url) => { if (url && !seen.has(url)){ seen.add(url); out.push({ url, baseFmt: fmt }); } };
+
+    if (!PAGE_HTTPS){
+        // Страница по HTTP — mixed content нет, пробуем как есть
+        push(rawUrl);
+        return out;
+    }
+
+    // Страница HTTPS
+    if (!isHttp){
+        // Поток уже HTTPS — проблем нет
+        push(rawUrl);
+        return out;
+    }
+
+    // Страница HTTPS + поток HTTP → голый http НЕ добавляем (100% блок)
+    // 1) авто-апгрейд протокола (дешево, без прокси)
+    push(toHttps(rawUrl));
+    // 2) свой Worker по оригинальному http
+    if (CONFIG.WORKER_URL) push(viaProxy(rawUrl, CONFIG.WORKER_URL + (CONFIG.WORKER_URL.endsWith('/')?'?url=':'/?url=')));
+    // 3) публичный прокси (последний шанс)
+    if (CONFIG.USE_PUBLIC_PROXY) push(viaProxy(rawUrl, CONFIG.PUBLIC_PROXY));
+
+    return out;
 }
 
-/* ═══ ОПРЕДЕЛЕНИЕ ФОРМАТА ═══ */
+/* ═══ ОПРЕДЕЛЕНИЕ ФОРМАТА (по оригиналу) ═══ */
 function detectFormat(url){
     const u = url.toLowerCase().split('?')[0].split('#')[0];
     if (/\.m3u8$|\/hls\/|m3u8/.test(u)) return 'hls';
@@ -388,222 +361,206 @@ function detectFormat(url){
     if (/\.(mp4|webm|ogg|ogv|mov|aac|mp3|opus)$/.test(u)) return 'native';
     return 'unknown';
 }
-function getFallbackChain(url){
-    const p = detectFormat(url);
-    return p !== 'unknown' ? [p] : ['hls','mpegts','dash','native'];
+function getFallbackChain(fmt){
+    if (fmt && fmt !== 'unknown') return [fmt];
+    return ['hls','mpegts','dash','native'];
 }
 const FORMAT_LABELS = { hls:'HLS', dash:'DASH', mpegts:'TS', flv:'FLV', native:'DIRECT' };
 const formatLabel = t => FORMAT_LABELS[t] || t.toUpperCase();
 
-/* ═══ ПАРСЕР M3U (с EXTVLCOPT: user-agent, referrer) ═══ */
+/* ═══ ПАРСЕР M3U ═══ */
 function parseM3U(text){
-    const channels = [], lines = text.split(/\r?\n/), seen = new Set();
-    let cur = null;
-    for (let i = 0; i < lines.length; i++){
-        const line = lines[i].trim();
+    const channels=[], lines=text.split(/\r?\n/), seen=new Set();
+    let cur=null;
+    for (let i=0;i<lines.length;i++){
+        const line=lines[i].trim();
         if (!line) continue;
-        if (line.charCodeAt(0) === 35){
+        if (line.charCodeAt(0)===35){
             if (line.startsWith('#EXTINF:')){
-                const group = extractAttr(line,'group-title') || 'Без группы';
-                const logo = extractAttr(line,'tvg-logo') || '';
-                const c = line.lastIndexOf(',');
-                let name = c > -1 ? line.substring(c+1).trim() : '';
-                name = name.replace(/^["']+|["']+$/g,'').replace(/\s+/g,' ');
-                if (!name) name = 'Канал ' + (channels.length + 1);
-                cur = { name, group, logo, opts: {} };
-            } else if (line.startsWith('#EXTGRP:') && cur){
-                cur.group = line.substring(8).trim() || cur.group;
-            } else if (line.startsWith('#EXTVLCOPT:') && cur){
-                const opt = line.substring(11), eq = opt.indexOf('=');
-                if (eq > -1) cur.opts[opt.substring(0,eq).toLowerCase()] = opt.substring(eq+1).trim();
+                const group=extractAttr(line,'group-title')||'Без группы';
+                const logo=extractAttr(line,'tvg-logo')||'';
+                const c=line.lastIndexOf(',');
+                let name=c>-1?line.substring(c+1).trim():'';
+                name=name.replace(/^["']+|["']+$/g,'').replace(/\s+/g,' ');
+                if (!name) name='Канал '+(channels.length+1);
+                cur={ name, group, logo, opts:{} };
+            } else if (line.startsWith('#EXTGRP:')&&cur){
+                cur.group=line.substring(8).trim()||cur.group;
+            } else if (line.startsWith('#EXTVLCOPT:')&&cur){
+                const opt=line.substring(11), eq=opt.indexOf('=');
+                if (eq>-1) cur.opts[opt.substring(0,eq).toLowerCase()]=opt.substring(eq+1).trim();
             }
-        } else if (cur && (line.startsWith('http://') || line.startsWith('https://'))){
-            const key = cur.name + '|' + line;
-            if (!seen.has(key)){
-                seen.add(key);
-                channels.push({ name:cur.name, group:cur.group, logo:cur.logo, opts:cur.opts, url:line });
-            }
-            cur = null;
+        } else if (cur&&(line.startsWith('http://')||line.startsWith('https://'))){
+            const key=cur.name+'|'+line;
+            if (!seen.has(key)){ seen.add(key); channels.push({ name:cur.name, group:cur.group, logo:cur.logo, opts:cur.opts, url:line }); }
+            cur=null;
         }
     }
     return channels;
 }
-function extractAttr(line, attr){
-    const i = line.indexOf(attr + '="');
-    if (i === -1) return '';
-    const s = i + attr.length + 2, e = line.indexOf('"', s);
-    return e > s ? line.substring(s, e).trim() : '';
+function extractAttr(line,attr){
+    const i=line.indexOf(attr+'="'); if (i===-1) return '';
+    const s=i+attr.length+2, e=line.indexOf('"',s);
+    return e>s?line.substring(s,e).trim():'';
 }
 
 /* ═══ ПЛЕЕР ═══ */
 function destroyPlayer(){
     if (state.player){
         try{
-            if (state.playerType === 'hls') state.player.destroy();
-            else if (state.playerType === 'dash') state.player.reset();
-            else if (state.playerType === 'mpegts' || state.playerType === 'flv'){
-                state.player.pause(); state.player.unload();
-                state.player.detachMediaElement(); state.player.destroy();
+            if (state.playerType==='hls') state.player.destroy();
+            else if (state.playerType==='dash') state.player.reset();
+            else if (state.playerType==='mpegts'||state.playerType==='flv'){
+                state.player.pause(); state.player.unload(); state.player.detachMediaElement(); state.player.destroy();
             }
         }catch(e){}
-        state.player = null; state.playerType = null;
+        state.player=null; state.playerType=null;
     }
     video.removeAttribute('src'); video.load();
 }
 
 function playWithFormat(url, format){
     destroyPlayer();
-    state.playerType = format;
-    $('formatBadge').textContent = formatLabel(format);
+    state.playerType=format;
+    $('formatBadge').textContent=formatLabel(format);
     $('formatBadge').classList.remove('hidden');
-    $('chFormat').textContent = formatLabel(format);
+    $('chFormat').textContent=formatLabel(format);
     $('playerError').classList.add('hidden');
     showBuffering(true);
-
-    const ch = state.channels[state.current] || {};
-    const opts = ch.opts || {};
-
+    const opts=(state.channels[state.current]||{}).opts||{};
     switch (format){
-        case 'hls': playHLS(url, opts); break;
+        case 'hls': playHLS(url,opts); break;
         case 'dash': playDASH(url); break;
-        case 'mpegts': case 'flv': playMpegts(url, format, opts); break;
+        case 'mpegts': case 'flv': playMpegts(url,format,opts); break;
         default: playNative(url); break;
     }
 }
-
 function buildHeaders(opts){
-    const h = {};
-    if (opts['http-user-agent']) h['User-Agent'] = opts['http-user-agent'];
-    if (opts['http-referrer'] || opts['http-referer']) h['Referer'] = opts['http-referrer'] || opts['http-referer'];
-    if (opts['http-origin']) h['Origin'] = opts['http-origin'];
+    const h={};
+    if (opts['http-user-agent']) h['User-Agent']=opts['http-user-agent'];
+    if (opts['http-referrer']||opts['http-referer']) h['Referer']=opts['http-referrer']||opts['http-referer'];
+    if (opts['http-origin']) h['Origin']=opts['http-origin'];
     return h;
 }
-
-function playHLS(url, opts){
+function playHLS(url,opts){
     if (video.canPlayType('application/vnd.apple.mpegurl')){
-        state.playerType = 'native';
-        video.src = url; video.play().catch(()=>{});
-        return;
+        state.playerType='native'; video.src=url; video.play().catch(()=>{}); return;
     }
     if (window.Hls && Hls.isSupported()){
-        const headers = buildHeaders(opts);
-        const hls = new Hls({
-            enableWorker: true, lowLatencyMode: true,
-            backBufferLength: 30, maxBufferLength: 10, maxMaxBufferLength: 30,
-            manifestLoadingMaxRetry: 2, manifestLoadingRetryDelay: 500,
-            levelLoadingMaxRetry: 2, levelLoadingRetryDelay: 500,
-            fragLoadingMaxRetry: 3, fragLoadingRetryDelay: 500,
-            startLevel: -1, capLevelToPlayerSize: true,
-            initialLiveManifestSize: 1, startFragPrefetch: true,
-            xhrSetup: (xhr) => {
-                // User-Agent/Referer: браузеры разрешают не всегда — best effort
-                for (const k in headers){ try{ xhr.setRequestHeader(k, headers[k]); }catch(e){} }
-            }
+        const headers=buildHeaders(opts);
+        const hls=new Hls({
+            enableWorker:true, lowLatencyMode:true,
+            backBufferLength:30, maxBufferLength:10, maxMaxBufferLength:30,
+            manifestLoadingMaxRetry:2, manifestLoadingRetryDelay:500,
+            levelLoadingMaxRetry:2, levelLoadingRetryDelay:500,
+            fragLoadingMaxRetry:3, fragLoadingRetryDelay:500,
+            startLevel:-1, capLevelToPlayerSize:true,
+            initialLiveManifestSize:1, startFragPrefetch:true,
+            xhrSetup:(xhr)=>{ for (const k in headers){ try{ xhr.setRequestHeader(k,headers[k]); }catch(e){} } }
         });
-        hls.loadSource(url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(()=>{}));
-        hls.on(Hls.Events.ERROR, (e, data) => {
+        hls.loadSource(url); hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, ()=>video.play().catch(()=>{}));
+        hls.on(Hls.Events.ERROR, (e,data)=>{
             if (!data.fatal) return;
-            if (data.type === Hls.ErrorTypes.NETWORK_ERROR && state.fails < 2){
-                state.fails++; hls.startLoad();
-            } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR){
-                hls.recoverMediaError();
-            } else {
-                handleStreamError(data);
-            }
+            if (data.type===Hls.ErrorTypes.NETWORK_ERROR && state.failsLocal<2){ state.failsLocal++; hls.startLoad(); }
+            else if (data.type===Hls.ErrorTypes.MEDIA_ERROR){ hls.recoverMediaError(); }
+            else handleStreamError(data);
         });
-        state.player = hls;
+        state.player=hls;
     } else playNative(url);
 }
-
 function playDASH(url){
     if (window.dashjs){
-        const p = dashjs.MediaPlayer().create();
-        p.initialize(video, url, true);
-        p.updateSettings({ streaming: {
-            abr: { autoSwitchBitrate: { video:true, audio:true } },
-            buffer: { bufferTimeAtTopQuality:15, bufferToKeep:10, bufferAhead:15 },
-            retryAttempts: { MPD:2, MediaSegment:3, InitializationSegment:2 },
-            retryIntervals: { MPD:500, MediaSegment:500 },
-            delay: { liveDelay: 2 }
+        const p=dashjs.MediaPlayer().create();
+        p.initialize(video,url,true);
+        p.updateSettings({ streaming:{
+            abr:{ autoSwitchBitrate:{ video:true, audio:true } },
+            buffer:{ bufferTimeAtTopQuality:15, bufferToKeep:10, bufferAhead:15 },
+            retryAttempts:{ MPD:2, MediaSegment:3, InitializationSegment:2 },
+            retryIntervals:{ MPD:500, MediaSegment:500 },
+            delay:{ liveDelay:2 }
         }});
-        p.on(dashjs.MediaPlayer.events.ERROR, e => handleStreamError({ details:'dash:'+ (e.error?.message||'') }));
-        p.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, () => { state.fails=0; showBuffering(false); });
-        state.player = p;
+        p.on(dashjs.MediaPlayer.events.ERROR, e=>handleStreamError({ details:'dash:'+(e.error?.message||'') }));
+        p.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, ()=>{ state.failsLocal=0; showBuffering(false); });
+        state.player=p;
     } else playNative(url);
 }
-
-function playMpegts(url, format, opts){
+function playMpegts(url,format,opts){
     if (window.mpegts && mpegts.getFeatureList().mseLivePlayback){
-        const cfg = {
-            enableWorker: true, enableStashBuffer: true, stashInitialSize: 384,
-            liveBufferLatencyChasing: true, liveBufferLatencyMaxLatency: 1.5,
-            liveBufferLatencyMinRemain: 0.3, autoCleanupSourceBuffer: true,
-            fixAudioTimestampGap: true, lazyLoad: false, lazyLoadMaxDuration: 0
+        const cfg={
+            enableWorker:true, enableStashBuffer:true, stashInitialSize:384,
+            liveBufferLatencyChasing:true, liveBufferLatencyMaxLatency:1.5,
+            liveBufferLatencyMinRemain:0.3, autoCleanupSourceBuffer:true,
+            fixAudioTimestampGap:true, lazyLoad:false, lazyLoadMaxDuration:0
         };
-        const headers = buildHeaders(opts);
-        if (Object.keys(headers).length) cfg.headers = headers;
-
-        const p = mpegts.createPlayer({ type: format==='flv'?'flv':'mpegts', isLive:true, url }, cfg);
-        p.attachMediaElement(video);
-        p.load(); p.play();
-        p.on(mpegts.Events.ERROR, (t,d) => handleStreamError({ details:'mpegts:'+t+' '+d }));
-        state.player = p;
+        const headers=buildHeaders(opts);
+        if (Object.keys(headers).length) cfg.headers=headers;
+        const p=mpegts.createPlayer({ type:format==='flv'?'flv':'mpegts', isLive:true, url }, cfg);
+        p.attachMediaElement(video); p.load(); p.play();
+        p.on(mpegts.Events.ERROR, (t,d)=>handleStreamError({ details:'mpegts:'+t+' '+d }));
+        state.player=p;
     } else playNative(url);
 }
+function playNative(url){ state.playerType='native'; video.src=url; video.play().catch(()=>{}); }
 
-function playNative(url){
-    state.playerType = 'native';
-    video.src = url; video.play().catch(()=>{});
-}
-
-/* ═══ ДИАГНОСТИКА: почему канал не открывается ═══ */
-function diagnoseError(data, url){
-    if (location.protocol === 'https:' && url && url.startsWith('http:'))
-        return { title:'HTTP-поток на HTTPS-странице',
-            detail:'Браузер блокирует mixed content. В Televizo этого ограничения нет. Открой сайт по HTTP или ищи HTTPS-версию потока.' };
-    const code = data?.response?.code || 0;
-    if (code === 403) return { title:'Доступ запрещён (403)',
-        detail:'Сервер провайдера проверяет User-Agent или подпись запроса. Канал может быть привязан к конкретному плееру (Televizo и т.п.).' };
-    if (code === 401) return { title:'Нужна авторизация (401)', detail:'Поток приватный — нужен токен от провайдера.' };
-    if (code === 404) return { title:'Поток не найден (404)', detail:'Адрес канала устарел.' };
-    const d = String(data?.details || '').toLowerCase();
+/* ═══ ДИАГНОСТИКА ═══ */
+function diagnoseError(data, ch){
+    const d=String(data?.details||'').toLowerCase();
+    const code=data?.response?.code||0;
+    const viaWorker = state.variants[state.vi]?.url !== ch.url; // пытались через прокси/апгрейд
+    if (PAGE_HTTPS && ch.url.startsWith('http://')){
+        if (viaWorker) return { title:'HTTP-поток: прокси не спас',
+            detail:'Ни HTTPS-версия потока, ни прокси не открыли канал. Поставь свой Cloudflare Worker в CONFIG.WORKER_URL — публичные прокси часто рвут live-стримы.' };
+        return { title:'HTTP-поток на HTTPS-сайте',
+            detail:'Браузер блокирует mixed content. Включи USE_PUBLIC_PROXY или впиши свой Worker в CONFIG.WORKER_URL.' };
+    }
+    if (code===403) return { title:'Доступ запрещён (403)', detail:'Провайдер проверяет User-Agent/подпись. Канал может быть привязан к конкретному плееру.' };
+    if (code===401) return { title:'Нужна авторизация (401)', detail:'Поток приватный — нужен токен провайдера.' };
+    if (code===404) return { title:'Поток не найден (404)', detail:'Адрес канала устарел.' };
     if (d.includes('timeout')) return { title:'Нет ответа (таймаут)', detail:'Сервер потока перегружен или офлайн.' };
-    if (d.includes('load') || d.includes('network') || d.includes('fetch'))
-        return { title:'Сеть / CORS',
-            detail:'Браузер заблокировал запрос: сервер потока не отдаёт CORS-заголовки. Televizo про CORS не знает, поэтому там работает. Решение: включи CORS_PROXY в CONFIG в начале скрипта.' };
-    if (d.includes('codec') || d.includes('buffer') || d.includes('media'))
-        return { title:'Кодек не поддерживается',
-            detail:'Поток в формате, который браузер не умеет декодировать (часто MPEG-2 или AC3). Televizo (ExoPlayer) такие форматы ест.' };
+    if (d.includes('load')||d.includes('network')||d.includes('fetch'))
+        return { title:'Сеть / CORS', detail:'Сервер потока не отдаёт CORS-заголовки, либо недоступен. Televizo про CORS не знает — поэтому там работает.' };
+    if (d.includes('codec')||d.includes('buffer')||d.includes('media'))
+        return { title:'Кодек не поддерживается', detail:'Формат, который браузер не декодирует (часто MPEG-2 / AC3). В панели кодеков внизу видно, что умеет твой браузер.' };
     return { title:'Поток недоступен', detail:'Канал офлайн или в неподдерживаемом формате.' };
 }
 
-/* ═══ ОБРАБОТКА ОШИБОК — БЕЗ АВТОПЕРЕЛИСТЫВАНИЯ ═══ */
+/* ═══ ОБРАБОТКА ОШИБОК — стейт-машина вариантов × декодеров ═══ */
+state.failsLocal = 0;
+
+function advanceAttempt(){
+    // 1) следующий декодер в пределах текущего варианта URL
+    if (state.fi < state.chain.length - 1){
+        state.fi++;
+        return { url: state.variants[state.vi].url, fmt: state.chain[state.fi] };
+    }
+    // 2) следующий вариант URL (сброс декодеров под его базовый формат)
+    if (state.vi < state.variants.length - 1){
+        state.vi++;
+        state.fi = 0;
+        state.chain = getFallbackChain(state.variants[state.vi].baseFmt);
+        // предупредим, если пошли через публичный прокси
+        if (CONFIG.USE_PUBLIC_PROXY && state.variants[state.vi].url.startsWith(CONFIG.PUBLIC_PROXY)){
+            toast('Пробую через публичный прокси…');
+        }
+        return { url: state.variants[state.vi].url, fmt: state.chain[state.fi] };
+    }
+    return null; // всё исчерпано
+}
+
 function handleStreamError(data){
-    state.fails++;
     showBuffering(false);
     const ch = state.channels[state.current];
     if (!ch) return;
 
-    // 1) Другой декодер для ТОГО ЖЕ канала
-    if (state.fallbackIdx < state.fallbackChain.length - 1){
-        state.fallbackIdx++;
-        setTimeout(() => { if (state.current >= 0) playWithFormat(currentStreamUrl(), state.fallbackChain[state.fallbackIdx]); }, 300);
+    const next = advanceAttempt();
+    if (next){
+        setTimeout(()=>{ if (state.current>=0) playWithFormat(next.url, next.fmt); }, 250);
         return;
     }
 
-    // 2) Ещё одна попытка через CORS-прокси (если настроен)
-    if (CONFIG.CORS_PROXY && !state.triedProxy){
-        state.triedProxy = true;
-        state.fallbackIdx = 0;
-        toast('Повтор через CORS-прокси...');
-        setTimeout(() => { if (state.current >= 0) playWithFormat(currentStreamUrl(), state.fallbackChain[0]); }, 300);
-        return;
-    }
-
-    // 3) Всё. Стоим на месте, показываем причину
-    const diag = diagnoseError(data, ch.url);
+    // Финал — стоим, показываем причину
+    const diag = diagnoseError(data, ch);
     $('playerError').classList.remove('hidden');
     $('errMsg').textContent = diag.title;
     $('errDetail').textContent = diag.detail;
@@ -611,28 +568,21 @@ function handleStreamError(data){
 }
 
 function showBuffering(show){ $('buffering').classList.toggle('hidden', !show); }
-
-function toast(msg, type){
-    const t = $('toast');
-    t.textContent = msg;
-    t.className = 'toast show' + (type === 'err' ? ' err' : '');
-    clearTimeout(state.toastTimer);
-    state.toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+function toast(msg,type){
+    const t=$('toast'); t.textContent=msg; t.className='toast show'+(type==='err'?' err':'');
+    clearTimeout(state.toastTimer); state.toastTimer=setTimeout(()=>t.classList.remove('show'),3500);
 }
 
-/* ═══ ПРЕДЗАГРУЗКА СОСЕДНИХ КАНАЛОВ ═══ */
+/* ═══ ПРЕДЗАГРУЗКА СОСЕДЕЙ ═══ */
 function preloadNeighbors(){
-    if (state.current < 0 || !state.channels.length) return;
-    const n = (state.current + 1) % state.channels.length;
-    const p = (state.current - 1 + state.channels.length) % state.channels.length;
-    [state.channels[n].url, state.channels[p].url].forEach(url => {
+    if (state.current<0||!state.channels.length) return;
+    const n=(state.current+1)%state.channels.length, p=(state.current-1+state.channels.length)%state.channels.length;
+    [state.channels[n].url, state.channels[p].url].forEach(url=>{
         try{
-            const host = new URL(url).origin;
+            const host=new URL(url).origin;
             if (!document.querySelector(`link[href="${host}"]`)){
-                const l = document.createElement('link');
-                l.rel = 'preconnect'; l.href = host; l.crossOrigin = 'anonymous';
-                document.head.appendChild(l);
-                setTimeout(() => l.remove(), 10000);
+                const l=document.createElement('link'); l.rel='preconnect'; l.href=host; l.crossOrigin='anonymous';
+                document.head.appendChild(l); setTimeout(()=>l.remove(),10000);
             }
         }catch{}
     });
@@ -640,359 +590,229 @@ function preloadNeighbors(){
 
 /* ═══ ВЫБОР КАНАЛА ═══ */
 function selectChannel(idx){
-    if (idx < 0 || idx >= state.channels.length) return;
-    state.current = idx;
-    state.fails = 0; state.fallbackIdx = 0; state.triedProxy = false;
+    if (idx<0||idx>=state.channels.length) return;
+    state.current=idx; state.failsLocal=0;
+    const ch=state.channels[idx];
 
-    const ch = state.channels[idx];
-    state.fallbackChain = getFallbackChain(ch.url);
+    state.variants = buildUrlVariants(ch.url);
+    state.vi = 0; state.fi = 0;
+    state.chain = getFallbackChain(state.variants[0]?.baseFmt);
 
-    $('chNum').textContent = String(idx + 1).padStart(3, '0');
-    $('chTitle').textContent = ch.name;
-    $('chGroup').textContent = ch.group;
-    try{ $('chHost').textContent = new URL(ch.url).host; }catch{}
-    document.title = ch.name + ' — IPTV';
-
+    $('chNum').textContent=String(idx+1).padStart(3,'0');
+    $('chTitle').textContent=ch.name;
+    $('chGroup').textContent=ch.group;
+    try{ $('chHost').textContent=new URL(ch.url).host; }catch{}
+    document.title=ch.name+' — IPTV';
     $('overlay').classList.add('hidden');
     $('playerError').classList.add('hidden');
 
-    playWithFormat(currentStreamUrl(), state.fallbackChain[0]);
+    playWithFormat(state.variants[0].url, state.chain[0]);
     addHistory(ch.name);
     renderList();
     preloadNeighbors();
-
-    requestAnimationFrame(() => {
-        const el = document.querySelector('.channel-item.active');
-        if (el) el.scrollIntoView({ behavior:'smooth', block:'nearest' });
-    });
+    requestAnimationFrame(()=>{ const el=document.querySelector('.channel-item.active'); if (el) el.scrollIntoView({ behavior:'smooth', block:'nearest' }); });
 }
 
 /* ═══ РЕНДЕР ═══ */
 function getInitial(name){
-    for (let i = 0; i < name.length; i++){
-        const c = name.charCodeAt(i);
-        if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=1040&&c<=1103)||(c>=48&&c<=57)) return name[i].toUpperCase();
-    }
+    for (let i=0;i<name.length;i++){ const c=name.charCodeAt(i);
+        if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=1040&&c<=1103)||(c>=48&&c<=57)) return name[i].toUpperCase(); }
     return '?';
 }
-const COLORS = ['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8','#a29bfe','#fdcb6e'];
-function getColor(name){
-    let h = 0;
-    for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
-    return COLORS[Math.abs(h) % COLORS.length];
-}
-
+const COLORS=['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8','#a29bfe','#fdcb6e'];
+function getColor(name){ let h=0; for (let i=0;i<name.length;i++) h=name.charCodeAt(i)+((h<<5)-h); return COLORS[Math.abs(h)%COLORS.length]; }
 function filterChannels(){
-    let r = state.channels;
-    if (state.tab === 'fav') r = r.filter(c => state.favorites.has(c.name));
-    else if (state.tab === 'hist'){ const s = new Set(state.history); r = r.filter(c => s.has(c.name)); }
-    if (state.category !== 'all') r = r.filter(c => c.group === state.category);
-    if (state.search){
-        const q = state.search.toLowerCase();
-        r = r.filter(c => c.name.toLowerCase().includes(q) || c.group.toLowerCase().includes(q));
-    }
+    let r=state.channels;
+    if (state.tab==='fav') r=r.filter(c=>state.favorites.has(c.name));
+    else if (state.tab==='hist'){ const s=new Set(state.history); r=r.filter(c=>s.has(c.name)); }
+    if (state.category!=='all') r=r.filter(c=>c.group===state.category);
+    if (state.search){ const q=state.search.toLowerCase(); r=r.filter(c=>c.name.toLowerCase().includes(q)||c.group.toLowerCase().includes(q)); }
     return r;
 }
-
-let lastRenderKey = '';
-
+let lastRenderKey='';
 function renderList(){
-    const filtered = filterChannels();
-    $('count').textContent = filtered.length;
-
-    const key = state.tab + '|' + state.category + '|' + state.search + '|' + state.current;
-    if (key === lastRenderKey) return;
-    lastRenderKey = key;
-
-    if (!filtered.length){
-        $('list').innerHTML = '<div style="text-align:center;padding:40px;color:#4d5766;font-size:14px">Нет каналов</div>';
-        return;
-    }
-
-    const slice = filtered.slice(0, CONFIG.MAX_RENDER);
-    const frag = document.createDocumentFragment();
-
-    for (let i = 0; i < slice.length; i++){
-        const ch = slice[i];
-        const idx = state.channels.indexOf(ch);
-        const active = idx === state.current;
-        const fav = state.favorites.has(ch.name);
-        const color = getColor(ch.name), init = getInitial(ch.name);
-
-        const div = document.createElement('div');
-        div.className = 'channel-item' + (active ? ' active' : '');
-        div.dataset.idx = idx;
-        div.style.animationDelay = Math.min(i * 14, 280) + 'ms';
-
-        const numCell = active
-            ? '<span class="eq"><i></i><i></i><i></i></span>'
-            : String(idx + 1).padStart(3, '0');
-
-        const logoHtml = ch.logo && ch.logo.startsWith('http')
+    const filtered=filterChannels();
+    $('count').textContent=filtered.length;
+    const key=state.tab+'|'+state.category+'|'+state.search+'|'+state.current;
+    if (key===lastRenderKey) return; lastRenderKey=key;
+    if (!filtered.length){ $('list').innerHTML='<div style="text-align:center;padding:40px;color:#4d5766;font-size:14px">Нет каналов</div>'; return; }
+    const slice=filtered.slice(0,CONFIG.MAX_RENDER), frag=document.createDocumentFragment();
+    for (let i=0;i<slice.length;i++){
+        const ch=slice[i], idx=state.channels.indexOf(ch), active=idx===state.current, fav=state.favorites.has(ch.name);
+        const color=getColor(ch.name), init=getInitial(ch.name);
+        const div=document.createElement('div');
+        div.className='channel-item'+(active?' active':''); div.dataset.idx=idx;
+        div.style.animationDelay=Math.min(i*14,280)+'ms';
+        const numCell=active?'<span class="eq"><i></i><i></i><i></i></span>':String(idx+1).padStart(3,'0');
+        const logoHtml=ch.logo&&ch.logo.startsWith('http')
             ? `<img src="${escapeAttr(ch.logo)}" loading="lazy" decoding="async" onerror="this.outerHTML='<span style=color:${color}>${init}</span>'">`
             : `<span style="color:${color}">${init}</span>`;
-
-        div.innerHTML = `
+        div.innerHTML=`
             <div class="channel-item-num">${numCell}</div>
             <div class="channel-item-logo">${logoHtml}</div>
             <div class="channel-item-info">
                 <div class="channel-item-name">${escapeHtml(ch.name)}</div>
                 <div class="channel-item-group">${escapeHtml(ch.group)}</div>
             </div>
-            <div class="favorite${fav ? ' active' : ''}" data-fav="${idx}">
-                <svg viewBox="0 0 24 24" fill="${fav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+            <div class="favorite${fav?' active':''}" data-fav="${idx}">
+                <svg viewBox="0 0 24 24" fill="${fav?'currentColor':'none'}" stroke="currentColor" stroke-width="2">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                 </svg>
             </div>`;
         frag.appendChild(div);
     }
-
-    if (filtered.length > CONFIG.MAX_RENDER){
-        const more = document.createElement('div');
-        more.style.cssText = 'text-align:center;padding:15px;color:#4d5766;font-size:12px';
-        more.textContent = `Показано ${CONFIG.MAX_RENDER} из ${filtered.length}. Уточните поиск.`;
-        frag.appendChild(more);
+    if (filtered.length>CONFIG.MAX_RENDER){
+        const more=document.createElement('div'); more.style.cssText='text-align:center;padding:15px;color:#4d5766;font-size:12px';
+        more.textContent=`Показано ${CONFIG.MAX_RENDER} из ${filtered.length}. Уточните поиск.`; frag.appendChild(more);
     }
-
-    $('list').innerHTML = '';
-    $('list').appendChild(frag);
+    $('list').innerHTML=''; $('list').appendChild(frag);
 }
-
 function renderCategories(){
-    const groups = Object.create(null);
-    for (const c of state.channels) groups[c.group] = (groups[c.group] || 0) + 1;
-    const sorted = Object.entries(groups).sort((a,b) => b[1] - a[1]);
-    $('categories').innerHTML =
-        `<div class="category${state.category==='all'?' active':''}" data-cat="all">Все · ${state.channels.length}</div>` +
-        sorted.map(([n,c]) => `<div class="category${state.category===n?' active':''}" data-cat="${escapeAttr(n)}">${escapeHtml(n)} · ${c}</div>`).join('');
+    const groups=Object.create(null);
+    for (const c of state.channels) groups[c.group]=(groups[c.group]||0)+1;
+    const sorted=Object.entries(groups).sort((a,b)=>b[1]-a[1]);
+    $('categories').innerHTML=
+        `<div class="category${state.category==='all'?' active':''}" data-cat="all">Все · ${state.channels.length}</div>`+
+        sorted.map(([n,c])=>`<div class="category${state.category===n?' active':''}" data-cat="${escapeAttr(n)}">${escapeHtml(n)} · ${c}</div>`).join('');
 }
-
-/* ═══ ПАНЕЛЬ КОДЕКОВ ═══ */
 function renderCodecs(){
-    const tests = [
-        ['H.264','video/mp4; codecs="avc1.42E01E,mp4a.40.2"'],
-        ['HEVC','video/mp4; codecs="hvc1.1.6.L93.B0"'],
-        ['MPEG-2','video/mp2t; codecs="mp4v.20.9"'],
-        ['AC3','audio/mp4; codecs="ac-3"'],
-        ['AAC','audio/mp4; codecs="mp4a.40.2"']
-    ];
-    $('codecs').innerHTML = tests.map(([l,m]) => {
-        const ok = !!video.canPlayType(m);
-        return `<span class="codec ${ok?'ok':'no'}" title="${escapeAttr(m)}">${l} ${ok?'✓':'✕'}</span>`;
-    }).join('');
+    const tests=[['H.264','video/mp4; codecs="avc1.42E01E,mp4a.40.2"'],['HEVC','video/mp4; codecs="hvc1.1.6.L93.B0"'],
+        ['MPEG-2','video/mp2t; codecs="mp4v.20.9"'],['AC3','audio/mp4; codecs="ac-3"'],['AAC','audio/mp4; codecs="mp4a.40.2"']];
+    $('codecs').innerHTML=tests.map(([l,m])=>{ const ok=!!video.canPlayType(m);
+        return `<span class="codec ${ok?'ok':'no'}" title="${escapeAttr(m)}">${l} ${ok?'✓':'✕'}</span>`; }).join('');
 }
 
 /* ═══ ИСТОРИЯ / ИЗБРАННОЕ ═══ */
-function addHistory(name){
-    state.history = [name, ...state.history.filter(n => n !== name)].slice(0, 50);
-    safeSave('iptv_hist', state.history);
-}
+function addHistory(name){ state.history=[name,...state.history.filter(n=>n!==name)].slice(0,50); safeSave('iptv_hist',state.history); }
 function toggleFav(idx){
-    const name = state.channels[idx]?.name;
-    if (!name) return;
-    state.favorites.has(name) ? state.favorites.delete(name) : state.favorites.add(name);
-    safeSave('iptv_fav', [...state.favorites]);
-    lastRenderKey = '';
-    renderList();
+    const name=state.channels[idx]?.name; if (!name) return;
+    state.favorites.has(name)?state.favorites.delete(name):state.favorites.add(name);
+    safeSave('iptv_fav',[...state.favorites]); lastRenderKey=''; renderList();
 }
 
-/* ═══ НАВИГАЦИЯ (только ручная) ═══ */
-function prevChannel(){ if (!state.channels.length) return; selectChannel(state.current > 0 ? state.current - 1 : state.channels.length - 1); }
-function nextChannel(){ if (!state.channels.length) return; selectChannel(state.current < state.channels.length - 1 ? state.current + 1 : 0); }
+/* ═══ НАВИГАЦИЯ ═══ */
+function prevChannel(){ if (!state.channels.length) return; selectChannel(state.current>0?state.current-1:state.channels.length-1); }
+function nextChannel(){ if (!state.channels.length) return; selectChannel(state.current<state.channels.length-1?state.current+1:0); }
 
 /* ═══ ЗАГРУЗКА ПЛЕЙЛИСТА ═══ */
 async function loadPlaylist(){
-    $('loading').classList.remove('hidden');
-    $('error').classList.add('hidden');
-    $('status').textContent = 'Загрузка...';
-
-    const attempts = [CONFIG.PLAYLIST_URL];
-    if (CONFIG.CORS_PROXY) attempts.push(streamUrl(CONFIG.PLAYLIST_URL));
-
-    for (const url of attempts){
-        try{
-            const ctrl = new AbortController();
-            const timer = setTimeout(() => ctrl.abort(), 12000);
-            const res = await fetch(url, { signal: ctrl.signal });
-            clearTimeout(timer);
-            if (!res.ok) continue;
-            state.channels = parseM3U(await res.text());
+    $('loading').classList.remove('hidden'); $('error').classList.add('hidden'); $('status').textContent='Загрузка...';
+    try{
+        const ctrl=new AbortController(), timer=setTimeout(()=>ctrl.abort(),12000);
+        const res=await fetch(CONFIG.PLAYLIST_URL,{ signal:ctrl.signal }); clearTimeout(timer);
+        if (res.ok){
+            state.channels=parseM3U(await res.text());
             if (state.channels.length){
-                $('status').textContent = state.channels.length + ' каналов';
+                $('status').textContent=state.channels.length+' каналов';
                 renderCategories(); renderList();
-                if (state.current === -1) selectChannel(0);
-                $('loading').classList.add('hidden');
-                return;
+                if (state.current===-1) selectChannel(0);
+                $('loading').classList.add('hidden'); return;
             }
-        }catch{ continue; }
-    }
-    $('error').classList.remove('hidden');
-    $('status').textContent = 'Ошибка загрузки';
-    $('loading').classList.add('hidden');
+        }
+    }catch{}
+    $('error').classList.remove('hidden'); $('status').textContent='Ошибка загрузки'; $('loading').classList.add('hidden');
 }
 
 /* ═══ ОБРАБОТЧИКИ ═══ */
-$('list').addEventListener('click', e => {
-    const fav = e.target.closest('.favorite');
-    if (fav){ toggleFav(+fav.dataset.fav); return; }
-    const item = e.target.closest('.channel-item');
-    if (item) selectChannel(+item.dataset.idx);
+$('list').addEventListener('click', e=>{
+    const fav=e.target.closest('.favorite'); if (fav){ toggleFav(+fav.dataset.fav); return; }
+    const item=e.target.closest('.channel-item'); if (item) selectChannel(+item.dataset.idx);
 }, { passive:true });
-
-$('categories').addEventListener('click', e => {
-    const el = e.target.closest('.category');
-    if (!el) return;
-    state.category = el.dataset.cat;
-    lastRenderKey = '';
-    renderList();
-    $('categories').querySelectorAll('.category').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
+$('categories').addEventListener('click', e=>{
+    const el=e.target.closest('.category'); if (!el) return;
+    state.category=el.dataset.cat; lastRenderKey=''; renderList();
+    $('categories').querySelectorAll('.category').forEach(c=>c.classList.remove('active')); el.classList.add('active');
 }, { passive:true });
-
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        state.tab = tab.dataset.tab;
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        lastRenderKey = '';
-        renderList();
+document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+        state.tab=tab.dataset.tab; document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active'); lastRenderKey=''; renderList();
     }, { passive:true });
 });
+$('search').addEventListener('input', debounce(e=>{ state.search=e.target.value.trim(); lastRenderKey=''; renderList(); },200), { passive:true });
 
-$('search').addEventListener('input', debounce(e => {
-    state.search = e.target.value.trim();
-    lastRenderKey = '';
-    renderList();
-}, 200), { passive:true });
-
-$('btnPlay').addEventListener('click', () => video.paused ? video.play() : video.pause());
-$('bigPlay').addEventListener('click', () => {
-    if (state.current >= 0) video.play();
-    else if (state.channels.length) selectChannel(0);
-});
+$('btnPlay').addEventListener('click', ()=>video.paused?video.play():video.pause());
+$('bigPlay').addEventListener('click', ()=>{ if (state.current>=0) video.play(); else if (state.channels.length) selectChannel(0); });
 $('btnPrev').addEventListener('click', prevChannel);
 $('btnNext').addEventListener('click', nextChannel);
-$('btnMute').addEventListener('click', () => { video.muted = !video.muted; });
-$('vol').addEventListener('input', e => {
-    video.volume = +e.target.value;
-    video.muted = +e.target.value === 0;
-    safeSave('iptv_vol', +e.target.value);
-}, { passive:true });
-
-$('btnFull').addEventListener('click', () => {
-    const el = $('videoWrap');
-    if (document.fullscreenElement || document.webkitFullscreenElement){
-        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-    } else if (el.requestFullscreen){ el.requestFullscreen(); }
-    else if (el.webkitRequestFullscreen){ el.webkitRequestFullscreen(); }
-    else if (video.webkitEnterFullscreen){ video.webkitEnterFullscreen(); } // старый iOS
+$('btnMute').addEventListener('click', ()=>{ video.muted=!video.muted; });
+$('vol').addEventListener('input', e=>{ video.volume=+e.target.value; video.muted=+e.target.value===0; safeSave('iptv_vol',+e.target.value); }, { passive:true });
+$('btnFull').addEventListener('click', ()=>{
+    const el=$('videoWrap');
+    if (document.fullscreenElement||document.webkitFullscreenElement){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+    else if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
 });
-
-$('btnRetry').addEventListener('click', () => {
-    if (state.current >= 0){ state.fails = 0; state.fallbackIdx = 0; state.triedProxy = false; selectChannel(state.current); }
-});
-
-$('btnFile').addEventListener('click', () => $('file').click());
+$('btnRetry').addEventListener('click', ()=>{ if (state.current>=0) selectChannel(state.current); });
+$('btnFile').addEventListener('click', ()=>$('file').click());
 $('btnReload').addEventListener('click', loadPlaylist);
-
-$('file').addEventListener('change', e => {
-    const f = e.target.files[0];
-    if (!f) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-        state.channels = parseM3U(ev.target.result);
-        $('status').textContent = state.channels.length + ' каналов · ' + f.name;
-        $('error').classList.add('hidden');
-        renderCategories();
-        lastRenderKey = '';
-        renderList();
-        if (state.current === -1 && state.channels.length) selectChannel(0);
+$('file').addEventListener('change', e=>{
+    const f=e.target.files[0]; if (!f) return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+        state.channels=parseM3U(ev.target.result);
+        $('status').textContent=state.channels.length+' каналов · '+f.name;
+        $('error').classList.add('hidden'); renderCategories(); lastRenderKey=''; renderList();
+        if (state.current===-1&&state.channels.length) selectChannel(0);
     };
     reader.readAsText(f);
 });
 
 /* ═══ СОБЫТИЯ ВИДЕО ═══ */
-video.addEventListener('play', () => {
-    $('overlay').classList.add('hidden');
-    $('playerError').classList.add('hidden');
-    $('iconPlay').classList.add('hidden');
-    $('iconPause').classList.remove('hidden');
-});
-video.addEventListener('pause', () => {
-    $('iconPlay').classList.remove('hidden');
-    $('iconPause').classList.add('hidden');
-});
-video.addEventListener('playing', () => {
-    state.fails = 0;
+video.addEventListener('play', ()=>{ $('overlay').classList.add('hidden'); $('playerError').classList.add('hidden'); $('iconPlay').classList.add('hidden'); $('iconPause').classList.remove('hidden'); });
+video.addEventListener('pause', ()=>{ $('iconPlay').classList.remove('hidden'); $('iconPause').classList.add('hidden'); });
+video.addEventListener('playing', ()=>{ state.failsLocal=0; showBuffering(false); $('overlay').classList.add('hidden'); });
+video.addEventListener('waiting', ()=>showBuffering(true), { passive:true });
+video.addEventListener('canplay', ()=>showBuffering(false), { passive:true });
+video.addEventListener('stalled', ()=>showBuffering(true), { passive:true });
+video.addEventListener('error', ()=>{
+    if (state.playerType!=='native') return;
     showBuffering(false);
-    $('overlay').classList.add('hidden');
-});
-video.addEventListener('waiting', () => showBuffering(true), { passive:true });
-video.addEventListener('canplay', () => showBuffering(false), { passive:true });
-video.addEventListener('stalled', () => showBuffering(true), { passive:true });
-
-video.addEventListener('error', () => {
-    if (state.playerType !== 'native') return;
-    showBuffering(false);
-    const c = video.error?.code;
-    if (c === 4) handleStreamError({ details:'codec not supported' });
-    else if (c === 2) handleStreamError({ details:'network load error' });
-    else handleStreamError({ details:'media error ' + c });
+    const c=video.error?.code;
+    if (c===4) handleStreamError({ details:'codec not supported' });
+    else if (c===2) handleStreamError({ details:'network load error' });
+    else handleStreamError({ details:'media error '+c });
 }, { passive:true });
 
 /* ═══ АВТОСКРЫТИЕ КОНТРОЛОВ ═══ */
-function showControls(){
-    $('controls').classList.remove('idle');
-    clearTimeout(state.controlsTimer);
-    state.controlsTimer = setTimeout(() => { if (!video.paused) $('controls').classList.add('idle'); }, 3500);
-}
+function showControls(){ $('controls').classList.remove('idle'); clearTimeout(state.controlsTimer); state.controlsTimer=setTimeout(()=>{ if (!video.paused) $('controls').classList.add('idle'); },3500); }
 $('videoWrap').addEventListener('touchstart', showControls, { passive:true });
-$('videoWrap').addEventListener('mousemove', throttle(showControls, 500), { passive:true });
+$('videoWrap').addEventListener('mousemove', throttle(showControls,500), { passive:true });
 
-/* ═══ СВАЙПЫ (ручное переключение) ═══ */
-let tX = 0, tY = 0, tT = 0, lastTap = 0;
-$('videoWrap').addEventListener('touchstart', e => {
-    const t = e.touches[0];
-    tX = t.clientX; tY = t.clientY; tT = Date.now();
-}, { passive:true });
-$('videoWrap').addEventListener('touchend', e => {
-    const t = e.changedTouches[0];
-    const dx = t.clientX - tX, dy = t.clientY - tY, dt = Date.now() - tT;
-    if (Math.abs(dx) > 60 && Math.abs(dy) < 40 && dt < 300){
-        dx > 0 ? prevChannel() : nextChannel();
-        return;
-    }
-    const now = Date.now();
-    if (now - lastTap < 300){ $('btnFull').click(); e.preventDefault(); }
-    lastTap = now;
+/* ═══ СВАЙПЫ ═══ */
+let tX=0,tY=0,tT=0,lastTap=0;
+$('videoWrap').addEventListener('touchstart', e=>{ const t=e.touches[0]; tX=t.clientX; tY=t.clientY; tT=Date.now(); }, { passive:true });
+$('videoWrap').addEventListener('touchend', e=>{
+    const t=e.changedTouches[0], dx=t.clientX-tX, dy=t.clientY-tY, dt=Date.now()-tT;
+    if (Math.abs(dx)>60&&Math.abs(dy)<40&&dt<300){ dx>0?prevChannel():nextChannel(); return; }
+    const now=Date.now(); if (now-lastTap<300){ $('btnFull').click(); e.preventDefault(); } lastTap=now;
 });
 
 /* ═══ КЛАВИАТУРА ═══ */
-document.addEventListener('keydown', e => {
-    if (e.target.tagName === 'INPUT') return;
+document.addEventListener('keydown', e=>{
+    if (e.target.tagName==='INPUT') return;
     switch (e.key){
         case 'ArrowUp': e.preventDefault(); prevChannel(); break;
         case 'ArrowDown': e.preventDefault(); nextChannel(); break;
-        case ' ': e.preventDefault(); video.paused ? video.play() : video.pause(); break;
-        case 'f': case 'F': if (state.current >= 0) toggleFav(state.current); break;
-        case 'm': case 'M': video.muted = !video.muted; break;
-        case 'ArrowRight': video.volume = Math.min(1, video.volume + .1); $('vol').value = video.volume; break;
-        case 'ArrowLeft': video.volume = Math.max(0, video.volume - .1); $('vol').value = video.volume; break;
+        case ' ': e.preventDefault(); video.paused?video.play():video.pause(); break;
+        case 'f': case 'F': if (state.current>=0) toggleFav(state.current); break;
+        case 'm': case 'M': video.muted=!video.muted; break;
+        case 'ArrowRight': video.volume=Math.min(1,video.volume+.1); $('vol').value=video.volume; break;
+        case 'ArrowLeft': video.volume=Math.max(0,video.volume-.1); $('vol').value=video.volume; break;
     }
 });
 
 /* ═══ ЧАСЫ ═══ */
 function tickClock(){
-    const t = new Date().toLocaleTimeString('ru-RU', { hour:'2-digit', minute:'2-digit' });
-    $('clock').textContent = t;
-    $('statusClock').textContent = new Date().toLocaleDateString('ru-RU') + ' · ' + t;
+    const t=new Date().toLocaleTimeString('ru-RU',{ hour:'2-digit', minute:'2-digit' });
+    $('clock').textContent=t; $('statusClock').textContent=new Date().toLocaleDateString('ru-RU')+' · '+t;
 }
-setInterval(tickClock, 1000);
-tickClock();
+setInterval(tickClock,1000); tickClock();
 
 /* ═══ СТАРТ ═══ */
-const savedVol = safeParse('iptv_vol', null);
-if (savedVol !== null){ video.volume = savedVol; $('vol').value = savedVol; }
+const savedVol=safeParse('iptv_vol',null);
+if (savedVol!==null){ video.volume=savedVol; $('vol').value=savedVol; }
 renderCodecs();
 loadPlaylist();
 </script>
