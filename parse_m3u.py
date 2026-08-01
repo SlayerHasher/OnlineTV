@@ -56,7 +56,36 @@ STREAM_ERROR_KEYWORDS = [
     'unauthorized',
     'forbidden',
     'not found',
-    'service unavailable'
+    'service unavailable',
+    # Дополнительные варианты заглушек
+    'тестовый сигнал',
+    'test card',
+    'color bars',
+    'please wait',
+    'скоро',
+    'будет позже',
+    'временно недоступно',
+    'temporarily unavailable',
+    'off air',
+    'нет эфира',
+    'перерыв',
+    'technical difficulties',
+    'проблемы с сигналом',
+    'сигнал отсутствует',
+    'поток недоступен',
+    'stream not available',
+    'канал не работает',
+    'channel offline',
+    'ошибка вещания',
+    'broadcast error',
+    'требуется подписка',
+    'subscription required',
+    'платный контент',
+    'paid content',
+    'превью',
+    'preview',
+    'демо версия',
+    'demo version',
 ]
 
 STREAM_ERROR_EXCLUDE = CONFIG.get('stream_error_exclude', STREAM_ERROR_KEYWORDS)
@@ -587,9 +616,13 @@ async def main():
     else:
         filtered = raw_channels
 
-    # Исключаем по ключевым словам
+    # Исключаем по ключевым словам из названия
     filtered = [ch for ch in filtered if not any(kw in ch['name'].lower() for kw in EXCLUDE_KEYWORDS)]
     logger.info(f"После исключения ключевых слов: {len(filtered)}")
+
+    # Исключаем каналы с заглушками и ошибками по названию (до проверки потока)
+    filtered = [ch for ch in filtered if not any(kw in ch['name'].lower() for kw in STREAM_ERROR_KEYWORDS)]
+    logger.info(f"После исключения заглушек по названию: {len(filtered)}")
 
     # Исключаем каналы с веб-камерами городов и онлайн-трансляциями с улиц (проверяем название и группу)
     def is_camera_channel(channel: Dict) -> bool:
