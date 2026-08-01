@@ -11,5 +11,7 @@
     "keep_group_title": true,
     "sort_by_group": true,
     "russian_only": true,
-    "standard_categories": true
+    "standard_categories": true,
+    "require_epg": false,
+    "cleanup_invalid_logos": true
 }

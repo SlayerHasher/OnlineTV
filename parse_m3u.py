@@ -39,6 +39,8 @@ KEEP_GROUP = CONFIG.get('keep_group_title', True)
 SORT_BY_GROUP = CONFIG.get('sort_by_group', True)
 RUSSIAN_ONLY = CONFIG.get('russian_only', True)
 STANDARD_CATEGORIES = CONFIG.get('standard_categories', True)
+REQUIRE_EPG = CONFIG.get('require_epg', False)
+CLEANUP_LOGOS = CONFIG.get('cleanup_invalid_logos', True)
 
 # Стандартные категории для группировки
 CATEGORY_MAPPING = {
@@ -336,10 +338,17 @@ def parse_m3u(content: str, source_url: str) -> List[Dict]:
                 match = re.search(rf'{attr}="([^"]*)"', line)
                 if match:
                     attrs[attr] = match.group(1)
+            
+            # Извлекаем имя канала - всё после последней запятой
             if ',' in line:
-                name = line.split(',', 1)[1].strip()
+                name = line.rsplit(',', 1)[1].strip()
+                # Очищаем имя от мусора (SVG и т.д.)
+                if name.startswith('<') or 'svg' in name.lower():
+                    # Пытаемся найти нормальное имя в атрибутах
+                    name = attrs.get('tvg-name', attrs.get('group-title', f"Channel {len(channels)}"))
             else:
                 name = f"Channel {len(channels)}"
+            
             current = {
                 'name': name,
                 'url': None,
@@ -412,7 +421,7 @@ async def main():
         key = normalize_name(ch['name'])
         groups[key].append(ch)
 
-    # Выбираем лучшего кандидата из каждой группы
+    # Выбираем лучшего кандидата из каждой группы с приоритетом на tvg-id
     def sort_key(ch):
         source = extract_source_name(ch['source'])
         pref_score = 0
@@ -422,10 +431,23 @@ async def main():
                 break
         has_tvg_id = 1 if ch['attrs'].get('tvg-id') else 0
         has_group = 1 if ch['attrs'].get('group-title') else 0
-        return (pref_score, has_tvg_id, has_group, ch['name'])
+        has_valid_logo = 1 if ch['attrs'].get('tvg-logo') and not ch['attrs'].get('tvg-logo', '').startswith('data:image') else 0
+        return (pref_score, has_tvg_id, has_group, has_valid_logo, ch['name'])
 
     candidates = [max(ch_list, key=sort_key) for ch_list in groups.values()]
     logger.info(f"Кандидатов после дедупликации: {len(candidates)}")
+    
+    # Вторая волна дедупликации - по URL для исключения полных дублей
+    url_seen = set()
+    unique_candidates = []
+    for ch in candidates:
+        if ch['url'] not in url_seen:
+            url_seen.add(ch['url'])
+            unique_candidates.append(ch)
+        else:
+            logger.debug(f"Удалён дубль по URL: {ch['name']} - {ch['url']}")
+    candidates = unique_candidates
+    logger.info(f"После удаления дублей по URL: {len(candidates)}")
 
     # ---------- Валидация через HTTP (если включена) ----------
     final_channels = []
@@ -449,6 +471,19 @@ async def main():
             standard_category = get_standard_category(ch)
             # Заменяем старую группу на новую стандартную категорию
             ch['attrs']['group-title'] = standard_category
+    
+    # Фильтрация каналов без tvg-id для EPG (опционально)
+    if REQUIRE_EPG:
+        with_epg = [ch for ch in final_channels if ch['attrs'].get('tvg-id')]
+        logger.info(f"Каналов с tvg-id (для EPG): {len(with_epg)}")
+        final_channels = with_epg
+    
+    # Очистка некорректных логотипов (data:image и т.д.)
+    if CLEANUP_LOGOS:
+        for ch in final_channels:
+            logo = ch['attrs'].get('tvg-logo', '')
+            if logo.startswith('data:image') or len(logo) > 500:
+                del ch['attrs']['tvg-logo']
 
     # Сортировка по группам (если включено)
     if SORT_BY_GROUP:

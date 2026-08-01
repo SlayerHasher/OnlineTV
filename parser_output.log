@@ -1,0 +1,12 @@
+2026-08-01 08:46:21,977 - INFO - Запуск парсера IPTV (без ffprobe)...
+2026-08-01 08:46:21,978 - INFO - Загрузка: https://raw.githubusercontent.com/Dimonovich/TV/Dimonovich/FREE/TV
+2026-08-01 08:46:21,979 - INFO - Загрузка: https://raw.githubusercontent.com/loganettv/playlists/main/all.m3u
+2026-08-01 08:46:21,979 - INFO - Загрузка: https://raw.githubusercontent.com/IPTVRU2026/IPTVMIR/main/IPTV_MEGA_PLAYLIST.m3u
+2026-08-01 08:46:22,219 - INFO - Всего каналов до фильтрации: 11981
+2026-08-01 08:46:22,585 - INFO - После фильтрации русских каналов: 11253
+2026-08-01 08:46:22,701 - INFO - После исключения ключевых слов: 11219
+2026-08-01 08:46:23,280 - INFO - Кандидатов после дедупликации: 8319
+2026-08-01 08:46:23,280 - INFO - Проверка доступности каналов через HTTP HEAD...
+2026-08-01 08:48:58,833 - INFO - После HTTP-проверки осталось: 6478
+2026-08-01 08:48:59,078 - INFO -  Готово! Плейлист сохранён в playlist.m3u
+2026-08-01 08:48:59,079 - INFO -  Статистика: {'generated': '2026-08-01T08:48:59.078640', 'sources': {'raw': {'loaded': 1, 'parsed': 8040, 'valid': 0}}, 'raw_count': 11981, 'after_filter': 11219, 'after_dedup': 8319, 'after_validation': 6478, 'final_count': 6478, 'duration_seconds': 157.100582}
