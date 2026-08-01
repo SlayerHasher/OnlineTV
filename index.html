@@ -15,8 +15,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dashjs@4.7.4/dist/dash.all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.js"></script>
 
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
@@ -29,7 +27,7 @@
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none;-webkit-overflow-scrolling:touch}
 body{
     font-family:var(--body); background:var(--bg); color:var(--txt);
-    min-height:100vh; min-height:-webkit-fill-available; overflow-x:hidden;
+    min-height:100vh; min-height:100dvh; overflow-x:hidden;
     padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;background:
@@ -206,7 +204,7 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
         <div class="channel-number" id="chNum">—</div>
         <div class="video-container" id="videoWrap">
             <video id="video" playsinline webkit-playsinline preload="auto"
-                   x5-video-player-type="h5" x5-video-player-fullscreen="true"></video>
+                   x5-video-player-type="h5" x5-video-player-fullscreen="true" crossorigin="anonymous"></video>
             <div class="live">LIVE</div>
             <div class="format-badge hidden" id="formatBadge">—</div>
             <div class="buffering hidden" id="buffering"><div class="spinner"></div></div>
@@ -277,24 +275,13 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backgr
 <script>
 'use strict';
 
-/* ═══════════════════════════════════════════════════════
-   НАСТРОЙКИ
-   WORKER_URL — твой Cloudflare Worker (см. инструкцию выше).
-                Когда впишешь — HTTP-потоки на HTTPS-сайте заработают.
-   USE_PUBLIC_PROXY — последний шанс через публичный прокси, если своего нет.
-                Нестабильно для live, но лучше чем ничего.
-   ═══════════════════════════════════════════════════════ */
 const CONFIG = {
     PLAYLIST_URL: 'https://raw.githubusercontent.com/SlayerHasher/OnlineTV/main/playlist.m3u',
-    WORKER_URL: 'https://iptv.slayerhasher.workers.dev/',                       // ← сюда: 'https://имя.аккаунт.workers.dev'
-    USE_PUBLIC_PROXY: true,               // авто-fallback через corsproxy.io
-    PUBLIC_PROXY: 'https://corsproxy.io/?url=',
     MAX_RENDER: 150
 };
 
 const $ = id => document.getElementById(id);
 const video = $('video');
-const PAGE_HTTPS = location.protocol === 'https:';
 
 function safeParse(k,d){ try{ const v=JSON.parse(localStorage.getItem(k)); return v ?? d; }catch{ return d; } }
 function safeSave(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{} }
@@ -308,67 +295,11 @@ const state = {
     favorites: new Set(safeParse('iptv_fav', [])),
     history: safeParse('iptv_hist', []),
     tab: 'all', category: 'all', search: '',
-    variants: [],     // [{url, baseFmt}] — безопасные варианты URL
-    vi: 0,            // индекс варианта
-    chain: [],        // форматы декодеров для текущего варианта
-    fi: 0,            // индекс формата
     player: null, playerType: null,
     controlsTimer: null, toastTimer: null
 };
 
-/* ═══ ВАРИАНТЫ URL: превентивный обход mixed content ═══ */
-function toHttps(u){ try{ const x=new URL(u); x.protocol='https:'; return x.toString(); }catch{ return u; } }
-function viaProxy(u, base){ return base + encodeURIComponent(u); }
-
-function buildUrlVariants(rawUrl){
-    const fmt = detectFormat(rawUrl);
-    const isHttp = rawUrl.startsWith('http://');
-    const out = [];
-    const seen = new Set();
-    const push = (url) => { if (url && !seen.has(url)){ seen.add(url); out.push({ url, baseFmt: fmt }); } };
-
-    if (!PAGE_HTTPS){
-        // Страница по HTTP — mixed content нет, пробуем как есть
-        push(rawUrl);
-        return out;
-    }
-
-    // Страница HTTPS
-    if (!isHttp){
-        // Поток уже HTTPS — проблем нет
-        push(rawUrl);
-        return out;
-    }
-
-    // Страница HTTPS + поток HTTP → голый http НЕ добавляем (100% блок)
-    // 1) авто-апгрейд протокола (дешево, без прокси)
-    push(toHttps(rawUrl));
-    // 2) свой Worker по оригинальному http
-    if (CONFIG.WORKER_URL) push(viaProxy(rawUrl, CONFIG.WORKER_URL + (CONFIG.WORKER_URL.endsWith('/')?'?url=':'/?url=')));
-    // 3) публичный прокси (последний шанс)
-    if (CONFIG.USE_PUBLIC_PROXY) push(viaProxy(rawUrl, CONFIG.PUBLIC_PROXY));
-
-    return out;
-}
-
-/* ═══ ОПРЕДЕЛЕНИЕ ФОРМАТА (по оригиналу) ═══ */
-function detectFormat(url){
-    const u = url.toLowerCase().split('?')[0].split('#')[0];
-    if (/\.m3u8$|\/hls\/|m3u8/.test(u)) return 'hls';
-    if (/\.mpd$|\/dash\/|manifest\.mpd/.test(u)) return 'dash';
-    if (/\.ts$|\/mpegts\/|\/ts\//.test(u)) return 'mpegts';
-    if (/\.flv$|\/flv\/|http-flv/.test(u)) return 'flv';
-    if (/\.(mp4|webm|ogg|ogv|mov|aac|mp3|opus)$/.test(u)) return 'native';
-    return 'unknown';
-}
-function getFallbackChain(fmt){
-    if (fmt && fmt !== 'unknown') return [fmt];
-    return ['hls','mpegts','dash','native'];
-}
-const FORMAT_LABELS = { hls:'HLS', dash:'DASH', mpegts:'TS', flv:'FLV', native:'DIRECT' };
-const formatLabel = t => FORMAT_LABELS[t] || t.toUpperCase();
-
-/* ═══ ПАРСЕР M3U ═══ */
+/* ═══ ПРОСТОЙ И ВСЕЯДНЫЙ ПАРСЕР M3U ═══ */
 function parseM3U(text){
     const channels=[], lines=text.split(/\r?\n/), seen=new Set();
     let cur=null;
@@ -379,20 +310,21 @@ function parseM3U(text){
             if (line.startsWith('#EXTINF:')){
                 const group=extractAttr(line,'group-title')||'Без группы';
                 const logo=extractAttr(line,'tvg-logo')||'';
+                const tvgId=extractAttr(line,'tvg-id')||'';
                 const c=line.lastIndexOf(',');
                 let name=c>-1?line.substring(c+1).trim():'';
                 name=name.replace(/^["']+|["']+$/g,'').replace(/\s+/g,' ');
                 if (!name) name='Канал '+(channels.length+1);
-                cur={ name, group, logo, opts:{} };
+                cur={ name, group, logo, tvgId, opts:{} };
             } else if (line.startsWith('#EXTGRP:')&&cur){
                 cur.group=line.substring(8).trim()||cur.group;
             } else if (line.startsWith('#EXTVLCOPT:')&&cur){
                 const opt=line.substring(11), eq=opt.indexOf('=');
                 if (eq>-1) cur.opts[opt.substring(0,eq).toLowerCase()]=opt.substring(eq+1).trim();
             }
-        } else if (cur&&(line.startsWith('http://')||line.startsWith('https://'))){
+        } else if (cur&&(line.startsWith('http://')||line.startsWith('https://')||line.startsWith('rtmp://')||line.startsWith('rtp://'))){
             const key=cur.name+'|'+line;
-            if (!seen.has(key)){ seen.add(key); channels.push({ name:cur.name, group:cur.group, logo:cur.logo, opts:cur.opts, url:line }); }
+            if (!seen.has(key)){ seen.add(key); channels.push({ name:cur.name, group:cur.group, logo:cur.logo, tvgId:cur.tvgId, opts:cur.opts, url:line }); }
             cur=null;
         }
     }
@@ -404,148 +336,82 @@ function extractAttr(line,attr){
     return e>s?line.substring(s,e).trim():'';
 }
 
-/* ═══ ПЛЕЕР ═══ */
+/* ═══ ВСЕЯДНЫЙ ПЛЕЕР (как во втором коде, но с умным fallback) ═══ */
 function destroyPlayer(){
     if (state.player){
         try{
             if (state.playerType==='hls') state.player.destroy();
-            else if (state.playerType==='dash') state.player.reset();
-            else if (state.playerType==='mpegts'||state.playerType==='flv'){
-                state.player.pause(); state.player.unload(); state.player.detachMediaElement(); state.player.destroy();
-            }
         }catch(e){}
         state.player=null; state.playerType=null;
     }
     video.removeAttribute('src'); video.load();
 }
 
-function playWithFormat(url, format){
+function playStream(url, opts){
     destroyPlayer();
-    state.playerType=format;
-    $('formatBadge').textContent=formatLabel(format);
-    $('formatBadge').classList.remove('hidden');
-    $('chFormat').textContent=formatLabel(format);
     $('playerError').classList.add('hidden');
     showBuffering(true);
-    const opts=(state.channels[state.current]||{}).opts||{};
-    switch (format){
-        case 'hls': playHLS(url,opts); break;
-        case 'dash': playDASH(url); break;
-        case 'mpegts': case 'flv': playMpegts(url,format,opts); break;
-        default: playNative(url); break;
-    }
-}
-function buildHeaders(opts){
-    const h={};
-    if (opts['http-user-agent']) h['User-Agent']=opts['http-user-agent'];
-    if (opts['http-referrer']||opts['http-referer']) h['Referer']=opts['http-referrer']||opts['http-referer'];
-    if (opts['http-origin']) h['Origin']=opts['http-origin'];
-    return h;
-}
-function playHLS(url,opts){
-    if (video.canPlayType('application/vnd.apple.mpegurl')){
-        state.playerType='native'; video.src=url; video.play().catch(()=>{}); return;
-    }
-    if (window.Hls && Hls.isSupported()){
-        const headers=buildHeaders(opts);
-        const hls=new Hls({
-            enableWorker:true, lowLatencyMode:true,
-            backBufferLength:30, maxBufferLength:10, maxMaxBufferLength:30,
-            manifestLoadingMaxRetry:2, manifestLoadingRetryDelay:500,
-            levelLoadingMaxRetry:2, levelLoadingRetryDelay:500,
-            fragLoadingMaxRetry:3, fragLoadingRetryDelay:500,
-            startLevel:-1, capLevelToPlayerSize:true,
-            initialLiveManifestSize:1, startFragPrefetch:true,
-            xhrSetup:(xhr)=>{ for (const k in headers){ try{ xhr.setRequestHeader(k,headers[k]); }catch(e){} } }
-        });
-        hls.loadSource(url); hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, ()=>video.play().catch(()=>{}));
-        hls.on(Hls.Events.ERROR, (e,data)=>{
-            if (!data.fatal) return;
-            if (data.type===Hls.ErrorTypes.NETWORK_ERROR && state.failsLocal<2){ state.failsLocal++; hls.startLoad(); }
-            else if (data.type===Hls.ErrorTypes.MEDIA_ERROR){ hls.recoverMediaError(); }
-            else handleStreamError(data);
-        });
-        state.player=hls;
-    } else playNative(url);
-}
-function playDASH(url){
-    if (window.dashjs){
-        const p=dashjs.MediaPlayer().create();
-        p.initialize(video,url,true);
-        p.updateSettings({ streaming:{
-            abr:{ autoSwitchBitrate:{ video:true, audio:true } },
-            buffer:{ bufferTimeAtTopQuality:15, bufferToKeep:10, bufferAhead:15 },
-            retryAttempts:{ MPD:2, MediaSegment:3, InitializationSegment:2 },
-            retryIntervals:{ MPD:500, MediaSegment:500 },
-            delay:{ liveDelay:2 }
-        }});
-        p.on(dashjs.MediaPlayer.events.ERROR, e=>handleStreamError({ details:'dash:'+(e.error?.message||'') }));
-        p.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, ()=>{ state.failsLocal=0; showBuffering(false); });
-        state.player=p;
-    } else playNative(url);
-}
-function playMpegts(url,format,opts){
-    if (window.mpegts && mpegts.getFeatureList().mseLivePlayback){
-        const cfg={
-            enableWorker:true, enableStashBuffer:true, stashInitialSize:384,
-            liveBufferLatencyChasing:true, liveBufferLatencyMaxLatency:1.5,
-            liveBufferLatencyMinRemain:0.3, autoCleanupSourceBuffer:true,
-            fixAudioTimestampGap:true, lazyLoad:false, lazyLoadMaxDuration:0
-        };
-        const headers=buildHeaders(opts);
-        if (Object.keys(headers).length) cfg.headers=headers;
-        const p=mpegts.createPlayer({ type:format==='flv'?'flv':'mpegts', isLive:true, url }, cfg);
-        p.attachMediaElement(video); p.load(); p.play();
-        p.on(mpegts.Events.ERROR, (t,d)=>handleStreamError({ details:'mpegts:'+t+' '+d }));
-        state.player=p;
-    } else playNative(url);
-}
-function playNative(url){ state.playerType='native'; video.src=url; video.play().catch(()=>{}); }
 
-/* ═══ ДИАГНОСТИКА ═══ */
-function diagnoseError(data, ch){
-    const d=String(data?.details||'').toLowerCase();
-    const code=data?.response?.code||0;
-    const viaWorker = state.variants[state.vi]?.url !== ch.url; // пытались через прокси/апгрейд
-    if (PAGE_HTTPS && ch.url.startsWith('http://')){
-        if (viaWorker) return { title:'HTTP-поток: прокси не спас',
-            detail:'Ни HTTPS-версия потока, ни прокси не открыли канал. Поставь свой Cloudflare Worker в CONFIG.WORKER_URL — публичные прокси часто рвут live-стримы.' };
-        return { title:'HTTP-поток на HTTPS-сайте',
-            detail:'Браузер блокирует mixed content. Включи USE_PUBLIC_PROXY или впиши свой Worker в CONFIG.WORKER_URL.' };
-    }
-    if (code===403) return { title:'Доступ запрещён (403)', detail:'Провайдер проверяет User-Agent/подпись. Канал может быть привязан к конкретному плееру.' };
-    if (code===401) return { title:'Нужна авторизация (401)', detail:'Поток приватный — нужен токен провайдера.' };
-    if (code===404) return { title:'Поток не найден (404)', detail:'Адрес канала устарел.' };
-    if (d.includes('timeout')) return { title:'Нет ответа (таймаут)', detail:'Сервер потока перегружен или офлайн.' };
-    if (d.includes('load')||d.includes('network')||d.includes('fetch'))
-        return { title:'Сеть / CORS', detail:'Сервер потока не отдаёт CORS-заголовки, либо недоступен. Televizo про CORS не знает — поэтому там работает.' };
-    if (d.includes('codec')||d.includes('buffer')||d.includes('media'))
-        return { title:'Кодек не поддерживается', detail:'Формат, который браузер не декодирует (часто MPEG-2 / AC3). В панели кодеков внизу видно, что умеет твой браузер.' };
-    return { title:'Поток недоступен', detail:'Канал офлайн или в неподдерживаемом формате.' };
-}
+    const isHls = url.includes('.m3u8') || url.includes('m3u8') || url.includes('/hls/');
+    const isHttpsPage = location.protocol === 'https:';
+    const isHttpStream = url.startsWith('http://');
 
-/* ═══ ОБРАБОТКА ОШИБОК — стейт-машина вариантов × декодеров ═══ */
-state.failsLocal = 0;
-
-function advanceAttempt(){
-    // 1) следующий декодер в пределах текущего варианта URL
-    if (state.fi < state.chain.length - 1){
-        state.fi++;
-        return { url: state.variants[state.vi].url, fmt: state.chain[state.fi] };
+    // Умная попытка 1: Если страница HTTPS, а поток HTTP, пробуем заменить на HTTPS
+    let tryUrl = url;
+    if (isHttpsPage && isHttpStream) {
+        tryUrl = 'https://' + url.substring(7);
     }
-    // 2) следующий вариант URL (сброс декодеров под его базовый формат)
-    if (state.vi < state.variants.length - 1){
-        state.vi++;
-        state.fi = 0;
-        state.chain = getFallbackChain(state.variants[state.vi].baseFmt);
-        // предупредим, если пошли через публичный прокси
-        if (CONFIG.USE_PUBLIC_PROXY && state.variants[state.vi].url.startsWith(CONFIG.PUBLIC_PROXY)){
-            toast('Пробую через публичный прокси…');
+
+    const attemptPlay = (targetUrl, isFallback) => {
+        $('formatBadge').textContent = isHls ? 'HLS' : 'NATIVE';
+        $('formatBadge').classList.remove('hidden');
+        $('chFormat').textContent = isHls ? 'HLS' : 'NATIVE';
+
+        if (isHls && window.Hls && Hls.isSupported()) {
+            const hls = new Hls({
+                enableWorker: true,
+                lowLatencyMode: true,
+                backBufferLength: 30,
+                maxBufferLength: 10,
+                xhrSetup: (xhr) => {
+                    // Передаем заголовки, если они есть в плейлисте (критично для многих каналов!)
+                    if (opts['http-referrer'] || opts['http-referer']) xhr.setRequestHeader('Referer', opts['http-referrer'] || opts['http-referer']);
+                    if (opts['http-user-agent']) xhr.setRequestHeader('User-Agent', opts['http-user-agent']);
+                }
+            });
+            hls.loadSource(targetUrl);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                video.play().catch(()=>{});
+                showBuffering(false);
+            });
+            hls.on(Hls.Events.ERROR, (e, data) => {
+                if (data.fatal) {
+                    // Если апгрейд до HTTPS не сработал, пробуем оригинальный HTTP (вдруг браузер разрешит или это локальная сеть)
+                    if (!isFallback && isHttpsPage && isHttpStream) {
+                        attemptPlay(url, true);
+                    } else {
+                        handleStreamError(data);
+                    }
+                }
+            });
+            state.player = hls;
+            state.playerType = 'hls';
+        } else {
+            // Нативный плеер (Safari HLS или MP4/WebM/TS)
+            video.src = targetUrl;
+            video.play().catch(err => {
+                if (!isFallback && isHttpsPage && isHttpStream) {
+                    attemptPlay(url, true);
+                } else {
+                    handleStreamError({details: 'native: ' + (err.message || 'error')});
+                }
+            });
+            state.playerType = 'native';
         }
-        return { url: state.variants[state.vi].url, fmt: state.chain[state.fi] };
-    }
-    return null; // всё исчерпано
+    };
+
+    attemptPlay(tryUrl, false);
 }
 
 function handleStreamError(data){
@@ -553,18 +419,28 @@ function handleStreamError(data){
     const ch = state.channels[state.current];
     if (!ch) return;
 
-    const next = advanceAttempt();
-    if (next){
-        setTimeout(()=>{ if (state.current>=0) playWithFormat(next.url, next.fmt); }, 250);
-        return;
+    const d = String(data?.details || '').toLowerCase();
+    let title = 'Поток недоступен';
+    let detail = 'Канал офлайн или в неподдерживаемом формате.';
+
+    if (d.includes('403') || d.includes('forbidden')) {
+        title = 'Доступ запрещён (403)';
+        detail = 'Провайдер проверяет Referer/User-Agent. Канал может быть привязан к конкретному плееру.';
+    } else if (d.includes('404') || d.includes('not found')) {
+        title = 'Поток не найден (404)';
+        detail = 'Адрес канала устарел или временно недоступен.';
+    } else if (d.includes('cors') || d.includes('network') || d.includes('fetch')) {
+        title = 'Ошибка сети / CORS';
+        detail = 'Сервер потока блокирует запросы из браузера. Попробуйте другой канал.';
+    } else if (d.includes('native') || d.includes('codec') || d.includes('format')) {
+        title = 'Формат не поддерживается';
+        detail = 'Браузер не может декодировать этот поток (часто бывает с MPEG-2 или старыми кодеками).';
     }
 
-    // Финал — стоим, показываем причину
-    const diag = diagnoseError(data, ch);
     $('playerError').classList.remove('hidden');
-    $('errMsg').textContent = diag.title;
-    $('errDetail').textContent = diag.detail;
-    toast(diag.title, 'err');
+    $('errMsg').textContent = title;
+    $('errDetail').textContent = detail;
+    toast(title, 'err');
 }
 
 function showBuffering(show){ $('buffering').classList.toggle('hidden', !show); }
@@ -573,30 +449,11 @@ function toast(msg,type){
     clearTimeout(state.toastTimer); state.toastTimer=setTimeout(()=>t.classList.remove('show'),3500);
 }
 
-/* ═══ ПРЕДЗАГРУЗКА СОСЕДЕЙ ═══ */
-function preloadNeighbors(){
-    if (state.current<0||!state.channels.length) return;
-    const n=(state.current+1)%state.channels.length, p=(state.current-1+state.channels.length)%state.channels.length;
-    [state.channels[n].url, state.channels[p].url].forEach(url=>{
-        try{
-            const host=new URL(url).origin;
-            if (!document.querySelector(`link[href="${host}"]`)){
-                const l=document.createElement('link'); l.rel='preconnect'; l.href=host; l.crossOrigin='anonymous';
-                document.head.appendChild(l); setTimeout(()=>l.remove(),10000);
-            }
-        }catch{}
-    });
-}
-
 /* ═══ ВЫБОР КАНАЛА ═══ */
 function selectChannel(idx){
     if (idx<0||idx>=state.channels.length) return;
-    state.current=idx; state.failsLocal=0;
+    state.current=idx;
     const ch=state.channels[idx];
-
-    state.variants = buildUrlVariants(ch.url);
-    state.vi = 0; state.fi = 0;
-    state.chain = getFallbackChain(state.variants[0]?.baseFmt);
 
     $('chNum').textContent=String(idx+1).padStart(3,'0');
     $('chTitle').textContent=ch.name;
@@ -604,13 +461,23 @@ function selectChannel(idx){
     try{ $('chHost').textContent=new URL(ch.url).host; }catch{}
     document.title=ch.name+' — IPTV';
     $('overlay').classList.add('hidden');
-    $('playerError').classList.add('hidden');
 
-    playWithFormat(state.variants[0].url, state.chain[0]);
+    playStream(ch.url, ch.opts);
     addHistory(ch.name);
     renderList();
-    preloadNeighbors();
+    preloadNeighbors(ch.url);
     requestAnimationFrame(()=>{ const el=document.querySelector('.channel-item.active'); if (el) el.scrollIntoView({ behavior:'smooth', block:'nearest' }); });
+}
+
+/* ═══ ПРЕДЗАГРУЗКА СОСЕДЕЙ ═══ */
+function preloadNeighbors(url){
+    try{
+        const host=new URL(url).origin;
+        if (!document.querySelector(`link[href="${host}"]`)){
+            const l=document.createElement('link'); l.rel='preconnect'; l.href=host; l.crossOrigin='anonymous';
+            document.head.appendChild(l); setTimeout(()=>l.remove(),10000);
+        }
+    }catch{}
 }
 
 /* ═══ РЕНДЕР ═══ */
@@ -762,7 +629,7 @@ $('file').addEventListener('change', e=>{
 /* ═══ СОБЫТИЯ ВИДЕО ═══ */
 video.addEventListener('play', ()=>{ $('overlay').classList.add('hidden'); $('playerError').classList.add('hidden'); $('iconPlay').classList.add('hidden'); $('iconPause').classList.remove('hidden'); });
 video.addEventListener('pause', ()=>{ $('iconPlay').classList.remove('hidden'); $('iconPause').classList.add('hidden'); });
-video.addEventListener('playing', ()=>{ state.failsLocal=0; showBuffering(false); $('overlay').classList.add('hidden'); });
+video.addEventListener('playing', ()=>{ showBuffering(false); $('overlay').classList.add('hidden'); });
 video.addEventListener('waiting', ()=>showBuffering(true), { passive:true });
 video.addEventListener('canplay', ()=>showBuffering(false), { passive:true });
 video.addEventListener('stalled', ()=>showBuffering(true), { passive:true });
