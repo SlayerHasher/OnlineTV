@@ -581,9 +581,9 @@
             <div class="loading hidden" id="loading">Загрузка...</div>
             
             <div class="error-box hidden" id="error">
-                <h3>Файл playlist.m3u не найден</h3>
-                <p>Положите файл playlist.m3u рядом с этим HTML и откройте через локальный сервер</p>
-                <button class="btn-load" onclick="document.getElementById('file').click()">Выбрать файл</button>
+                <h3>Ошибка загрузки плейлиста</h3>
+                <p>Не удалось загрузить плейлист с GitHub. Проверьте интернет-соединение.</p>
+                <button class="btn-load" onclick="document.getElementById('file').click()">Выбрать файл вручную</button>
                 <input type="file" id="file" accept=".m3u,.m3u8" class="hidden">
             </div>
         </div>
@@ -812,7 +812,7 @@
             $('chNum').textContent = String(idx + 1).padStart(3, '0');
             $('chTitle').textContent = ch.name;
             $('chGroup').textContent = ch.group;
-            $('chHost').textContent = new URL(ch.url).host;
+            try { $('chHost').textContent = new URL(ch.url).host; } catch(e) {}
             document.title = ch.name + ' — IPTV';
             
             play(ch.url);
@@ -896,14 +896,15 @@
             else if (state.channels.length) selectChannel(0);
         }
         
-        // Загрузка плейлиста
+        // Загрузка плейлиста (ИЗМЕНЕНО: теперь грузит с GitHub)
         async function loadPlaylist() {
             $('loading').classList.remove('hidden');
             $('error').classList.add('hidden');
-            $('status').textContent = 'Загрузка playlist.m3u...';
+            $('status').textContent = 'Загрузка плейлиста...';
             
             try {
-                const res = await fetch('playlist.m3u');
+                const url = 'https://raw.githubusercontent.com/SlayerHasher/OnlineTV/main/playlist.m3u';
+                const res = await fetch(url);
                 if (!res.ok) throw new Error();
                 
                 const text = await res.text();
@@ -918,13 +919,13 @@
                 if (state.current === -1) selectChannel(0);
             } catch (e) {
                 $('error').classList.remove('hidden');
-                $('status').textContent = 'Ошибка';
+                $('status').textContent = 'Ошибка загрузки';
             } finally {
                 $('loading').classList.add('hidden');
             }
         }
         
-        // Загрузка файла
+        // Загрузка файла (ручной режим, если GitHub не доступен)
         $('file').onchange = e => {
             const file = e.target.files[0];
             if (!file) return;
