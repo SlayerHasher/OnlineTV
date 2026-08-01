@@ -9,5 +9,7 @@
     "prefered_sources": ["loganet", "dimonovich"],
     "exclude_keywords": ["18+", "реклама", "test"],
     "keep_group_title": true,
-    "sort_by_group": true
+    "sort_by_group": true,
+    "russian_only": true,
+    "standard_categories": true
 }
