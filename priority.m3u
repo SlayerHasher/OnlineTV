@@ -7,3 +7,6 @@ http://127.0.0.1:6878/ace/getstream?id=4b7c5f21b435d79c823e47572655a9c157a3ba12
 #EXTINF:-1 tvg-id="425" tvg-name="TLC HD" tvg-logo="http://epg.one/img/425.png",TLC HD
 #EXTVLCOPT:http-user-agent=VLC/3.0.21 LibVLC/3.0.21
 http://185.193.88.10/iptv/98F739YL28D899/232/index.m3u8
+#EXTINF:-1 tvg-id="TLC.ru" tvg-logo="http://picons.cmshulk.com/picons/132730.png",RU| TLC
+#EXTVLCOPT:http-user-agent=VLC/3.0.21 LibVLC/3.0.21
+http://me.mdmfista.com:80/play/live.php?mac=00:1B:79:F0:AA:B5&stream=1031913&extension=ts&play_token=qLdtpzSnif
